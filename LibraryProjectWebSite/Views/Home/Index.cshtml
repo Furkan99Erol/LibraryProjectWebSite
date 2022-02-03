@@ -385,7 +385,7 @@
                                         <div class="card card--elevated posts-card-popular overlay card-group-row__card">
                                             <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
                                                  alt=""
-                                                 style="width:15%"
+                                                 style="width:15%;margin-left:295px;"
                                                  class="card-img">
                                             <div class="fullbleed bg-primary"
                                                  style="opacity: .3"></div>
@@ -414,9 +414,10 @@
                                                 <div class="posts-card-popular__title card-body">
                                                     @foreach (var category in book.Categories)
                                                     {
-                                                        <small class="text-muted text-uppercase">@category.Name</small>
+                                                        <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br/>
                                                     }
-                                                    <p>@book.Name</p>
+                                                    <br />
+                                                    <p style="font-weight:800;">@book.Name</p>
                                                     @foreach (var author in book.Authors)
                                                     {
                                                         <p>@author.Name</p>
@@ -1416,6 +1417,12 @@ else if (ViewBag.Role == "officer")
                                     <a class="sidebar-menu-button"
                                        href="lend-history.html">
                                         <span class="sidebar-menu-text">Lend History</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="https://localhost:44361/Home/logout">
+                                        <span class="sidebar-menu-text">Log Out</span>
                                     </a>
                                 </li>
                             </ul>
