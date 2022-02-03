@@ -221,51 +221,61 @@
                     </div>
                     <div>
                         <label style="font-size: 19px" for="cars">Choose A Library To Borrow:</label>
-
-                        @using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
+                        
+                        @if (ViewBag.doesHaveLibrary != false && ViewBag.Role=="user")
                         {
-                            <div style="font-size: 19px ;width: 200px" class="form-group">
-                                @Html.HiddenFor(m => m.Borrow.BookId, Model.Book.Id)
+                            using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
+                            {
+                                <div style="font-size: 19px ;width: 200px" class="form-group">
+                                    @*<input type="hidden" name="BorrowId" value="@Model.Book.Id"/>
+                                    @Html.HiddenFor(m =>m.Borrow.BookId,Model.Book.Id)*@
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(m => m.Borrow.BorrowDate, new { @type = "date", @class = "form-control datepicker", @Value = DateTime.Today.ToString("yyyy-MM-dd"), required = "required" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Return Date")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(m => m.Borrow.ReturnDate, new { @type = "date", @class = "form-control datepicker", @Value = DateTime.Today.ToString("yyyy-MM-dd"), required = "required" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
+                                        </tr>
+                                        <tr>
+                                            <td> @Html.DropDownListFor(m => m.Borrow.LibraryId, Model.LibrarySelectListItem, "Select Library", new { @class = "form-control", required = "required" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>  @Html.Label("Select borrow type")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.RadioButtonFor(m => m.Borrow.BorrowType, "cargo")
+                                                @Html.Label("Cargo")
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.RadioButtonFor(m => m.Borrow.BorrowType, "comeandrecieve")
+                                                @Html.Label("Come And Recieve")
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(m => m.Borrow.DestinationAddress, new { @class = "form-control", required = "required" })</td>
+                                        </tr>
+                                    </table>
 
-                                <table style="width:100%">
-                                    <tr>
-                                        <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.TextBoxFor(m => m.Borrow.BorrowDate, new { @type = "date", @class = "form-control datepicker", @Value = DateTime.Today.ToString("yyyy-MM-dd"), required = "required" })</td>
-                                    </tr>
-                                    <tr>
-                                        <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
-                                    </tr>
-                                    <tr>
-                                        <td> @Html.DropDownListFor(m => m.Borrow.LibraryId, Model.LibrarySelectListItem, "Select Library", new { @class = "form-control", required = "required" })</td>
-                                    </tr>
-                                    <tr>
-                                        <td>  @Html.Label("Select borrow type")</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            @Html.RadioButtonFor(m => m.Borrow.BorrowType, "cargo")
-                                            @Html.Label("Cargo")
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            @Html.RadioButtonFor(m => m.Borrow.BorrowType, "comeandrecieve")
-                                            @Html.Label("Come And Recieve")
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.TextBoxFor(m => m.Borrow.DestinationAddress, new { @class = "form-control", required = "required" })</td>
-                                    </tr>
-                                </table>
-
-                            </div>
-                            <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px;" type="submit" value="Borrow">
+                                </div>
+                                <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px;" type="submit" value="Borrow">
+                            }
                         }
+
 
                     </div>
                     <div class="page-separator">

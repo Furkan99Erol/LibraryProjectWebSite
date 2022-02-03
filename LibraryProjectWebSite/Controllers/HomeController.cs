@@ -12,6 +12,7 @@ namespace LibraryProjectWebSite.Controllers
     public class HomeController : Controller
     {
         Request.Request request = new Request.Request();
+        public static bool showWrongUserDataPopUp;
         // GET: Home
         public ActionResult Index()
         {
@@ -27,11 +28,25 @@ namespace LibraryProjectWebSite.Controllers
             {
                 BookDto book = request.GetAsync<BookDto>($"/api/Book/Get/{id}").Result;
                 LibraryViewModel libraryViewModel = new LibraryViewModel() { Book = book };
-                libraryViewModel.LibrarySelectListItem = book.Libraries.Select(x => new SelectListItem
+                CheckValidation();
+                if (book.Libraries.Count != 0)
                 {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
+                    ViewBag.doesHaveLibrary = true;
+                    libraryViewModel.LibrarySelectListItem = book.Libraries.Where(x => x.Quantity > 0).Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    }).ToList();
+                    if (libraryViewModel.LibrarySelectListItem.Count == 0)
+                    {
+                        ViewBag.doesHaveLibrary = false;
+                    }
+                }
+                else
+                {
+                    ViewBag.doesHaveLibrary = false;
+                }
+
                 return View(libraryViewModel);
             }
             catch (Exception ex)
@@ -47,6 +62,11 @@ namespace LibraryProjectWebSite.Controllers
         public ActionResult UserLogin()
         {
             UserDto userDto = new LibraryViewModel().User;
+            if (showWrongUserDataPopUp == true)
+            {
+                ViewBag.showWrongUserDataPopUp = true;
+                showWrongUserDataPopUp = false;
+            }
             return View(userDto);
         }
 
@@ -59,9 +79,9 @@ namespace LibraryProjectWebSite.Controllers
                 username = userDto.Email + "|user",
                 password = userDto.Password
             };
-            var token = request.PostAsync<Token>("/token", postdata).Result;
-            if (token != null)
+            try
             {
+                var token = request.PostAsync<Token>("/token", postdata).Result;
                 HttpCookie token_type = new HttpCookie("token_type", token.token_type);
                 HttpCookie access_token = new HttpCookie("access_token", token.access_token);
                 token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
@@ -69,6 +89,13 @@ namespace LibraryProjectWebSite.Controllers
                 Response.SetCookie(token_type);
                 Response.SetCookie(access_token);
             }
+            catch (Exception ex)
+            {
+                showWrongUserDataPopUp = true;
+                return RedirectToAction("UserLogin", "Home");
+            }
+
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -76,6 +103,11 @@ namespace LibraryProjectWebSite.Controllers
         public ActionResult OfficerLogin()
         {
             OfficerDto officerDto = new LibraryViewModel().Officer;
+            if (showWrongUserDataPopUp == true)
+            {
+                ViewBag.showWrongUserDataPopUp = true;
+                showWrongUserDataPopUp = false;
+            }
             return View(officerDto);
         }
 
@@ -88,16 +120,21 @@ namespace LibraryProjectWebSite.Controllers
                 username = officerDto.Email + "|officer",
                 password = officerDto.Password
             };
-            var token = request.PostAsync<Token>("/token", postdata).Result;
-            if (token != null)
+            try
             {
-                HttpCookie token_type = new HttpCookie("token_type", token.token_type);
-                HttpCookie access_token = new HttpCookie("access_token", token.access_token);
-                token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
-                access_token.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
-                Response.SetCookie(token_type);
-                Response.SetCookie(access_token);
+            var token = request.PostAsync<Token>("/token", postdata).Result;
+            HttpCookie token_type = new HttpCookie("token_type", token.token_type);
+            HttpCookie access_token = new HttpCookie("access_token", token.access_token);
+            token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+            access_token.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+            Response.SetCookie(token_type);
+            Response.SetCookie(access_token);
+            }catch (Exception ex)
+            {
+                showWrongUserDataPopUp = true;
+                return RedirectToAction("OfficerLogin", "Home");
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -118,7 +155,7 @@ namespace LibraryProjectWebSite.Controllers
         {
             if (CheckValidation())
             {
-                
+
 
             }
 

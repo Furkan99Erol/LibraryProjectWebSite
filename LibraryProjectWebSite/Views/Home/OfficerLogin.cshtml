@@ -55,7 +55,15 @@
 </head>
 
 <body class="layout-compact layout-compact">
+    @if (ViewBag.showWrongUserDataPopUp == true)
+    {
+        <script type="text/javascript">
 
+            window.onload = function () {
+                alert("Email or Password is wrong");
+            };
+        </script>
+    }
     <div class="preloader">
         <div class="sk-chase">
             <div class="sk-chase-dot"></div>
@@ -211,18 +219,19 @@
 
     <!-- Sidebar Mini JS -->
     <script src="~/public/js/sidebar-mini.js"></script>
-    <script>(function() {
-                'use strict';
-                // ENABLE sidebar menu tabs
-                $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function(e) {
-                    e.preventDefault()
-                    $(this).tab('show')
-                })
-                $('.js-sidebar-mini-tabs').on('show.bs.tab', function(e) {
-                    $('.js-sidebar-mini-tabs > .active').removeClass('active')
-                    $(e.target).parent().addClass('active')
-                })
-            })()</script>
+    <script>
+    (function () {
+            'use strict';
+            // ENABLE sidebar menu tabs
+            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
+                $('.js-sidebar-mini-tabs > .active').removeClass('active')
+                $(e.target).parent().addClass('active')
+            })
+        })()</script>
 
 </body>
 
