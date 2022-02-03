@@ -1,0 +1,1271 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en"
+      dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Details</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots"
+          content="noindex">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/vendor/spinkit.css"
+          rel="stylesheet">
+
+    <!-- Perfect Scrollbar -->
+    <link type="text/css"
+          href="~/public/vendor/perfect-scrollbar.css"
+          rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css"
+          href="~/public/css/material-icons.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link type="text/css"
+          href="~/public/css/fontawesome.css"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/css/preloader.css"
+          rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css"
+          href="~/public/css/app.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="layout-compact layout-compact">
+
+    <div class="preloader">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+
+        <!-- <div class="sk-bounce">
+          <div class="sk-bounce-dot"></div>
+          <div class="sk-bounce-dot"></div>
+        </div> -->
+        <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
+    </div>
+
+    <!-- Drawer Layout -->
+
+    <div class="mdk-drawer-layout js-mdk-drawer-layout"
+         data-push
+         data-responsive-width="992px">
+        <div class="mdk-drawer-layout__content page-content">
+
+            <!-- Header -->
+            <!-- Navbar -->
+
+            <div class="navbar navbar-expand pr-0 navbar-light border-bottom-2"
+                 id="default-navbar"
+                 data-primary>
+
+                <!-- Navbar Toggler -->
+
+                <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0"
+                        type="button"
+                        data-toggle="sidebar">
+                    <span class="material-icons">short_text</span>
+                </button>
+
+                <!-- // END Navbar Toggler -->
+                <!-- Navbar Brand -->
+
+                <a href="index.html"
+                   class="navbar-brand mr-16pt d-lg-none">
+
+                    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+
+                        <span class="avatar-title rounded bg-primary">
+                            <img src="../public/images/illustration/student/128/white.svg"
+                                 alt="logo"
+                                 class="img-fluid" />
+                        </span>
+
+                    </span>
+
+                </a>
+
+                <!-- // END Navbar Brand -->
+                <!-- Navbar Search -->
+                <!-- // END Navbar Menu -->
+
+            </div>
+
+            <!-- // END Navbar -->
+            <!-- // END Header -->
+
+            <div class="pt-32pt">
+                <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+                    <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
+
+                        <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                            <h2 class="mb-0">Book Details</h2>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- BEFORE Page Content -->
+            <!-- // END BEFORE Page Content -->
+            <!-- Page Content -->
+
+            <div class="container page__container">
+                <div style="padding-top: 3rem;" class="page-section">
+
+                    <div class="row mb-lg-8pt">
+                        <div class="col-lg-8">
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">Overview</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="card ">
+                                        <div class="card-header pb-0 border-0 d-flex">
+                                            <div class="flex">
+                                                <div class="h2 mb-0">@Model.Book.Name</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body col-md-12">
+                                            <div style="text-align: center" class="col-md-12 col-lg-12 col-sm-12">
+                                                <img style="width: 175px" src="../public/images/harry.jpg" alt="">
+                                            </div>
+                                            <div style="margin-top: 40px" class="col-md-12 col-lg-12 col-sm-12">
+                                                <strong>
+                                                    @Model.Book.Description
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">About</div>
+                            </div>
+
+                            <div class="card">
+
+
+                                <div class="card-body">
+                                    <div class="col-md-6">
+                                        <strong>Writer:</strong>
+                                        @foreach (var author in Model.Book.Authors)
+                                        {
+                                            <p>@author.Name</p>
+                                        }
+                                        <strong>Category:</strong>
+                                        @foreach (var category in Model.Book.Categories)
+                                        {
+                                            <p>@category.Name</p>
+                                        }
+                                        <strong>Language</strong>
+                                        <p>@Model.Book.Language</p>
+                                        <strong>Publisher</strong>
+                                        <p>@Model.Book.Publisher</p>
+                                        <strong>Revision</strong>
+                                        <p>@Model.Book.Revision</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Latest Revision</strong>
+                                        <p>@Model.Book.LatestRevision</p>
+                                        <strong>ISBN10</strong>
+                                        <p>@Model.Book.ISBN10</p>
+                                        <strong>ISBN13</strong>
+                                        <p>@Model.Book.ISBN13</p>
+                                        <strong>Page Number</strong>
+                                        <p>@Model.Book.NumberOfPages</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size: 19px" for="cars">Choose A Library To Borrow:</label>
+
+                        @using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
+                        {
+                            <div style="font-size: 19px ;width: 200px" class="form-group">
+                                @Html.HiddenFor(m => m.Borrow.BookId, Model.Book.Id)
+
+                                <table style="width:100%">
+                                    <tr>
+                                        <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(m => m.Borrow.BorrowDate, new { @type = "date", @class = "form-control datepicker", @Value = DateTime.Today.ToString("yyyy-MM-dd"), required = "required" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
+                                    </tr>
+                                    <tr>
+                                        <td> @Html.DropDownListFor(m => m.Borrow.LibraryId, Model.LibrarySelectListItem, "Select Library", new { @class = "form-control", required = "required" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>  @Html.Label("Select borrow type")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.RadioButtonFor(m => m.Borrow.BorrowType, "cargo")
+                                            @Html.Label("Cargo")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.RadioButtonFor(m => m.Borrow.BorrowType, "comeandrecieve")
+                                            @Html.Label("Come And Recieve")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(m => m.Borrow.DestinationAddress, new { @class = "form-control", required = "required" })</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px;" type="submit" value="Borrow">
+                        }
+
+                    </div>
+                    <div class="page-separator">
+                        <div class="page-separator__text">Comments</div>
+                    </div>
+
+                    <div class="card mb-0">
+
+                        <div class="table-responsive"
+                             data-toggle="lists"
+                             data-lists-sort-by="js-lists-values-date"
+                             data-lists-sort-desc="true"
+                             data-lists-values='["js-lists-values-name", "js-lists-values-company", "js-lists-values-phone", "js-lists-values-date"]'>
+
+                            <table class="table mb-0 thead-border-top-0 table-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="javascript:void(0)"
+                                               class="sort"
+                                               data-sort="js-lists-values-name">Name</a>
+                                        </th>
+                                        <th style="width: 48px;">
+                                            <a href="javascript:void(0)"
+                                               class="sort"
+                                               data-sort="js-lists-values-phone">Comments</a>
+                                        </th>
+                                        <th style="width: 24px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list"
+                                       id="contacts">
+                                    <tr>
+                                        <td>
+                                            <div class="media flex-nowrap align-items-center"
+                                                 style="white-space: nowrap;">
+                                                <div class="avatar avatar-sm mr-8pt">
+
+                                                    <span class="avatar-title rounded-circle">BN</span>
+
+                                                </div>
+                                                <div class="media-body">
+
+                                                    <div class="d-flex flex-column">
+                                                        <p class="mb-0"><strong class="js-lists-values-name">Billy Nunez</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="media flex-nowrap align-items-center"
+                                                 style="white-space: nowrap;">
+                                                <div class="avatar avatar-sm mr-8pt">
+
+                                                    <span class="avatar-title rounded-circle">TP</span>
+                                                </div>
+                                                <div class="media-body">
+
+                                                    <div class="d-flex flex-column">
+                                                        <p class="mb-0"><strong class="js-lists-values-name">Tony Parks</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
+                                        </td>
+                                    </tr>
+                                    <tr class="selected">
+                                        <td>
+                                            <div class="media flex-nowrap align-items-center"
+                                                 style="white-space: nowrap;">
+                                                <div class="avatar avatar-sm mr-8pt">
+                                                    <span class="avatar-title rounded-circle">GB</span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="d-flex flex-column">
+                                                        <p class="mb-0"><strong class="js-lists-values-name">Gilbert Barrett</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="selected">
+                                        <td>
+                                            <div class="media flex-nowrap align-items-center"
+                                                 style="white-space: nowrap;">
+                                                <div class="avatar avatar-sm mr-8pt">
+                                                    <span class="avatar-title rounded-circle">OW</span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="d-flex flex-column">
+                                                        <p class="mb-0"><strong class="js-lists-values-name">Ollie Wallace</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="page-separator">
+                        <div class="page-separator__text">Add New Comments</div>
+                    </div>
+                    <div>
+                        <textarea style="width: 915px;height: 115px;border-radius: 5px" name="message" rows="10" cols="30">This book is amazing!!!</textarea>
+                        <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
+                    </div>
+
+                </div>
+            </div>
+            <div class="bg-white border-top-2 mt-auto">
+                <div class="container page__container page-section d-flex flex-column">
+                    <p class="text-70 brand mb-24pt">
+                        E-Library
+                    </p>
+                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
+                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
+                </div>
+            </div>
+
+            <!-- // END Footer -->
+
+        </div>
+
+        <!-- // END drawer-layout__content -->
+        <!-- drawer -->
+        <div class="mdk-drawer js-mdk-drawer layout-compact__drawer"
+             id="default-drawer">
+            <div class="mdk-drawer__content js-sidebar-mini"
+                 data-responsive-width="992px"
+                 data-layout="compact">
+
+                <div class="sidebar sidebar-mini sidebar-dark-pickled-bluewood sidebar-left d-flex flex-column">
+
+                    <!-- Brand -->
+                    <a href="index-for-user.html"
+                       class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
+
+                        <span class="avatar avatar-sm ">
+                            <span class="avatar-title">
+                                <img src="../public/images/images.png"
+                                     class="img-fluid"
+                                     alt="logo" />
+                            </span>
+                        </span>
+                    </a>
+
+                    <div class="flex d-flex flex-column justify-content-start"
+                         data-perfect-scrollbar>
+                        <ul class="nav flex-shrink-0 flex-nowrap flex-column sidebar-menu mb-0 sm-item-bordered js-sidebar-mini-tabs"
+                            role="tablist">
+                            <li class="sidebar-menu-item active"
+                                data-title="Student"
+                                data-placement="right"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_student"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_student"
+                                   aria-selected="true">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">school</i>
+                                    <span class="sidebar-menu-text">User</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item "
+                                data-title="Account"
+                                data-placement="right"
+                                data-container="body"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_account"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_account">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
+                                    <span class="sidebar-menu-text">Account</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="sidebar sidebar-light sidebar-left flex sidebar-secondary pt-16pt"
+                     data-perfect-scrollbar>
+
+                    <div class="tab-content">
+
+                        <div class="tab-pane"
+                             id="sm_account_1">
+                            <div class="sidebar-heading">Account</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="edit-account.html">
+                                        <span class="sidebar-menu-text">Edit Account</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="billing.html">Billing</a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="borrow-history.html">Payments</a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="login.html">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane "
+                             id="sm_apps">
+                            <div class="sidebar-heading">Apps</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button js-sidebar-collapse"
+                                       data-toggle="collapse"
+                                       href="#enterprise_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                                        Enterprise
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="enterprise_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="erp-dashboard.html">
+                                                <span class="sidebar-menu-text">ERP Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="book-details.html">
+                                                <span class="sidebar-menu-text">CRM Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="hr-dashboard.html">
+                                                <span class="sidebar-menu-text">HR Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="employees.html">
+                                                <span class="sidebar-menu-text">Employees</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="staff.html">
+                                                <span class="sidebar-menu-text">Staff</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="leaves.html">
+                                                <span class="sidebar-menu-text">Leaves</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button disabled"
+                                               href="departments.html">
+                                                <span class="sidebar-menu-text">Departments</span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="documents.html">
+                                        <span class="sidebar-menu-text">Documents</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="attendance.html">
+                                        <span class="sidebar-menu-text">Attendance</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="recruitment.html">
+                                        <span class="sidebar-menu-text">Recruitment</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="payroll.html">
+                                        <span class="sidebar-menu-text">Payroll</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="training.html">
+                                        <span class="sidebar-menu-text">Training</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="employee-profile.html">
+                                        <span class="sidebar-menu-text">Employee Profile</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="accounting.html">
+                                        <span class="sidebar-menu-text">Accounting</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="inventory.html">
+                                        <span class="sidebar-menu-text">Inventory</span>
+                                        </a>
+                                        </li> -->
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#community_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span>
+                                        Community
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="community_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="teachers.html">
+
+                                                <span class="sidebar-menu-text">Browse Teachers</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="student-profile.html">
+
+                                                <span class="sidebar-menu-text">Student Profile</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="teacher-profile.html">
+
+                                                <span class="sidebar-menu-text">Teacher Profile</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="blog.html">
+
+                                                <span class="sidebar-menu-text">Blog</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="blog-post.html">
+
+                                                <span class="sidebar-menu-text">Blog Post</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="faq.html">
+                                                <span class="sidebar-menu-text">FAQ</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="help-center.html">
+                                                <!--  -->
+                                                <span class="sidebar-menu-text">Help Center</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="discussions.html">
+                                                <span class="sidebar-menu-text">Discussions</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="discussion.html">
+                                                <span class="sidebar-menu-text">Discussion Details</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="discussions-ask.html">
+                                                <span class="sidebar-menu-text">Ask Question</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#productivity_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>
+                                        Productivity
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="productivity_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="projects.html">
+                                                <span class="sidebar-menu-text">Projects</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="tasks-board.html">
+                                                <span class="sidebar-menu-text">Tasks Board</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="tasks-list.html">
+                                                <span class="sidebar-menu-text">Tasks List</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button disabled"
+                                               href="kanban.html">
+                                                <span class="sidebar-menu-text">Kanban</span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="task-details.html">
+                                        <span class="sidebar-menu-text">Task Details</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="team-members.html">
+                                        <span class="sidebar-menu-text">Team Members</span>
+                                        </a>
+                                        </li> -->
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#cms_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">content_copy</span>
+                                        CMS
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="cms_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="cms-dashboard.html">
+                                                <span class="sidebar-menu-text">CMS Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="favourites.html">
+                                                <span class="sidebar-menu-text">Posts</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#ecommerce_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">shopping_cart</span>
+                                        eCommerce
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="ecommerce_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ecommerce.html">
+                                                <span class="sidebar-menu-text">Shop Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button disabled"
+                                               href="edit-product.html">
+                                                <span class="sidebar-menu-text">Edit Product</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane  fade active show "
+                             id="sm_student">
+                            <div class="sidebar-heading">User</div>
+                            <ul class="sidebar-menu">
+
+                                <li class="sidebar-menu-item active">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                        <span class="sidebar-menu-text">Home</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="track-your-profile.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                                        <span class="sidebar-menu-text">Track Your Profile</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="nearest-libraries.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">style</span>
+                                        <span class="sidebar-menu-text">Nearest Libraries</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="student-dashboard.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
+                                        <span class="sidebar-menu-text">Student Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="billing.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                                        <span class="sidebar-menu-text">Favourites</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane "
+                             id="sm_instructor">
+                            <div class="sidebar-heading">Instructor</div>
+                            <ul class="sidebar-menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-dashboard.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                                        <span class="sidebar-menu-text">Instructor Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="manage-books.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">import_contacts</span>
+                                        <span class="sidebar-menu-text">Manage Courses</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-quizzes.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                                        <span class="sidebar-menu-text">Manage Quizzes</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-earnings.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">trending_up</span>
+                                        <span class="sidebar-menu-text">Earnings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-statement.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">receipt</span>
+                                        <span class="sidebar-menu-text">Statement</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="edit-books.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">post_add</span>
+                                        <span class="sidebar-menu-text">Edit Course</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-edit-quiz.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">format_shapes</span>
+                                        <span class="sidebar-menu-text">Edit Quiz</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane "
+                             id="sm_account">
+                            <div class="sidebar-heading">Account</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="signup-payment.html">
+                                        <span class="sidebar-menu-text">Punishments</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="change-password.html">
+                                        <span class="sidebar-menu-text">Change Password</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="edit-account.html">
+                                        <span class="sidebar-menu-text">Edit Account</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="edit-notifications.html">
+                                        <span class="sidebar-menu-text">Email Notifications</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="borrow-history.html">
+                                        <span class="sidebar-menu-text">Borrow History</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane "
+                             id="sm_messaging">
+                            <div class="sidebar-heading">Messaging</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="messages.html">
+                                        <span class="sidebar-menu-text">Messages</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="email.html">
+                                        <span class="sidebar-menu-text">Email</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane"
+                             id="sm_components">
+                            <div class="sidebar-heading">UI Components</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#components_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">tune</span>
+                                        Components
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="components_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-buttons.html">
+                                                <span class="sidebar-menu-text">Buttons</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui-avatars.html">
+                                                <span class="sidebar-menu-text">Avatars</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-forms.html">
+                                                <span class="sidebar-menu-text">Forms</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-loaders.html">
+                                                <span class="sidebar-menu-text">Loaders</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-tables.html">
+                                                <span class="sidebar-menu-text">Tables</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-cards.html">
+                                                <span class="sidebar-menu-text">Cards</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-icons.html">
+                                                <span class="sidebar-menu-text">Icons</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-tabs.html">
+                                                <span class="sidebar-menu-text">Tabs</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-alerts.html">
+                                                <span class="sidebar-menu-text">Alerts</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui-badges.html">
+                                                <span class="sidebar-menu-text">Badges</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-progress.html">
+                                                <span class="sidebar-menu-text">Progress</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-pagination.html">
+                                                <span class="sidebar-menu-text">Pagination</span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-typography.html">
+                                        <span class="sidebar-menu-text">Typography</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-colors.html">
+                                        <span class="sidebar-menu-text">Colors</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-breadcrumb.html">
+                                        <span class="sidebar-menu-text">Breadcrumb</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-accordions.html">
+                                        <span class="sidebar-menu-text">Accordions</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-modals.html">
+                                        <span class="sidebar-menu-text">Modals</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button disabled" href="ui-chips.html">
+                                        <span class="sidebar-menu-text">Chips</span>
+                                        </a>
+                                        </li> -->
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button disabled"
+                                               href="">
+                                                <span class="sidebar-menu-text">Disabled</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       data-toggle="collapse"
+                                       href="#plugins_menu">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">folder</span>
+                                        Plugins
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse sm-indent"
+                                        id="plugins_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui-plugin-charts.html">
+                                                <span class="sidebar-menu-text">Charts</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-flatpickr.html">
+                                                <span class="sidebar-menu-text">Flatpickr</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-daterangepicker.html">
+                                                <span class="sidebar-menu-text">Date Range Picker</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-dragula.html">
+                                                <span class="sidebar-menu-text">Dragula</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-dropzone.html">
+                                                <span class="sidebar-menu-text">Dropzone</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-range-sliders.html">
+                                                <span class="sidebar-menu-text">Range Sliders</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-quill.html">
+                                                <span class="sidebar-menu-text">Quill</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-select2.html">
+                                                <span class="sidebar-menu-text">Select2</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui-plugin-nestable.html">
+                                                <span class="sidebar-menu-text">Nestable</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui-plugin-fancytree.html">
+                                                <span class="sidebar-menu-text">Fancy Tree</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-maps-vector.html">
+                                                <span class="sidebar-menu-text">Vector Maps</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-sweet-alert.html">
+                                                <span class="sidebar-menu-text">Sweet Alert</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="ui/ui-plugin-toastr.html">
+                                                <span class="sidebar-menu-text">Toastr</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button disabled"
+                                               href="">
+                                                <span class="sidebar-menu-text">Disabled</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane"
+                             id="sm_layouts">
+                            <div class="sidebar-heading">Layouts</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item active">
+                                    <a class="sidebar-menu-button"
+                                       href="../Compact_App_Layout/index.html">
+                                        <span class="sidebar-menu-text">Compact</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../Mini_App_Layout/index.html">
+                                        <span class="sidebar-menu-text">Mini</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../Mini_Secondary_Layout/index.html">
+                                        <span class="sidebar-menu-text">Mini + Secondary</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../App_Layout/index.html">
+                                        <span class="sidebar-menu-text">App</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../Boxed_App_Layout/index.html">
+                                        <span class="sidebar-menu-text">Boxed</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../Sticky_App_Layout/index.html">
+                                        <span class="sidebar-menu-text">Sticky</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="../Fixed_Layout/index.html">
+                                        <span class="sidebar-menu-text">Fixed</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- // END drawer -->
+
+    </div>
+
+    <!-- // END Drawer Layout -->
+    <!-- jQuery -->
+    <script src="~/public/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/public/vendor/popper.min.js"></script>
+    <script src="~/public/vendor/bootstrap.min.js"></script>
+
+    <!-- Perfect Scrollbar -->
+    <script src="~/public/vendor/perfect-scrollbar.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="~/public/vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="~/public/vendor/material-design-kit.js"></script>
+
+    <!-- App JS -->
+    <script src="~/public/js/app.js"></script>
+
+    <!-- Preloader -->
+    <script src="~/public/js/preloader.js"></script>
+
+    <!-- Global Settings -->
+    <script src="~/public/js/settings.js"></script>
+
+    <!-- Moment.js -->
+    <script src="~/public/vendor/moment.min.js"></script>
+    <script src="~/public/vendor/moment-range.js"></script>
+
+    <!-- Flatpickr -->
+    <script src="~/public/vendor/flatpickr/flatpickr.min.js"></script>
+    <script src="~/public/js/flatpickr.js"></script>
+
+    <!-- Chart.js -->
+    <script src="~/public/vendor/Chart.min.js"></script>
+    <script src="~/public/js/chartjs.js"></script>
+
+    <!-- Chart.js Samples -->
+    <script src="~/public/js/page.crm-dashboard.js"></script>
+
+    <!-- List.js -->
+    <script src="~/public/vendor/list.min.js"></script>
+    <script src="~/public/js/list.js"></script>
+
+    <!-- Tables -->
+    <script src="~/public/js/toggle-check-all.js"></script>
+    <script src="~/public/js/check-selected-row.js"></script>
+
+    <!-- Sidebar Mini JS -->
+    <script src="~/public/js/sidebar-mini.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            // ENABLE sidebar menu tabs
+            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
+                $('.js-sidebar-mini-tabs > .active').removeClass('active')
+                $(e.target).parent().addClass('active')
+            })
+        })()</script>
+
+</body>
+
+</html>

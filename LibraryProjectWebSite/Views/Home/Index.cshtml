@@ -1,0 +1,885 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Library Project</title>
+
+    <meta name="robots"
+          content="noindex">
+
+    <link type="text/css"
+          href="~/public/vendor/spinkit.css"
+          rel="stylesheet">
+
+    <link type="text/css"
+          href="~/public/vendor/perfect-scrollbar.css"
+          rel="stylesheet">
+
+
+    <link type="text/css"
+          href="~/public/css/material-icons.css"
+          rel="stylesheet">
+
+    <link type="text/css"
+          href="~/public/css/fontawesome.css"
+          rel="stylesheet">
+
+    <link type="text/css"
+          href="~/public/css/preloader.css"
+          rel="stylesheet">
+
+    <link type="text/css"
+          href="~/public/css/app.css"
+          rel="stylesheet">
+</head>
+
+<body class="layout-compact layout-compact">
+
+    <div class="preloader">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+    </div>
+    <div class="mdk-drawer-layout js-mdk-drawer-layout"
+         data-push
+         data-responsive-width="992px">
+        <div class="mdk-drawer-layout__content page-content">
+            @if (ViewBag.isLoggedIn == false)
+            {
+
+                <div class="navbar navbar-expand navbar-light border-bottom-2"
+                     id="default-navbar"
+                     data-primary>
+
+                    <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0"
+                            type="button"
+                            data-toggle="sidebar">
+                        <span class="material-icons">short_text</span>
+                    </button>
+
+                    <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+                        <li class="nav-item active">
+                            <a href="Index"
+                               class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="faq.html"
+                               class="nav-link">FAQ</a>
+                        </li>
+
+                    </ul>
+
+                    <form class="search-form navbar-search d-none d-lg-flex mr-16pt"
+                          action="index.html"
+                          style="max-width: 230px">
+                        <button class="btn"
+                                type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Search books ...">
+                    </form>
+
+                    <ul class="nav navbar-nav ml-auto mr-0">
+                        <li class="nav-item">
+                            <a href="https://localhost:44361/Home/UserLogin"
+                               class="nav-link"
+                               data-toggle="tooltip"
+                               data-title="Login"
+                               data-placement="bottom"
+                               data-boundary="window"><i class="material-icons">lock_open</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://localhost:44361/Home/Register"
+                               class="btn btn-outline-dark">Sign Up</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else if (ViewBag.isLoggedIn == true)
+            {
+                <div class="mdk-drawer js-mdk-drawer layout-compact__drawer"
+                     id="default-drawer">
+                    <div class="mdk-drawer__content js-sidebar-mini"
+                         data-responsive-width="992px"
+                         data-layout="compact">
+
+                        <div class="sidebar sidebar-mini sidebar-dark-pickled-bluewood sidebar-left d-flex flex-column">
+
+                            <!-- Brand -->
+                            <a href="index.html"
+                               class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
+
+                                <span class="avatar avatar-sm ">
+
+                                    <span class="avatar-title">
+                                        <img src="~/public/images/images.png"
+                                             class="img-fluid"
+                                             alt="logo" />
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                            <div class="flex d-flex flex-column justify-content-start"
+                                 data-perfect-scrollbar>
+                                <ul class="nav flex-shrink-0 flex-nowrap flex-column sidebar-menu mb-0 sm-item-bordered js-sidebar-mini-tabs"
+                                    role="tablist">
+                                    <li class="sidebar-menu-item active"
+                                        data-title="Student"
+                                        data-placement="right"
+                                        data-boundary="window">
+                                        <a class="sidebar-menu-button"
+                                           href="#sm_student"
+                                           data-toggle="tab"
+                                           role="tab"
+                                           aria-controls="sm_student"
+                                           aria-selected="true">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">school</i>
+                                            <span class="sidebar-menu-text">User</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item "
+                                        data-title="Account"
+                                        data-placement="right"
+                                        data-container="body"
+                                        data-boundary="window">
+                                        <a class="sidebar-menu-button"
+                                           href="#sm_account"
+                                           data-toggle="tab"
+                                           role="tab"
+                                           aria-controls="sm_account">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
+                                            <span class="sidebar-menu-text">Account</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="sidebar sidebar-light sidebar-left flex sidebar-secondary pt-16pt"
+                             data-perfect-scrollbar>
+
+                            <div class="tab-content">
+                                <div class="tab-pane  fade active show "
+                                     id="sm_student">
+                                    <div class="sidebar-heading">User</div>
+                                    <ul class="sidebar-menu">
+
+                                        <li class="sidebar-menu-item active">
+                                            <a class="sidebar-menu-button"
+                                               href="index-for-user.html">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                                <span class="sidebar-menu-text">Home</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="track-your-profile.html">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                                                <span class="sidebar-menu-text">Track Your Profile</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="nearest-libraries.html">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">style</span>
+                                                <span class="sidebar-menu-text">Nearest Libraries</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="favourites.html">
+                                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                                                <span class="sidebar-menu-text">Favourites</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="tab-pane "
+                                     id="sm_account">
+                                    <div class="sidebar-heading">Account</div>
+                                    <ul class="sidebar-menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="change-password.html">
+                                                <span class="sidebar-menu-text">Change Password</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="edit-account.html">
+                                                <span class="sidebar-menu-text">Edit Account</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="edit-notifications.html">
+                                                <span class="sidebar-menu-text">Email Notifications</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="borrow-history.html">
+                                                <span class="sidebar-menu-text">Borrow History</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane "
+                                     id="sm_messaging">
+                                    <div class="sidebar-heading">Messaging</div>
+                                    <ul class="sidebar-menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="messages.html">
+                                                <span class="sidebar-menu-text">Messages</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button"
+                                               href="email.html">
+                                                <span class="sidebar-menu-text">Email</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+            <div style="background-image: url(../public/images/library.jpg)" class="mb-0">
+                <div style="background-image: url(../public/images/library.jpg)" class="justify-content-center">
+                    <div class="hero container page__container text-center py-112pt">
+                        <h1 class="text-white text-shadow">Borrow Books</h1>
+                        <p class="lead measure-hero-lead mx-auto text-white text-shadow mb-48pt">
+                            The borrow system is available to our users now.
+                            Through this system, you can rent a book from anywhere you want or reserve it for yourself.
+                        </p>
+
+                        <a href="login.html"
+                           class="btn btn-lg btn-white btn--raised mb-16pt">Browse Books</a>
+
+                        <p class="mb-0">
+                            <a href="login.html"
+                               class="text-white text-shadow"><strong>Are you a librarian?</strong></a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="border-bottom-2 py-16pt navbar-light bg-white border-bottom-2">
+                <div>
+                    <div class="row align-items-center">
+                        <div style="padding-left: 240px;" class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <!--                                    <img src="../public/images/paths/"-->
+                                <!--                                         width="40"-->
+                                <!--                                         height="40"-->
+                                <!--                                         alt="Angular"-->
+                                <!--                                         class="rounded">-->
+                            </div>
+                            <div class="flex">
+                                <div style="font-weight: 600;" class="card-title mb-4pt">13,000+ Books</div>
+                                <p class="card-subtitle text-70">Discover books with an increasing number every day.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <i class="material-icons text-white">verified_user</i>
+                            </div>
+                            <div class="flex">
+                                <div style="font-weight: 600;" class="card-title mb-4pt">+250 Registered Library</div>
+                                <p class="card-subtitle text-70">For now!   </p>
+                            </div>
+                        </div>
+                        <div class="d-flex col-md align-items-center">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <i class="material-icons text-white">update</i>
+                            </div>
+                            <div class="flex">
+                                <div style="font-weight: 600" class="card-title mb-4pt">Unlimited Time Earned</div>
+                                <p class="card-subtitle text-70">Now, your time on the road is yours!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-section border-bottom-2">
+                <div class="container page__container">
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">MOST LIKED THIS WEEK</div>
+                    </div>
+
+                    @foreach (var book in Model.Books)
+                    {
+                        <a href="https://localhost:44361/Home/GetById/@book.Id">
+                            <div class="row card-group-row">
+                                <div class="col-md-6 col-lg-12 card-group-row__col">
+                                    <div class="card card--elevated posts-card-popular overlay card-group-row__card">
+                                        <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
+                                             alt=""
+                                             style="width:15%"
+                                             class="card-img">
+                                        <div class="fullbleed bg-primary"
+                                             style="opacity: .3"></div>
+                                        <div class="posts-card-popular__content">
+                                            <div style="color: white;font-weight: 500;font-size: 17px;float: right;padding-right: 90px;padding-top: 60px">
+                                                <p>
+                                                    @book.Description
+                                                </p>
+                                            </div>
+                                            <div class="posts-card-popular__title card-body">
+                                                @foreach (var category in book.Categories)
+                                                {
+                                                    <small class="text-muted text-uppercase">@category.Name</small>
+                                                }
+                                                <p>@book.Name</p>
+                                                @foreach (var author in book.Authors)
+                                                {
+                                                    <p>@author.Name</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </a>
+                    }
+
+                    <button style="border-radius: 10px;width: 200px;margin-left: 350px">More</button>
+                    <div class="posts-cards">
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left: 55px; padding-right: 55px;" class="page-section border-bottom-2">
+                <div>
+                    <div class="page-separator">
+                        <div class="page-separator__text">LIKED CATEGORIES</div>
+                    </div>
+                    <div class="row card-group-row">
+
+                        <div class="col-sm-4 card-group-row__col">
+
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/detective.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">Detective Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 1650 Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 card-group-row__col">
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/horror.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">Horror Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 1000  Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 card-group-row__col">
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/self.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">Self Improvement Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 2000 Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row card-group-row mb-lg-8pt">
+                        <div class="col-sm-4 card-group-row__col">
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card mb-lg-0"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/history.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">History Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 900 Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 card-group-row__col">
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card mb-lg-0"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/litera.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">Literature Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 3000 Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 card-group-row__col">
+                            <div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card mb-lg-0"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded mr-12pt z-0 o-hidden">
+                                                    <div class="overlay">
+                                                        <img src="../public/images/paths/din.jpg"
+                                                             width="40"
+                                                             height="40"
+                                                             alt="Angular"
+                                                             class="rounded">
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex">
+                                                        <div class="card-title">Religion Books</div>
+                                                        <p class="flex text-50 lh-1 mb-0"><small>Over 800 Books</small></p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-section border-bottom-2">
+                <div class="plpd-40">
+                    <div class="page-separator">
+                        <div class="page-separator__text">MOST LIKED ALL TIMES</div>
+                    </div>
+                    <div class="row card-group-row">
+                        <div class="col-md-6 col-lg-6 col-xl-6 card-group-row__col">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <a href="student-course.html"
+                                   class="card-img-top js-image"
+                                   data-position=""
+                                   data-height="140">
+                                    <img src="../public/images/paths/mor.jpg"
+                                         alt="course">
+                                </a>
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title"
+                                               href="student-course.html">Purple Cow</a>
+                                            <small class="text-50 font-weight-bold mb-4pt">Seth Godin</small> <br>
+                                            <small class="text-50 font-weight-bold mb-4pt">Self Improvement</small>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 card-group-row__col">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <a href="student-course.html"
+                                   class="card-img-top js-image"
+                                   data-position=""
+                                   data-height="140">
+                                    <img src="../public/images/paths/1984.jpg"
+                                         alt="course">
+                                </a>
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title"
+                                               href="student-course.html">1984</a>
+                                            <small class="text-50 font-weight-bold mb-4pt">George Orwell</small>
+                                            <br>
+                                            <small class="text-50 font-weight-bold mb-4pt">Science Fiction</small>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 card-group-row__col">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <a href="student-course.html"
+                                   class="card-img-top js-image"
+                                   data-position=""
+                                   data-height="140">
+                                    <img src="../public/images/paths/tutuna.jpg"
+                                         alt="course">
+                                </a>
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title"
+                                               href="student-course.html">Tutunamayanlar</a>
+                                            <small class="text-50 font-weight-bold mb-4pt">Oğuz Atay</small> <br>
+                                            <small class="text-50 font-weight-bold mb-4pt">Literature</small>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 card-group-row__col">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+                                <a href="student-course.html"
+                                   class="card-img-top js-image"
+                                   data-position=""
+                                   data-height="140">
+                                    <img src="../public/images/paths/seker.jpg"
+                                         alt="course">
+                                </a>
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title"
+                                               href="student-course.html">Şeker Portakalı</a>
+                                            <small class="text-50 font-weight-bold mb-4pt">Jose Mauro De Vasconcelos</small>
+                                            <br>
+                                            <small class="text-50 font-weight-bold mb-4pt">Literature</small>
+                                        </div>
+                                        <a href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-section">
+                <div class="container page__container">
+                    <div class="page-headline text-center">
+                        <h2>Comments About Libraries</h2>
+                        <p class="lead measure-lead mx-auto text-70">You can see the what other users think about the libraries that you want to borrow.  </p>
+                    </div>
+                    <div class="position-relative carousel-card p-0 mx-auto">
+                        <div class="row d-block js-mdk-carousel"
+                             id="carousel-feedback">
+                            <a class="carousel-control-next js-mdk-carousel-control mt-n24pt"
+                               href="#carousel-feedback"
+                               role="button"
+                               data-slide="next">
+                                <span class="carousel-control-icon material-icons"
+                                      aria-hidden="true">keyboard_arrow_right</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <div class="mdk-carousel__content">
+                                <div class="col-12 col-md-6">
+                                    <div class="card card-feedback card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <p class="text-70 small mb-0">
+                                                My first borrow experience from this project and I tried to barrow from <span style="font-weight: 600">Sancaktepe Kütüphanesi</span>
+                                                .Shipping process was long but,in my opinion you should try.
+                                            </p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="media ml-12pt">
+                                        <div class="media-left mr-12pt">
+                                            <a href="#"
+                                               class="avatar avatar-sm">
+                                                <!-- <img src="../../public/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> -->
+                                                <span class="avatar-title rounded-circle">MD</span>
+                                            </a>
+                                        </div>
+                                        <div class="media-body media-middle">
+                                            <a href="#"
+                                               class="card-title">Mert Demirsoy</a>
+                                            <div class="rating mt-4pt">
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="card card-feedback card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <p class="text-70 small mb-0">
+                                                I always choose the <span style="font-weight: 600">Kadıköy Kütüphanesi</span> for borrow,they are doing great keep going.
+                                                <br>
+                                                <br>
+                                            </p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="media ml-12pt">
+                                        <div class="media-left mr-12pt">
+                                            <a href="#"
+                                               class="avatar avatar-sm">
+                                                <!-- <img src="../../public/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> -->
+                                                <span class="avatar-title rounded-circle">FE</span>
+                                            </a>
+                                        </div>
+                                        <div class="media-body media-middle">
+                                            <a href="#"
+                                               class="card-title">Furkan Erol</a>
+                                            <div class="rating mt-4pt">
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="card card-feedback card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <p class="text-70 small mb-0">
+                                                The quality of book that I borrow from <span style="font-weight: 600">Ümraniye Kütüphanesi</span> was really bad
+                                                so it will be last one. <br>
+                                                <br>
+                                            </p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="media ml-12pt">
+                                        <div class="media-left mr-12pt">
+                                            <a href="#"
+                                               class="avatar avatar-sm">
+                                                <span class="avatar-title rounded-circle">FU</span>
+                                            </a>
+                                        </div>
+                                        <div class="media-body media-middle">
+                                            <a href="#"
+                                               class="card-title">Furkan Uzun</a>
+                                            <div class="rating mt-4pt">
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+                                                <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                                <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white border-top-2 mt-auto">
+                <div class="container page__container page-section d-flex flex-column">
+                    <p class="text-70 brand mb-24pt">
+                        E-Library
+                    </p>
+                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
+                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
+                    @ViewBag.books_json
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../public/vendor/jquery.min.js"></script>
+
+    <script src="../public/vendor/popper.min.js"></script>
+    <script src="../public/vendor/bootstrap.min.js"></script>
+
+    <script src="../public/vendor/perfect-scrollbar.min.js"></script>
+
+    <script src="../public/vendor/dom-factory.js"></script>
+
+    <script src="../public/vendor/material-design-kit.js"></script>
+
+    <script src="../public/js/app.js"></script>
+
+    <script src="../public/js/preloader.js"></script>
+
+    <script src="../public/js/sidebar-mini.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
+                $('.js-sidebar-mini-tabs > .active').removeClass('active')
+                $(e.target).parent().addClass('active')
+            })
+        })()</script>
+</body>
+</html>

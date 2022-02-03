@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B71BE8D5-3A8E-415E-81D5-DC80D8100FC2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibraryProjectWebSite</RootNamespace>
+    <AssemblyName>LibraryProjectWebSite</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Flurl, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.3.0.4\lib\net472\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=3.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.3.2.2\lib\net472\Flurl.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuthorDto.cs" />
+    <Compile Include="Models\BookDto.cs" />
+    <Compile Include="Models\BookLibrariesDto.cs" />
+    <Compile Include="Models\BorrowDto.cs" />
+    <Compile Include="Models\CategoryDto.cs" />
+    <Compile Include="Models\CommentDto.cs" />
+    <Compile Include="Models\LibraryDto.cs" />
+    <Compile Include="Models\LibraryViewModel.cs" />
+    <Compile Include="Models\OfficerDto.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\UserData.cs" />
+    <Compile Include="Models\UserDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\Request.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="public\css\app.css" />
+    <Content Include="public\css\bootstrap-datepicker.css" />
+    <Content Include="public\css\bootstrap-timepicker.css" />
+    <Content Include="public\css\bootstrap-touchspin.css" />
+    <Content Include="public\css\dark.css" />
+    <Content Include="public\css\dropzone.css" />
+    <Content Include="public\css\fancytree.css" />
+    <Content Include="public\css\flatpickr-airbnb.css" />
+    <Content Include="public\css\flatpickr.css" />
+    <Content Include="public\css\fontawesome.css" />
+    <Content Include="public\css\fullcalendar.css" />
+    <Content Include="public\css\ion-rangeslider.css" />
+    <Content Include="public\css\jvectormap.css" />
+    <Content Include="public\css\material-icons.css" />
+    <Content Include="public\css\nestable.css" />
+    <Content Include="public\css\preloader.css" />
+    <Content Include="public\css\quill.css" />
+    <Content Include="public\css\select2.css" />
+    <Content Include="public\css\sweetalert.css" />
+    <Content Include="public\css\toastr.css" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-de-merc-en.js" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-es-merc-en.js" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-fr-merc-en.js" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-us-aea-en.js" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-us-lcc-en.js" />
+    <Content Include="public\data\vector-maps\custom\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="public\data\vector-maps\custom\mall-map.js" />
+    <Content Include="public\data\vector-maps\data\gdp-data.js" />
+    <Content Include="public\fonts\fontawesome-free\fa-brands-400.svg" />
+    <Content Include="public\fonts\fontawesome-free\fa-regular-400.svg" />
+    <Content Include="public\fonts\fontawesome-free\fa-solid-900.svg" />
+    <Content Include="public\images\1280_15ntkpxqt54y-sai-kiran-anagani.jpg" />
+    <Content Include="public\images\1280_derxvssqndm-artem-sapegin.jpg" />
+    <Content Include="public\images\1280_work-station-straight-on-view.jpg" />
+    <Content Include="public\images\1280_writing-down-goals_4460x4460.jpg" />
+    <Content Include="public\images\256_daniel-gaffey-1060698-unsplash.jpg" />
+    <Content Include="public\images\256_jeremy-banks-798787-unsplash.jpg" />
+    <Content Include="public\images\256_joao-silas-636453-unsplash.jpg" />
+    <Content Include="public\images\256_luke-porter-261779-unsplash.jpg" />
+    <Content Include="public\images\256_michael-dam-258165-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_1andy-lee-642320-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_90-jiang-640827-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_clem-onojeghuo-150467-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_florian-perennes-594195-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_james-gillespie-714755-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_karl-s-973833-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_nicolas-horn-689011-unsplash.jpg" />
+    <Content Include="public\images\256_rsz_sharina-mae-agellon-377466-unsplash.jpg" />
+    <Content Include="public\images\256_s-a-r-a-h-s-h-a-r-p-764291-unsplash.jpg" />
+    <Content Include="public\images\985px-Laravel.svg.png" />
+    <Content Include="public\images\achievements\angular.png" />
+    <Content Include="public\images\achievements\flinto.png" />
+    <Content Include="public\images\harry.jpg" />
+    <Content Include="public\images\icon\components.svg" />
+    <Content Include="public\images\icon\footer\facebook-square%402x.png" />
+    <Content Include="public\images\icon\footer\facebook-square.png" />
+    <Content Include="public\images\icon\footer\facebook-square.svg" />
+    <Content Include="public\images\icon\footer\twitter-square%402x.png" />
+    <Content Include="public\images\icon\footer\twitter-square.png" />
+    <Content Include="public\images\icon\footer\twitter-square.svg" />
+    <Content Include="public\images\icon\footer\vimeo-square%402x.png" />
+    <Content Include="public\images\icon\footer\vimeo-square.png" />
+    <Content Include="public\images\icon\footer\vimeo-square.svg" />
+    <Content Include="public\images\icon\footer\youtube-square%402x.png" />
+    <Content Include="public\images\icon\footer\youtube-square.png" />
+    <Content Include="public\images\icon\footer\youtube-square.svg" />
+    <Content Include="public\images\icon\prototype-white.svg" />
+    <Content Include="public\images\icon\prototype.svg" />
+    <Content Include="public\images\icon\rocket-white.svg" />
+    <Content Include="public\images\icon\rocket.svg" />
+    <Content Include="public\images\icon\rtl.svg" />
+    <Content Include="public\images\icon\skins.svg" />
+    <Content Include="public\images\icon\template-white.svg" />
+    <Content Include="public\images\icon\template.svg" />
+    <Content Include="public\images\illustration\achievement\128\white.png" />
+    <Content Include="public\images\illustration\achievement\128\white.svg" />
+    <Content Include="public\images\illustration\player.svg" />
+    <Content Include="public\images\illustration\student\128\black.svg" />
+    <Content Include="public\images\illustration\student\128\white.svg" />
+    <Content Include="public\images\illustration\teacher\128\black.svg" />
+    <Content Include="public\images\illustration\teacher\128\white.png" />
+    <Content Include="public\images\illustration\teacher\128\white.svg" />
+    <Content Include="public\images\images.png" />
+    <Content Include="public\images\library.jpg" />
+    <Content Include="public\images\logo\black-100%402x.png" />
+    <Content Include="public\images\logo\black-70%402x.png" />
+    <Content Include="public\images\logo\bootstrap.svg" />
+    <Content Include="public\images\logo\bootstrap_body.svg" />
+    <Content Include="public\images\logo\white-100%402x.png" />
+    <Content Include="public\images\paths\1984.jpg" />
+    <Content Include="public\images\paths\angular_200x168.png" />
+    <Content Include="public\images\paths\angular_277x96.png" />
+    <Content Include="public\images\paths\angular_40x40%402x.png" />
+    <Content Include="public\images\paths\angular_40x40.png" />
+    <Content Include="public\images\paths\angular_40x40.svg" />
+    <Content Include="public\images\paths\angular_430x168.png" />
+    <Content Include="public\images\paths\angular_64x64.png" />
+    <Content Include="public\images\paths\angular_64x64.svg" />
+    <Content Include="public\images\paths\angular_96x96.png" />
+    <Content Include="public\images\paths\angular_96x96.svg" />
+    <Content Include="public\images\paths\angular_patterns_200x168.png" />
+    <Content Include="public\images\paths\angular_patterns_430x168.png" />
+    <Content Include="public\images\paths\angular_patterns_430x168.svg" />
+    <Content Include="public\images\paths\angular_routing_200x168.png" />
+    <Content Include="public\images\paths\angular_routing_430x168.png" />
+    <Content Include="public\images\paths\angular_services_200x168.png" />
+    <Content Include="public\images\paths\angular_services_430x168.png" />
+    <Content Include="public\images\paths\angular_services_430x168.svg" />
+    <Content Include="public\images\paths\angular_testing_200x168.png" />
+    <Content Include="public\images\paths\angular_testing_430x168.png" />
+    <Content Include="public\images\paths\avuc.jpg" />
+    <Content Include="public\images\paths\craft_200x168.png" />
+    <Content Include="public\images\paths\craft_40x40%402x.png" />
+    <Content Include="public\images\paths\craft_40x40.png" />
+    <Content Include="public\images\paths\craft_40x40.svg" />
+    <Content Include="public\images\paths\craft_430x168.png" />
+    <Content Include="public\images\paths\crime.jpg" />
+    <Content Include="public\images\paths\detective.jpg" />
+    <Content Include="public\images\paths\devops_200x168.png" />
+    <Content Include="public\images\paths\devops_40x40%402x.png" />
+    <Content Include="public\images\paths\devops_40x40.png" />
+    <Content Include="public\images\paths\devops_40x40.svg" />
+    <Content Include="public\images\paths\devops_430x168.png" />
+    <Content Include="public\images\paths\din.jpg" />
+    <Content Include="public\images\paths\figma_200x168.png" />
+    <Content Include="public\images\paths\figma_40x40%402x.png" />
+    <Content Include="public\images\paths\figma_40x40.png" />
+    <Content Include="public\images\paths\figma_40x40.svg" />
+    <Content Include="public\images\paths\figma_430x168.png" />
+    <Content Include="public\images\paths\flinto_200x168.png" />
+    <Content Include="public\images\paths\flinto_40x40%402x.png" />
+    <Content Include="public\images\paths\flinto_40x40.png" />
+    <Content Include="public\images\paths\flinto_40x40.svg" />
+    <Content Include="public\images\paths\flinto_430x168.png" />
+    <Content Include="public\images\paths\george.jpg" />
+    <Content Include="public\images\paths\history.jpg" />
+    <Content Include="public\images\paths\horror.jpg" />
+    <Content Include="public\images\paths\invision_200x168.png" />
+    <Content Include="public\images\paths\invision_40x40%402x.png" />
+    <Content Include="public\images\paths\invision_40x40.png" />
+    <Content Include="public\images\paths\invision_40x40.svg" />
+    <Content Include="public\images\paths\invision_430x168.png" />
+    <Content Include="public\images\paths\litera.jpg" />
+    <Content Include="public\images\paths\literag.png" />
+    <Content Include="public\images\paths\mailchimp_200x168.png" />
+    <Content Include="public\images\paths\mailchimp_40x40%402x.png" />
+    <Content Include="public\images\paths\mailchimp_40x40.png" />
+    <Content Include="public\images\paths\mailchimp_40x40.svg" />
+    <Content Include="public\images\paths\mailchimp_430x168.png" />
+    <Content Include="public\images\paths\mor.jpg" />
+    <Content Include="public\images\paths\nutuk.jpg" />
+    <Content Include="public\images\paths\photoshop_200x168.png" />
+    <Content Include="public\images\paths\photoshop_40x40%402x.png" />
+    <Content Include="public\images\paths\photoshop_40x40.png" />
+    <Content Include="public\images\paths\photoshop_40x40.svg" />
+    <Content Include="public\images\paths\photoshop_430x168.png" />
+    <Content Include="public\images\paths\purple.jpg" />
+    <Content Include="public\images\paths\react_200x168.png" />
+    <Content Include="public\images\paths\react_277x96.png" />
+    <Content Include="public\images\paths\react_40x40%402x.png" />
+    <Content Include="public\images\paths\react_40x40.png" />
+    <Content Include="public\images\paths\react_40x40.svg" />
+    <Content Include="public\images\paths\react_430x168.png" />
+    <Content Include="public\images\paths\redis_200x168.png" />
+    <Content Include="public\images\paths\redis_40x40%402x.png" />
+    <Content Include="public\images\paths\redis_40x40.png" />
+    <Content Include="public\images\paths\redis_40x40.svg" />
+    <Content Include="public\images\paths\redis_430x168.png" />
+    <Content Include="public\images\paths\seker.jpg" />
+    <Content Include="public\images\paths\self.jpg" />
+    <Content Include="public\images\paths\sketch_200x168.png" />
+    <Content Include="public\images\paths\sketch_40x40%402x.png" />
+    <Content Include="public\images\paths\sketch_40x40.png" />
+    <Content Include="public\images\paths\sketch_40x40.svg" />
+    <Content Include="public\images\paths\sketch_430x168.png" />
+    <Content Include="public\images\paths\swift_200x168.png" />
+    <Content Include="public\images\paths\swift_277x96.png" />
+    <Content Include="public\images\paths\swift_40x40%402x.png" />
+    <Content Include="public\images\paths\swift_40x40.png" />
+    <Content Include="public\images\paths\swift_40x40.svg" />
+    <Content Include="public\images\paths\swift_430x168.png" />
+    <Content Include="public\images\paths\tutun.jpg" />
+    <Content Include="public\images\paths\tutuna.jpg" />
+    <Content Include="public\images\paths\typescript_200x168.png" />
+    <Content Include="public\images\paths\typescript_40x40%402x.png" />
+    <Content Include="public\images\paths\typescript_40x40.png" />
+    <Content Include="public\images\paths\typescript_40x40.svg" />
+    <Content Include="public\images\paths\typescript_430x168.png" />
+    <Content Include="public\images\paths\typescript_64x64.png" />
+    <Content Include="public\images\paths\typescript_64x64.svg" />
+    <Content Include="public\images\paths\typescript_892x286.png" />
+    <Content Include="public\images\paths\wordpress_200x168.png" />
+    <Content Include="public\images\paths\wordpress_40x40%402x.png" />
+    <Content Include="public\images\paths\wordpress_40x40.png" />
+    <Content Include="public\images\paths\wordpress_40x40.svg" />
+    <Content Include="public\images\paths\wordpress_430x168.png" />
+    <Content Include="public\images\paths\xd_200x168.png" />
+    <Content Include="public\images\paths\xd_40x40%402x.png" />
+    <Content Include="public\images\paths\xd_40x40.png" />
+    <Content Include="public\images\paths\xd_40x40.svg" />
+    <Content Include="public\images\paths\xd_430x168.png" />
+    <Content Include="public\images\people\110\guy-1.jpg" />
+    <Content Include="public\images\people\110\guy-2.jpg" />
+    <Content Include="public\images\people\110\guy-3.jpg" />
+    <Content Include="public\images\people\110\guy-4.jpg" />
+    <Content Include="public\images\people\110\guy-5.jpg" />
+    <Content Include="public\images\people\110\guy-6.jpg" />
+    <Content Include="public\images\people\110\guy-7.jpg" />
+    <Content Include="public\images\people\110\guy-8.jpg" />
+    <Content Include="public\images\people\110\guy-9.jpg" />
+    <Content Include="public\images\people\110\woman-1.jpg" />
+    <Content Include="public\images\people\110\woman-10.jpg" />
+    <Content Include="public\images\people\110\woman-2.jpg" />
+    <Content Include="public\images\people\110\woman-3.jpg" />
+    <Content Include="public\images\people\110\woman-4.jpg" />
+    <Content Include="public\images\people\110\woman-5.jpg" />
+    <Content Include="public\images\people\110\woman-6.jpg" />
+    <Content Include="public\images\people\110\woman-7.jpg" />
+    <Content Include="public\images\people\110\woman-8.jpg" />
+    <Content Include="public\images\people\110\woman-9.jpg" />
+    <Content Include="public\images\people\256\256_rsz_90-jiang-640827-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_clem-onojeghuo-150467-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_florian-perennes-594195-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_james-gillespie-714755-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_karl-s-973833-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_nicolas-horn-689011-unsplash.jpg" />
+    <Content Include="public\images\people\256\256_rsz_sharina-mae-agellon-377466-unsplash.jpg" />
+    <Content Include="public\images\people\256\265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" />
+    <Content Include="public\images\people\50\guy-1.jpg" />
+    <Content Include="public\images\people\50\guy-2.jpg" />
+    <Content Include="public\images\people\50\guy-3.jpg" />
+    <Content Include="public\images\people\50\guy-4.jpg" />
+    <Content Include="public\images\people\50\guy-5.jpg" />
+    <Content Include="public\images\people\50\guy-6.jpg" />
+    <Content Include="public\images\people\50\guy-7.jpg" />
+    <Content Include="public\images\people\50\guy-8.jpg" />
+    <Content Include="public\images\people\50\guy-9.jpg" />
+    <Content Include="public\images\people\50\woman-1.jpg" />
+    <Content Include="public\images\people\50\woman-10.jpg" />
+    <Content Include="public\images\people\50\woman-2.jpg" />
+    <Content Include="public\images\people\50\woman-3.jpg" />
+    <Content Include="public\images\people\50\woman-4.jpg" />
+    <Content Include="public\images\people\50\woman-5.jpg" />
+    <Content Include="public\images\people\50\woman-6.jpg" />
+    <Content Include="public\images\people\50\woman-7.jpg" />
+    <Content Include="public\images\people\50\woman-8.jpg" />
+    <Content Include="public\images\people\50\woman-9.jpg" />
+    <Content Include="public\images\photodune-4161018-group-of-students-m.jpg" />
+    <Content Include="public\images\photodune-6745579-modern-creative-man-relaxing-on-workspace-m.jpg" />
+    <Content Include="public\images\preview\app-cms-dashboard.png" />
+    <Content Include="public\images\preview\app-earnings.png" />
+    <Content Include="public\images\preview\app-edit-course.png" />
+    <Content Include="public\images\preview\app-employees.png" />
+    <Content Include="public\images\preview\app-hr-dashboard.png" />
+    <Content Include="public\images\preview\app-instructor-dashboard.png" />
+    <Content Include="public\images\preview\app-instructor-quizzes.png" />
+    <Content Include="public\images\preview\app-messages.png" />
+    <Content Include="public\images\preview\app-my-courses.png" />
+    <Content Include="public\images\preview\app-path.png" />
+    <Content Include="public\images\preview\app-posts.png" />
+    <Content Include="public\images\preview\app-projects.png" />
+    <Content Include="public\images\preview\app-staff.png" />
+    <Content Include="public\images\preview\app-tasks-board.png" />
+    <Content Include="public\images\preview\blog.png" />
+    <Content Include="public\images\preview\boxed-crm-dashboard.png" />
+    <Content Include="public\images\preview\boxed-my-paths.png" />
+    <Content Include="public\images\preview\change-password.png" />
+    <Content Include="public\images\preview\compact-email.png" />
+    <Content Include="public\images\preview\compact-instructor-profile.png" />
+    <Content Include="public\images\preview\compact-my-quizzes.png" />
+    <Content Include="public\images\preview\compact-student-path-assessment.png" />
+    <Content Include="public\images\preview\compact-student-profile.png" />
+    <Content Include="public\images\preview\compact-take-course.png" />
+    <Content Include="public\images\preview\compact-take-lesson.png" />
+    <Content Include="public\images\preview\compact-take-quiz.png" />
+    <Content Include="public\images\preview\course.png" />
+    <Content Include="public\images\preview\courses.png" />
+    <Content Include="public\images\preview\home.png" />
+    <Content Include="public\images\preview\icon\pages.png" />
+    <Content Include="public\images\preview\intro\app-2.png" />
+    <Content Include="public\images\preview\intro\app.png" />
+    <Content Include="public\images\preview\intro\blog.png" />
+    <Content Include="public\images\preview\intro\boxed-courses.png" />
+    <Content Include="public\images\preview\intro\boxed-home.png" />
+    <Content Include="public\images\preview\intro\compact-instructor-profile.png" />
+    <Content Include="public\images\preview\intro\compact-layout.png" />
+    <Content Include="public\images\preview\intro\course-card.png" />
+    <Content Include="public\images\preview\intro\courses.png" />
+    <Content Include="public\images\preview\intro\home.png" />
+    <Content Include="public\images\preview\intro\mini-secondary-paths.png" />
+    <Content Include="public\images\preview\intro\mini-take-quiz.png" />
+    <Content Include="public\images\preview\intro\sticky-student-dashboard.png" />
+    <Content Include="public\images\preview\learnly-course.png" />
+    <Content Include="public\images\preview\learnly-courses.png" />
+    <Content Include="public\images\preview\learnly-home.png" />
+    <Content Include="public\images\preview\learnly-instructor-courses.png" />
+    <Content Include="public\images\preview\learnly-instructor-dashboard.png" />
+    <Content Include="public\images\preview\learnly-instructor-earnings.png" />
+    <Content Include="public\images\preview\learnly-instructor-edit-course.png" />
+    <Content Include="public\images\preview\learnly-instructor-edit-quiz.png" />
+    <Content Include="public\images\preview\learnly-instructor-profile.png" />
+    <Content Include="public\images\preview\learnly-instructor-quizzes.png" />
+    <Content Include="public\images\preview\learnly-instructor-statement.png" />
+    <Content Include="public\images\preview\learnly-lesson.png" />
+    <Content Include="public\images\preview\learnly-login.png" />
+    <Content Include="public\images\preview\learnly-my-courses.png" />
+    <Content Include="public\images\preview\learnly-my-paths.png" />
+    <Content Include="public\images\preview\learnly-my-quizzes.png" />
+    <Content Include="public\images\preview\learnly-path.png" />
+    <Content Include="public\images\preview\learnly-paths.png" />
+    <Content Include="public\images\preview\learnly-pricing.png" />
+    <Content Include="public\images\preview\learnly-quiz-result.png" />
+    <Content Include="public\images\preview\learnly-signup.png" />
+    <Content Include="public\images\preview\learnly-skill-assessment.png" />
+    <Content Include="public\images\preview\learnly-skill-result.png" />
+    <Content Include="public\images\preview\learnly-student-dashboard.png" />
+    <Content Include="public\images\preview\learnly-student-profile.png" />
+    <Content Include="public\images\preview\learnly-take-course.png" />
+    <Content Include="public\images\preview\learnly-take-lesson.png" />
+    <Content Include="public\images\preview\learnly-take-quiz.png" />
+    <Content Include="public\images\preview\lesson.png" />
+    <Content Include="public\images\preview\login-image.png" />
+    <Content Include="public\images\preview\login.png" />
+    <Content Include="public\images\preview\mini-secondary-account-password.png" />
+    <Content Include="public\images\preview\mini-secondary-billing-payment.png" />
+    <Content Include="public\images\preview\mini-secondary-billing.png" />
+    <Content Include="public\images\preview\mini-secondary-edit-account-notifications.png" />
+    <Content Include="public\images\preview\mini-secondary-edit-account.png" />
+    <Content Include="public\images\preview\mini-secondary-edit-profile.png" />
+    <Content Include="public\images\preview\mini-secondary-edit-quiz.png" />
+    <Content Include="public\images\preview\mini-secondary-erp-dashboard.png" />
+    <Content Include="public\images\preview\mini-secondary-instructor-courses.png" />
+    <Content Include="public\images\preview\mini-secondary-invoice.png" />
+    <Content Include="public\images\preview\mini-secondary-leaves.png" />
+    <Content Include="public\images\preview\mini-secondary-payment-history.png" />
+    <Content Include="public\images\preview\mini-secondary-quiz-result-details.png" />
+    <Content Include="public\images\preview\mini-secondary-shop-dashboard.png" />
+    <Content Include="public\images\preview\mini-secondary-statement.png" />
+    <Content Include="public\images\preview\mini-secondary-student-dashboard.png" />
+    <Content Include="public\images\preview\mini-secondary-student-path-assessment-result.png" />
+    <Content Include="public\images\preview\mini-secondary-tasks-list.png" />
+    <Content Include="public\images\preview\mini-secondary-upgrade-account.png" />
+    <Content Include="public\images\preview\path.png" />
+    <Content Include="public\images\preview\paths.png" />
+    <Content Include="public\images\preview\pricing.png" />
+    <Content Include="public\images\preview\reset-password.png" />
+    <Content Include="public\images\preview\signup-image.png" />
+    <Content Include="public\images\preview\signup-payment.png" />
+    <Content Include="public\images\preview\signup.png" />
+    <Content Include="public\images\stories\256_rsz_clem-onojeghuo-193397-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_dex-ezekiel-761373-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_euan-carmichael-666378-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_jared-rice-388260-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_phil-hearing-769014-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_rhema-kallianpur-275251-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_ross-sneddon-798476-unsplash.jpg" />
+    <Content Include="public\images\stories\256_rsz_thomas-russell-751613-unsplash.jpg" />
+    <Content Include="public\images\stories\house-plant-on-wooden-slat-wall_4460x4460.jpg" />
+    <Content Include="public\images\stories\leaf-wall-office-space_925x.jpg" />
+    <Content Include="public\images\stories\modern-business-woman-portrait_925x.jpg" />
+    <Content Include="public\images\stories\pink-wall-offices_925x.jpg" />
+    <Content Include="public\images\stories\woman-in-modern-office_925x.jpg" />
+    <Content Include="public\images\stories\woman-in-office_925x.jpg" />
+    <Content Include="public\images\stories\young-professional_925x.jpg" />
+    <Content Include="public\images\visa.svg" />
+    <Content Include="public\images\Vue.js_Logo_2.svg" />
+    <Content Include="public\js\accordion.js" />
+    <Content Include="public\js\app-icons.js" />
+    <Content Include="public\js\app.js" />
+    <Content Include="public\js\chartjs-rounded-bar.js" />
+    <Content Include="public\js\chartjs.js" />
+    <Content Include="public\js\check-selected-row.js" />
+    <Content Include="public\js\collapse-resize.js" />
+    <Content Include="public\js\daterangepicker.js" />
+    <Content Include="public\js\dragula.js" />
+    <Content Include="public\js\dropdown-tooltip.js" />
+    <Content Include="public\js\dropzone.js" />
+    <Content Include="public\js\fancytree.js" />
+    <Content Include="public\js\flatpickr.js" />
+    <Content Include="public\js\hljs.js" />
+    <Content Include="public\js\image.js" />
+    <Content Include="public\js\ion-rangeslider.js" />
+    <Content Include="public\js\jvectormap.js" />
+    <Content Include="public\js\list.js" />
+    <Content Include="public\js\main.js" />
+    <Content Include="public\js\mdk-carousel-control.js" />
+    <Content Include="public\js\messages.js" />
+    <Content Include="public\js\nestable.js" />
+    <Content Include="public\js\overlay.js" />
+    <Content Include="public\js\page.analytics-2-dashboard.js" />
+    <Content Include="public\js\page.analytics-dashboard.js" />
+    <Content Include="public\js\page.crm-dashboard.js" />
+    <Content Include="public\js\page.ecommerce.js" />
+    <Content Include="public\js\page.employees.js" />
+    <Content Include="public\js\page.erp-dashboard.js" />
+    <Content Include="public\js\page.hr-dashboard.js" />
+    <Content Include="public\js\page.instructor-dashboard.js" />
+    <Content Include="public\js\page.instructor-earnings.js" />
+    <Content Include="public\js\page.projects.js" />
+    <Content Include="public\js\page.staff.js" />
+    <Content Include="public\js\page.student-dashboard.js" />
+    <Content Include="public\js\page.student-profile.js" />
+    <Content Include="public\js\page.tasks-board.js" />
+    <Content Include="public\js\page.ui-charts.js" />
+    <Content Include="public\js\perfect-scrollbar.js" />
+    <Content Include="public\js\player.js" />
+    <Content Include="public\js\popover.js" />
+    <Content Include="public\js\preloader.js" />
+    <Content Include="public\js\quill.js" />
+    <Content Include="public\js\read-more.js" />
+    <Content Include="public\js\select2.js" />
+    <Content Include="public\js\settings.js" />
+    <Content Include="public\js\sidebar-mini.js" />
+    <Content Include="public\js\sidebar.js" />
+    <Content Include="public\js\sweetalert.js" />
+    <Content Include="public\js\theme-utils.js" />
+    <Content Include="public\js\toastr.js" />
+    <Content Include="public\js\toggle-check-all.js" />
+    <Content Include="public\js\touchspin.js" />
+    <Content Include="public\js\vector-maps.js" />
+    <Content Include="public\vendor\bootstrap.min.js" />
+    <Content Include="public\vendor\Chart.min.js" />
+    <Content Include="public\vendor\daterangepicker.css" />
+    <Content Include="public\vendor\daterangepicker.js" />
+    <Content Include="public\vendor\dom-factory.common.js" />
+    <Content Include="public\vendor\dom-factory.esm.js" />
+    <Content Include="public\vendor\dom-factory.js" />
+    <Content Include="public\vendor\dragula\dragula.min.css" />
+    <Content Include="public\vendor\dragula\dragula.min.js" />
+    <Content Include="public\vendor\dropzone.min.js" />
+    <Content Include="public\vendor\flatpickr\airbnb.css" />
+    <Content Include="public\vendor\flatpickr\flatpickr.min.css" />
+    <Content Include="public\vendor\flatpickr\flatpickr.min.js" />
+    <Content Include="public\vendor\highlight.js" />
+    <Content Include="public\vendor\ion.rangeSlider.min.js" />
+    <Content Include="public\vendor\jquery-jvectormap.css" />
+    <Content Include="public\vendor\jquery.bootstrap-touchspin.js" />
+    <Content Include="public\vendor\jquery.fancytree-all.min.js" />
+    <Content Include="public\vendor\jquery.jvectormap.min.js" />
+    <Content Include="public\vendor\jquery.mask.min.js" />
+    <Content Include="public\vendor\jquery.min.js" />
+    <Content Include="public\vendor\jquery.nestable.js" />
+    <Content Include="public\vendor\jqvmap\jquery.vmap.min.js" />
+    <Content Include="public\vendor\jqvmap\jqvmap.min.css" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.africa.js" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.asia.js" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.australia.js" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.europe.js" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.north-america.js" />
+    <Content Include="public\vendor\jqvmap\maps\continents\jquery.vmap.south-america.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.algeria.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.argentina.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.brazil.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.canada.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.croatia.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.europe.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.france.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.germany.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.greece.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.indonesia.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.iran.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.iraq.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.new_regions_france.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.russia.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.serbia.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.tunisia.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.turkey.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.ukraine.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.usa.counties.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.usa.districts.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="public\vendor\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="public\vendor\list.min.js" />
+    <Content Include="public\vendor\material-design-kit.js" />
+    <Content Include="public\vendor\moment-range.js" />
+    <Content Include="public\vendor\moment.min.js" />
+    <Content Include="public\vendor\perfect-scrollbar.css" />
+    <Content Include="public\vendor\perfect-scrollbar.min.js" />
+    <Content Include="public\vendor\popper.min.js" />
+    <Content Include="public\vendor\quill.min.js" />
+    <Content Include="public\vendor\select2\select2.min.css" />
+    <Content Include="public\vendor\select2\select2.min.js" />
+    <Content Include="public\vendor\spinkit.css" />
+    <Content Include="public\vendor\sweetalert.min.js" />
+    <Content Include="public\vendor\toastr.min.css" />
+    <Content Include="public\vendor\toastr.min.js" />
+    <Content Include="public\vendor\vue.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="public\data\material-icons\MaterialIcons-Regular.ijmap" />
+    <Content Include="public\data\vector-maps\data\france-elections.json" />
+    <Content Include="public\data\vector-maps\data\us-unemployment.json" />
+    <Content Include="public\fonts\fontawesome-free\fa-brands-400.eot" />
+    <Content Include="public\fonts\fontawesome-free\fa-brands-400.ttf" />
+    <Content Include="public\fonts\fontawesome-free\fa-brands-400.woff" />
+    <Content Include="public\fonts\fontawesome-free\fa-brands-400.woff2" />
+    <Content Include="public\fonts\fontawesome-free\fa-regular-400.eot" />
+    <Content Include="public\fonts\fontawesome-free\fa-regular-400.ttf" />
+    <Content Include="public\fonts\fontawesome-free\fa-regular-400.woff" />
+    <Content Include="public\fonts\fontawesome-free\fa-regular-400.woff2" />
+    <Content Include="public\fonts\fontawesome-free\fa-solid-900.eot" />
+    <Content Include="public\fonts\fontawesome-free\fa-solid-900.ttf" />
+    <Content Include="public\fonts\fontawesome-free\fa-solid-900.woff" />
+    <Content Include="public\fonts\fontawesome-free\fa-solid-900.woff2" />
+    <Content Include="public\fonts\material-icons\MaterialIcons-Regular.eot" />
+    <Content Include="public\fonts\material-icons\MaterialIcons-Regular.ttf" />
+    <Content Include="public\fonts\material-icons\MaterialIcons-Regular.woff" />
+    <Content Include="public\fonts\material-icons\MaterialIcons-Regular.woff2" />
+    <Content Include="public\vendor\bootstrap.min.js.map" />
+    <Content Include="public\vendor\popper.min.js.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\GetById.cshtml" />
+    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\Home\OfficerLogin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52785</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44361/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
