@@ -130,18 +130,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AuthorDto.cs" />
-    <Compile Include="Models\BookDto.cs" />
-    <Compile Include="Models\BookLibrariesDto.cs" />
-    <Compile Include="Models\BorrowDto.cs" />
-    <Compile Include="Models\CategoryDto.cs" />
-    <Compile Include="Models\CommentDto.cs" />
-    <Compile Include="Models\LibraryDto.cs" />
+    <Compile Include="DataTransferObject\AuthorDto.cs" />
+    <Compile Include="DataTransferObject\BookDto.cs" />
+    <Compile Include="DataTransferObject\BookLibrariesDto.cs" />
+    <Compile Include="DataTransferObject\BorrowDto.cs" />
+    <Compile Include="DataTransferObject\CategoryDto.cs" />
+    <Compile Include="DataTransferObject\CommentDto.cs" />
+    <Compile Include="DataTransferObject\LibraryDto.cs" />
     <Compile Include="Models\LibraryViewModel.cs" />
-    <Compile Include="Models\OfficerDto.cs" />
+    <Compile Include="DataTransferObject\OfficerDto.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserData.cs" />
-    <Compile Include="Models\UserDto.cs" />
+    <Compile Include="DataTransferObject\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\Request.cs" />
   </ItemGroup>
@@ -172,6 +172,7 @@
     <Content Include="public\css\preloader.css" />
     <Content Include="public\css\quill.css" />
     <Content Include="public\css\select2.css" />
+    <Content Include="public\css\style.css" />
     <Content Include="public\css\sweetalert.css" />
     <Content Include="public\css\toastr.css" />
     <Content Include="public\data\vector-maps\custom\jquery-jvectormap-de-merc-en.js" />
@@ -535,6 +536,7 @@
     <Content Include="public\js\flatpickr.js" />
     <Content Include="public\js\hljs.js" />
     <Content Include="public\js\image.js" />
+    <Content Include="public\js\index.js" />
     <Content Include="public\js\ion-rangeslider.js" />
     <Content Include="public\js\jvectormap.js" />
     <Content Include="public\js\list.js" />
@@ -690,6 +692,9 @@
     <Content Include="Views\Home\GetById.cshtml" />
     <Content Include="Views\Home\UserLogin.cshtml" />
     <Content Include="Views\Home\OfficerLogin.cshtml" />
+    <Content Include="Views\Home\AddBook.cshtml" />
+    <Content Include="Views\Home\NearestLibraries.cshtml" />
+    <Content Include="Views\Home\Deneme.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

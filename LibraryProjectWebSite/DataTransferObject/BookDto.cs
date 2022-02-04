@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryProjectWebSite.Models
+namespace LibraryProjectWebSite.DataTransferObject
 {
 
     public class BookDto

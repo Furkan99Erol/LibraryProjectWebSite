@@ -1,0 +1,492 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en"
+      dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add Books</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots"
+          content="noindex">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/vendor/spinkit.css"
+          rel="stylesheet">
+
+    <!-- Perfect Scrollbar -->
+    <link type="text/css"
+          href="~/public/vendor/perfect-scrollbar.css"
+          rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css"
+          href="~/public/css/material-icons.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link type="text/css"
+          href="~/public/css/fontawesome.css"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/css/preloader.css"
+          rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css"
+          href="~/public/css/app.css"
+          rel="stylesheet">
+
+    <!-- Quill Theme -->
+    <link type="text/css"
+          href="~/public/css/quill.css"
+          rel="stylesheet">
+    <!-- Select2 -->
+    <link type="text/css"
+          href="~/public/vendor/select2/select2.min.css"
+          rel="stylesheet">
+    <link type="text/css"
+          href="~/public/css/select2.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="layout-compact layout-compact">
+    @if (ViewBag.isBookAdded == true)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("Book is added");
+            };
+        </script>
+    }
+    else if(ViewBag.isBookAdded == false)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("Error");
+            };
+        </script>
+    }
+    <div class="preloader">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+
+        <!-- <div class="sk-bounce">
+        <div class="sk-bounce-dot"></div>
+        <div class="sk-bounce-dot"></div>
+        </div> -->
+        <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
+    </div>
+
+    <!-- Drawer Layout -->
+
+    <div class="mdk-drawer-layout js-mdk-drawer-layout"
+         data-push
+         data-responsive-width="992px">
+
+        <div class="mdk-drawer-layout__content page-content">
+            <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+                <div style="margin-left:445px ;    margin-top: -210px;" class="mb-24pt mb-sm-0 mr-sm-24pt">
+                    <h2 class="mb-0">Add Books Via ISBN</h2>
+
+                </div>
+                <div style=" margin-left: -310px;padding-top: 95px;">
+                    <label class="form-label">ISBN10</label>
+                    @using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
+                    {
+                        <div class="form-group mb-24pt">
+                            <input type="text"
+                                   name="libraryViewModel.Book.ISBN10"
+                                   class="form-control form-control-lg"
+                                   placeholder="ISBN 10"
+                                   @*Mert buraya maximum 10 digit girilsin ve integer olsun*@>
+                        </div>
+                        <label class="form-label">ISBN13</label>
+                        <div class="form-group mb-24pt">
+                            <input type="text"
+                                   name="libraryViewModel.Book.ISBN13"
+                                   class="form-control form-control-lg"
+                                   placeholder="ISBN 13"
+                                   @*Mert buraya max 13 digit girilsin ve integer olsun*@>
+                        </div>
+                        <input style="margin-left:360px;width:21%" class="btn btn-primary" type="submit" value="Add Book">
+                    }
+                </div>
+
+            </div>
+            <div class="pt-32pt">
+
+                <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+
+                    <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+                        <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                            <h2 class="mb-0">Add Books Manually</h2>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="padding-top: 3rem!important;" class="page-section border-bottom-2">
+                <div class="container page__container">
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">Basic information</div>
+                            </div>
+
+                            <label class="form-label">Book Title</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="Harry Potter">
+                            </div>
+                            <label class="form-label">Writer</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="JK.ROWLING">
+                            </div>
+                            <label class="form-label">ISBN10</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="9999999999">
+                            </div>
+                            <label class="form-label">ISBN13</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="9999999999999">
+                            </div>
+                            <label class="form-label">Revision</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="2nd">
+                            </div>
+                            <label class="form-label">Latest Revision</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="3rd">
+                            </div>
+                            <div class="form-group mb-32pt">
+                                <label class="form-label">Content</label>
+                                <!-- <textarea class="form-control" rows="3" placeholder="Course description"></textarea> -->
+                                <div style="height: 150px;"
+                                     class="mb-0"
+                                     data-toggle="quill"
+                                     data-quill-placeholder="Course description">
+                                    <h1>"It does not do to dwell on dreams and forget to live."</h1>
+
+                                    <p><br></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <a style="background-color:#303956;border-color: #303956;" href="#"
+                                       class="btn btn-accent">Save changes</a>
+                                </div>
+                            </div>
+
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">Options</div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Category</label>
+                                        <select name="category"
+                                                class="form-control custom-select">
+                                            <option value="vuejs">Fantasy</option>
+                                            <option value="vuejs">Literature</option>
+                                            <option value="vuejs">Religion</option>
+                                            <option value="vuejs">Horror</option>
+                                            <option value="vuejs">Action and Adventure</option>
+                                            <option value="vuejs">Detective and Mystery</option>
+                                        </select>
+                                        <small class="form-text text-muted">Select a category.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="form-label">Photo</label>
+                            <div class="form-group mb-24pt">
+                                <input type="file"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="9999999999999">
+
+                            </div>
+                            <label class="form-label">Publisher</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="JackyLure">
+                            </div>
+                            <label class="form-label">Language</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="English">
+                            </div>
+                            <label class="form-label">Page Number</label>
+                            <div class="form-group mb-24pt">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       placeholder="Course title"
+                                       value="325">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- // END Page Content -->
+            <!-- Footer -->
+
+            <div class="bg-white border-top-2 mt-auto">
+                <div style="padding-top: 2rem!important;" class="container page__container page-section d-flex flex-column">
+                    <p class="text-70 brand mb-24pt">
+                        E-Library
+                    </p>
+                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
+                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
+                </div>
+            </div>
+
+            <!-- // END Footer -->
+
+        </div>
+
+        <!-- // END drawer-layout__content -->
+        <!-- drawer -->
+        <div class="mdk-drawer js-mdk-drawer layout-compact__drawer"
+             id="default-drawer">
+            <div class="mdk-drawer__content js-sidebar-mini"
+                 data-responsive-width="992px"
+                 data-layout="compact">
+
+                <div class="sidebar sidebar-mini sidebar-dark-pickled-bluewood sidebar-left d-flex flex-column">
+
+                    <!-- Brand -->
+                    <a href="index.html"
+                       class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
+
+                        <span class="avatar avatar-sm ">
+
+                            <span class="avatar-title rounded bg-primary">
+                                <img src="~/public/images/images.png"
+                                     class="img-fluid"
+                                     alt="logo" />
+                            </span>
+
+                        </span>
+
+                    </a>
+
+                    <div class="flex d-flex flex-column justify-content-start"
+                         data-perfect-scrollbar>
+                        <ul class="nav flex-shrink-0 flex-nowrap flex-column sidebar-menu mb-0 sm-item-bordered js-sidebar-mini-tabs"
+                            role="tablist">
+                            <li class="sidebar-menu-item active"
+                                data-title="Instructor"
+                                data-placement="right"
+                                data-container="body"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_instructor"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_instructor"
+                                   aria-selected="false">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">format_shapes</i>
+                                    <span class="sidebar-menu-text">Officer</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item "
+                                data-title="Account"
+                                data-placement="right"
+                                data-container="body"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_account"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_account">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
+                                    <span class="sidebar-menu-text">Account</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <div class="sidebar sidebar-light sidebar-left flex sidebar-secondary pt-16pt"
+                     data-perfect-scrollbar>
+
+                    <div class="tab-content">
+
+                        <div class="tab-pane  fade active show "
+                             id="sm_instructor">
+                            <div class="sidebar-heading">Officer</div>
+                            <ul class="sidebar-menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index-for-officer.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                                        <span class="sidebar-menu-text">Officer Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="manage-books.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">import_contacts</span>
+                                        <span class="sidebar-menu-text">Manage Books</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-quizzes.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                                        <span class="sidebar-menu-text">Add Books</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="instructor-earnings.html">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">trending_up</span>
+                                        <span class="sidebar-menu-text">Add Books Via ISBN</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane "
+                             id="sm_account">
+                            <div class="sidebar-heading">Account</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="o-change-password.html">
+                                        <span class="sidebar-menu-text">Change Password</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="o-edit-account.html">
+                                        <span class="sidebar-menu-text">Edit Account</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="lend-history.html">
+                                        <span class="sidebar-menu-text">Lend History</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- // END drawer -->
+
+    </div>
+
+    <!-- // END Drawer Layout -->
+    <!-- jQuery -->
+    <script src="~/public/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/public/vendor/popper.min.js"></script>
+    <script src="~/public/vendor/bootstrap.min.js"></script>
+
+    <!-- Perfect Scrollbar -->
+    <script src="~/public/vendor/perfect-scrollbar.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="~/public/vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="~/public/vendor/material-design-kit.js"></script>
+
+    <!-- App JS -->
+    <script src="~/public/js/app.js"></script>
+
+    <!-- Preloader -->
+    <script src="~/public/js/preloader.js"></script>
+
+    <!-- Quill -->
+    <script src="~/public/vendor/quill.min.js"></script>
+    <script src="~/public/js/quill.js"></script>
+    <!-- Select2 -->
+    <script src="~/public/vendor/select2/select2.min.js"></script>
+    <script src="~/public/js/select2.js"></script>
+
+    <!-- Sidebar Mini JS -->
+    <script src="~/public/js/sidebar-mini.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            // ENABLE sidebar menu tabs
+            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
+                $('.js-sidebar-mini-tabs > .active').removeClass('active')
+                $(e.target).parent().addClass('active')
+            })
+        })()
+    </script>
+
+</body>
+
+</html>

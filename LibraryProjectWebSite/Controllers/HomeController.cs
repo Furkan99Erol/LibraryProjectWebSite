@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Flurl;
 using Flurl.Http;
+using LibraryProjectWebSite.DataTransferObject;
 using LibraryProjectWebSite.Models;
 
 namespace LibraryProjectWebSite.Controllers
@@ -16,7 +17,7 @@ namespace LibraryProjectWebSite.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            CheckValidation();
+            GetValidationData();
             List<BookDto> booksDto = request.GetAsync<List<BookDto>>("/api/Book/Get").Result;
             LibraryViewModel libraryViewModel = new LibraryViewModel() { Books = booksDto };
             return View(libraryViewModel);
@@ -27,19 +28,35 @@ namespace LibraryProjectWebSite.Controllers
             try
             {
                 BookDto book = request.GetAsync<BookDto>($"/api/Book/Get/{id}").Result;
-                LibraryViewModel libraryViewModel = new LibraryViewModel() { Book = book };
-                CheckValidation();
+                var y = request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new {bookId=id}), null, GetHeaderWithToken());
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.Book = book;
+                UserData userData = GetValidationData();
+                if (userData != null)
+                {
+                    bool doesHaveAlready = request.PostJsonAsync<bool>($"/api/Borrow/DoesHaveAlready".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken()).Result;
+                    if (doesHaveAlready)
+                    {
+                        ViewBag.doesHaveAlready = doesHaveAlready;
+                        List<BorrowDto> borrows = request.GetAsync<List<BorrowDto>>("/api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
+                        BorrowDto borrowDto = borrows.FirstOrDefault(x => x.Status == 0 || x.Status == 1 && x.BookId == id);
+                        libraryViewModel.Borrow = new BorrowDto();
+
+                        libraryViewModel.Borrow.ReturnDate = borrowDto.ReturnDate;
+
+                        libraryViewModel.Borrow.BorrowDate = borrowDto.BorrowDate;
+                        libraryViewModel.Library = new LibraryDto()
+                        {
+                            Name = borrowDto.Library.Name,
+                        };
+                    }
+                }
                 if (book.Libraries.Count != 0)
                 {
-                    ViewBag.doesHaveLibrary = true;
-                    libraryViewModel.LibrarySelectListItem = book.Libraries.Where(x => x.Quantity > 0).Select(x => new SelectListItem
+                    bool doesHaveLibrary = book.Libraries.Where(x => x.Quantity > 0).Any();
+                    if (doesHaveLibrary)
                     {
-                        Text = x.Name,
-                        Value = x.Id.ToString()
-                    }).ToList();
-                    if (libraryViewModel.LibrarySelectListItem.Count == 0)
-                    {
-                        ViewBag.doesHaveLibrary = false;
+                        ViewBag.doesHaveLibrary = true;
                     }
                 }
                 else
@@ -57,7 +74,6 @@ namespace LibraryProjectWebSite.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult UserLogin()
         {
@@ -73,7 +89,7 @@ namespace LibraryProjectWebSite.Controllers
         [HttpPost]
         public ActionResult UserLogin(UserDto userDto)
         {
-            object postdata = new
+            object userData = new
             {
                 grant_type = "password",
                 username = userDto.Email + "|user",
@@ -81,7 +97,7 @@ namespace LibraryProjectWebSite.Controllers
             };
             try
             {
-                var token = request.PostAsync<Token>("/token", postdata).Result;
+                var token = request.PostUrlEncodedAsync<Token>("/token", userData).Result;
                 HttpCookie token_type = new HttpCookie("token_type", token.token_type);
                 HttpCookie access_token = new HttpCookie("access_token", token.access_token);
                 token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
@@ -92,11 +108,11 @@ namespace LibraryProjectWebSite.Controllers
             catch (Exception ex)
             {
                 showWrongUserDataPopUp = true;
-                return RedirectToAction("UserLogin", "Home");
+                return RedirectToAction("UserLogin");
             }
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -114,7 +130,7 @@ namespace LibraryProjectWebSite.Controllers
         [HttpPost]
         public ActionResult OfficerLogin(OfficerDto officerDto)
         {
-            object postdata = new
+            object userData = new
             {
                 grant_type = "password",
                 username = officerDto.Email + "|officer",
@@ -122,20 +138,21 @@ namespace LibraryProjectWebSite.Controllers
             };
             try
             {
-            var token = request.PostAsync<Token>("/token", postdata).Result;
-            HttpCookie token_type = new HttpCookie("token_type", token.token_type);
-            HttpCookie access_token = new HttpCookie("access_token", token.access_token);
-            token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
-            access_token.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
-            Response.SetCookie(token_type);
-            Response.SetCookie(access_token);
-            }catch (Exception ex)
+                var token = request.PostUrlEncodedAsync<Token>("/token", userData).Result;
+                HttpCookie token_type = new HttpCookie("token_type", token.token_type);
+                HttpCookie access_token = new HttpCookie("access_token", token.access_token);
+                token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+                access_token.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+                Response.SetCookie(token_type);
+                Response.SetCookie(access_token);
+            }
+            catch (Exception ex)
             {
                 showWrongUserDataPopUp = true;
-                return RedirectToAction("OfficerLogin", "Home");
+                return RedirectToAction("OfficerLogin");
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -153,47 +170,79 @@ namespace LibraryProjectWebSite.Controllers
         [HttpPost]
         public ActionResult Borrow(LibraryViewModel libraryViewModel)
         {
-            if (CheckValidation())
+
+            GetValidationData();
+            var borrowDto = new
             {
+                libraryId = libraryViewModel.Borrow.LibraryId,
+                bookId = libraryViewModel.Borrow.BookId,
+                BorrowType = libraryViewModel.Borrow.BorrowType,
+                borrowDate = libraryViewModel.Borrow.BorrowDate,
+                returnDate = libraryViewModel.Borrow.ReturnDate,
+                destinationAddress = libraryViewModel.Borrow.DestinationAddress,
+            };
 
+            var result = request.PostJsonAsync<string>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
 
-            }
-
-            return RedirectToAction("Index");
+            return RedirectToAction($"GetById/{libraryViewModel.Borrow.BookId}");
         }
 
-        public bool CheckValidation()
+        public UserData GetValidationData()
         {
             if (HttpContext.Request.Cookies["access_token"] != null && HttpContext.Request.Cookies["token_type"] != null)
             {
 
-                UserData userData = request.GetAsync<UserData>("/api/Validation/GetValidationData", GetHeader()).Result;
+                UserData userData = request.GetAsync<UserData>("/api/Validation/GetValidationData", GetHeaderWithToken()).Result;
                 if (userData.Id != 0 && userData.Role != null)
                 {
                     ViewBag.Id = userData.Id;
                     ViewBag.Role = userData.Role;
                     ViewBag.isLoggedIn = true;
-                    return true;
+
+                    return userData;
                 }
                 else
                 {
                     Logout();
-                    return false;
+                    return null;
                 }
             }
             else
             {
                 ViewBag.isLoggedIn = false;
-                return false;
+                Logout();
+                return null;
             }
         }
 
-        public Dictionary<string, string> GetHeader()
+        public Dictionary<string, string> GetHeaderWithToken()
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers.Add("Content-Type", "application/json");
             headers.Add("Authorization", $"{HttpContext.Request.Cookies["token_type"].Value} {HttpContext.Request.Cookies["access_token"].Value}");
             return headers;
+        }
+
+        public ActionResult AddBook(LibraryViewModel libraryViewModel)
+        {
+            ViewBag.isBookAdded = null;
+            if(libraryViewModel.Book != null && libraryViewModel.Book.ISBN10!=null)
+            {
+                bool result = request.PostJsonAsync<bool>("api/Book/AddByISBN".SetQueryParams(new {ISBN= libraryViewModel.Book.ISBN10 }),null,GetHeaderWithToken()).Result;
+                ViewBag.isBookAdded = result;
+            }
+            return View();
+        }
+
+        public ActionResult NearestLibraries(object location=null)
+        {
+
+            return View();
+        }
+
+        public ActionResult Deneme()
+        {
+            return View();
         }
     }
 }

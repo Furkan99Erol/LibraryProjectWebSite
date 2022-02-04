@@ -21,10 +21,14 @@ namespace LibraryProjectWebSite.Request
             return _client.WithHeaders(headers).Request(path).GetJsonAsync<TResult>();
         }
 
-        public Task<TResult> PostAsync<TResult>(string path, object postData,Dictionary<string,string> headers=null)
+        public Task<TResult> PostJsonAsync<TResult>(string path, object postData,object headers=null)
+        {
+            return _client.WithHeaders(headers).Request(path).PostJsonAsync(postData).ReceiveJson<TResult>();
+        }
+
+        public Task<TResult> PostUrlEncodedAsync<TResult>(string path, object postData, object headers = null)
         {
             return _client.WithHeaders(headers).Request(path).PostUrlEncodedAsync(postData).ReceiveJson<TResult>();
         }
-
     }
 }

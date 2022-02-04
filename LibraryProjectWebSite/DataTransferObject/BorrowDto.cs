@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryProjectWebSite.Models
+namespace LibraryProjectWebSite.DataTransferObject
 {
     public class BorrowDto
     {
@@ -21,6 +21,7 @@ namespace LibraryProjectWebSite.Models
         public DateTime? ReturnDate { get; set; }
 
         public string BorrowType { get; set; }
+
         public string DestinationAddress { get; set; }
 
         public int Status { get; set; }

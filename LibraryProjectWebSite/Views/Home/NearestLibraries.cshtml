@@ -1,4 +1,4 @@
-﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+﻿
 @{
     Layout = null;
 }
@@ -8,12 +8,15 @@
       dir="ltr">
 
 <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="~/public/css/style.css" />
+    <script src="~/public/js/index.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible"
           content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Book Details</title>
+    <title>Nearest Libraries</title>
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots"
@@ -54,7 +57,7 @@
 
 </head>
 
-<body class="layout-compact layout-compact">
+<body class="layout-compact sub-layout">
 
     <div class="preloader">
         <div class="sk-chase">
@@ -81,25 +84,22 @@
         <div class="mdk-drawer-layout__content page-content">
 
             <!-- Header -->
-            <!-- Navbar -->
 
-            <div class="navbar navbar-expand pr-0 navbar-light border-bottom-2"
+            <div class="navbar navbar-expand navbar-light border-bottom-2"
                  id="default-navbar"
                  data-primary>
 
-                <!-- Navbar Toggler -->
-
+                <!-- Navbar toggler -->
                 <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0"
                         type="button"
                         data-toggle="sidebar">
                     <span class="material-icons">short_text</span>
                 </button>
 
-                <!-- // END Navbar Toggler -->
                 <!-- Navbar Brand -->
-
-                <a href="https://localhost:44361/Home/Index"
+                <a href="index.html"
                    class="navbar-brand mr-16pt d-lg-none">
+                    <!-- <img class="navbar-brand-icon" src="~/~/public/images/logo/white-100@2x.png" width="30" alt="Luma"> -->
 
                     <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
 
@@ -113,344 +113,80 @@
 
                 </a>
 
-                <!-- // END Navbar Brand -->
-                <!-- Navbar Search -->
-                <!-- // END Navbar Menu -->
+                <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+                    <li class="nav-item active">
+                        <a href="index.html"
+                           class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           data-caret="false">Corporate</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           data-caret="false">Libraries</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="faq.html"
+                           class="nav-link">FAQ</a>
+                    </li>
+
+                </ul>
 
             </div>
 
-            <!-- // END Navbar -->
             <!-- // END Header -->
-
-            <div class="pt-32pt">
-                <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                    <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
-
-                        <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                            <h2 class="mb-0">Book Details</h2>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
             <!-- BEFORE Page Content -->
             <!-- // END BEFORE Page Content -->
             <!-- Page Content -->
 
-            <div class="container page__container">
-                <div style="padding-top: 3rem;" class="page-section">
+            <div data-push
+                 data-responsive-width="992px"
+                 data-has-scrolling-region
+                 data-fullbleed
+                 class="mdk-drawer-layout js-mdk-drawer-layout">
+                <div class="mdk-drawer-layout__content"
+                     data-perfect-scrollbar>
 
-                    <div class="row mb-lg-8pt">
-                        <div class="col-lg-8">
+                    <div class="page-section">
+                        <div class="container page__container">
+
 
                             <div class="page-separator">
-                                <div class="page-separator__text">Overview</div>
+                                <div class="page-separator__text">Nearest Libraries</div>
                             </div>
+                            <div id="map"></div>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                            <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsjjJ4vFAfRgBNUxx0_Zf2pnnS8sYM-jc&callback=initMap&v=weekly"
+                                    async></script>
+                            <div style="padding-top: 20px;font-size: 16px;line-height: 30px">
 
-                                    <div class="card ">
-                                        <div class="card-header pb-0 border-0 d-flex">
-                                            <div class="flex">
-                                                <div class="h2 mb-0">@Model.Book.Name</div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body col-md-12">
-                                            <div style="text-align: center" class="col-md-12 col-lg-12 col-sm-12">
-                                                <img style="width: 175px" src="https://covers.openlibrary.org/b/isbn/@Model.Book.ISBN10-M.jpg" alt="">
-                                            </div>
-                                            <div style="margin-top: 40px" class="col-md-12 col-lg-12 col-sm-12">
-                                                <strong>
-                                                    @Model.Book.Description
-                                                </strong>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                <strong>
+                                    <ol>
+                                        <a href="">
+                                        <li>Dudullu Library (1 KM Away // Nato Road. Number:26/2 Dudullu)</li></a>
+                                        <a href="">
+                                        <li>Sancaktepe Library (2.4 KM Away // Baraj Road. Number:34/8 Sancaktepe)</li></a>
+                                        <a href="">
+                                        <li>Çekmeköy Library (2.9 KM Away // Sümer Road. Number:55/4 Çekmeköy)</li></a>
+                                    </ol>
+                                </strong>
                             </div>
-
-
                         </div>
-                        <div class="col-lg-4">
-
-                            <div class="page-separator">
-                                <div class="page-separator__text">About</div>
-                            </div>
-
-                            <div class="card">
-
-
-                                <div class="card-body">
-                                    <div class="col-md-6">
-                                        <strong>Writer:</strong>
-                                        @foreach (var author in Model.Book.Authors)
-                                        {
-                                            <p>@author.Name</p>
-                                        }
-                                        <strong>Category:</strong>
-                                        @if (Model.Book.Categories.Any() == false)
-                                        {
-                                            <p>Unknown</p>
-                                        }
-                                        @foreach (var category in Model.Book.Categories)
-                                        {
-                                            <p>@category.Name</p>
-                                        }
-                                        <strong>Language</strong>
-                                        <p>@(Model.Book.Language!=null ? $"{Model.Book.Language}" : "Unknown")</p>
-                                        <strong>Publisher</strong>
-                                        <p>@Model.Book.Publisher</p>
-                                        <strong>Revision</strong>
-                                        <p>@Model.Book.Revision</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <strong>Latest Revision</strong>
-                                        <p>@Model.Book.LatestRevision</p>
-                                        <strong>ISBN10</strong>
-                                        <p>@Model.Book.ISBN10</p>
-                                        <strong>ISBN13</strong>
-                                        <p>@Model.Book.ISBN13</p>
-                                        <strong>Page Number</strong>
-                                        <p>@Model.Book.NumberOfPages</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div>
-
-
-                        @if (ViewBag.doesHaveLibrary != false && ViewBag.Role == "user" && ViewBag.doesHaveAlready != true)
-                        {
-                            <label style="font-size: 19px" for="library">Choose A Library To Borrow:</label>
-                            using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
-                            {
-                                <div style="font-size: 19px; display: flex; margin-left: -5px; margin-right: -5px;">
-                                    <input type="hidden" name="libraryViewModel.Borrow.BookId" value="@Model.Book.Id" />
-
-                                    <div style="flex: 50%; padding: 5px;">
-
-
-                                        <table style="width:100%">
-                                            <tr>
-                                                <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.BorrowDate"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Return Date")</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.ReturnDate"></td>
-                                            </tr>
-                                            <tr>
-                                                <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select class="form-control" name="libraryViewModel.Borrow.LibraryId">
-                                                        @foreach (var library in Model.Book.Libraries)
-                                                        {
-                                                            <option value=@library.Id>@library.Name</option>
-                                                        }
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div style="flex: 50%; padding: 5px;margin-left:30px;">
-                                        <table style="width:100%">
-                                            <tr>
-                                                <td>  @Html.Label("Select borrow type")</td>
-                                            </tr>
-                                            <tr>
-                                                <td onclick="show()">
-                                                    <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
-                                                    @Html.Label("Cargo")
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="comeandrecieve">
-                                                    @Html.Label("Come And Recieve")
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "display:none;", id = "hold" })</td>
-
-                                                <td><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <br />
-                                <input style="float:right;font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px;" type="submit" value="Borrow">
-                            }
-                        }
-                        else if (ViewBag.Role == "user" && ViewBag.doesHaveAlready == true)
-                        {
-                            <table>
-                                <tr>
-                                    <th>Library Name</th>
-                                    <th>Borrow Date</th>
-                                    <th>Return Date</th>
-                                </tr>
-                                <tr>
-                                    <td>@Model.Library.Name</td>
-                                    <td>@Model.Borrow.BorrowDate.ToString("MM/dd/yyyy")</td>
-                                    @if (Model.Borrow.ReturnDate != null)
-                                    {
-                                        <td>@Model.Borrow.ReturnDate.Value.ToString("MM/dd/yyyy")</td>
-                                    }
-                                </tr>
-
-                            </table>
-                        }
-                        <br />
-
-                    </div>
-                    <div class="page-separator">
-                        <div class="page-separator__text">Comments</div>
-                    </div>
-
-                    <div class="card mb-0">
-
-                        <div class="table-responsive"
-                             data-toggle="lists"
-                             data-lists-sort-by="js-lists-values-date"
-                             data-lists-sort-desc="true"
-                             data-lists-values='["js-lists-values-name", "js-lists-values-company", "js-lists-values-phone", "js-lists-values-date"]'>
-
-                            <table class="table mb-0 thead-border-top-0 table-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <a href="javascript:void(0)"
-                                               class="sort"
-                                               data-sort="js-lists-values-name">Name</a>
-                                        </th>
-                                        <th style="width: 48px;">
-                                            <a href="javascript:void(0)"
-                                               class="sort"
-                                               data-sort="js-lists-values-phone">Comments</a>
-                                        </th>
-                                        <th style="width: 24px;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="list"
-                                       id="contacts">
-                                    <tr>
-                                        <td>
-                                            <div class="media flex-nowrap align-items-center"
-                                                 style="white-space: nowrap;">
-                                                <div class="avatar avatar-sm mr-8pt">
-
-                                                    <span class="avatar-title rounded-circle">BN</span>
-
-                                                </div>
-                                                <div class="media-body">
-
-                                                    <div class="d-flex flex-column">
-                                                        <p class="mb-0"><strong class="js-lists-values-name">Billy Nunez</strong></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="media flex-nowrap align-items-center"
-                                                 style="white-space: nowrap;">
-                                                <div class="avatar avatar-sm mr-8pt">
-
-                                                    <span class="avatar-title rounded-circle">TP</span>
-                                                </div>
-                                                <div class="media-body">
-
-                                                    <div class="d-flex flex-column">
-                                                        <p class="mb-0"><strong class="js-lists-values-name">Tony Parks</strong></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                                        </td>
-                                    </tr>
-                                    <tr class="selected">
-                                        <td>
-                                            <div class="media flex-nowrap align-items-center"
-                                                 style="white-space: nowrap;">
-                                                <div class="avatar avatar-sm mr-8pt">
-                                                    <span class="avatar-title rounded-circle">GB</span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="d-flex flex-column">
-                                                        <p class="mb-0"><strong class="js-lists-values-name">Gilbert Barrett</strong></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="selected">
-                                        <td>
-                                            <div class="media flex-nowrap align-items-center"
-                                                 style="white-space: nowrap;">
-                                                <div class="avatar avatar-sm mr-8pt">
-                                                    <span class="avatar-title rounded-circle">OW</span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="d-flex flex-column">
-                                                        <p class="mb-0"><strong class="js-lists-values-name">Ollie Wallace</strong></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="page-separator">
-                        <div class="page-separator__text">Add New Comments</div>
-                    </div>
-                    <div>
-                        <textarea style="width: 915px;height: 115px;border-radius: 5px" name="message" rows="10" cols="30">This book is amazing!!!</textarea>
-                        <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
                     </div>
 
                 </div>
-            </div>
-            <div class="bg-white border-top-2 mt-auto">
-                <div class="container page__container page-section d-flex flex-column">
-                    <p class="text-70 brand mb-24pt">
-                        E-Library
-                    </p>
-                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
-                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
-                </div>
+
+
+
             </div>
 
-            <!-- // END Footer -->
+            <!-- // END Page Content -->
 
         </div>
 
@@ -465,15 +201,19 @@
                 <div class="sidebar sidebar-mini sidebar-dark-pickled-bluewood sidebar-left d-flex flex-column">
 
                     <!-- Brand -->
-                    <a class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
+                    <a href="index.html"
+                       class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
 
                         <span class="avatar avatar-sm ">
+
                             <span class="avatar-title">
                                 <img src="~/public/images/images.png"
                                      class="img-fluid"
                                      alt="logo" />
                             </span>
+
                         </span>
+
                     </a>
 
                     <div class="flex d-flex flex-column justify-content-start"
@@ -600,44 +340,44 @@
                                             </a>
                                         </li>
                                         <!-- <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="documents.html">
-                                        <span class="sidebar-menu-text">Documents</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="documents.html">
+                                            <span class="sidebar-menu-text">Documents</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="attendance.html">
-                                        <span class="sidebar-menu-text">Attendance</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="attendance.html">
+                                            <span class="sidebar-menu-text">Attendance</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="recruitment.html">
-                                        <span class="sidebar-menu-text">Recruitment</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="recruitment.html">
+                                            <span class="sidebar-menu-text">Recruitment</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="payroll.html">
-                                        <span class="sidebar-menu-text">Payroll</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="payroll.html">
+                                            <span class="sidebar-menu-text">Payroll</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="training.html">
-                                        <span class="sidebar-menu-text">Training</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="training.html">
+                                            <span class="sidebar-menu-text">Training</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="employee-profile.html">
-                                        <span class="sidebar-menu-text">Employee Profile</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="employee-profile.html">
+                                            <span class="sidebar-menu-text">Employee Profile</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="accounting.html">
-                                        <span class="sidebar-menu-text">Accounting</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="accounting.html">
+                                            <span class="sidebar-menu-text">Accounting</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="inventory.html">
-                                        <span class="sidebar-menu-text">Inventory</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="inventory.html">
+                                            <span class="sidebar-menu-text">Inventory</span>
+                                          </a>
                                         </li> -->
                                     </ul>
                                 </li>
@@ -754,14 +494,14 @@
                                             </a>
                                         </li>
                                         <!-- <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="task-details.html">
-                                        <span class="sidebar-menu-text">Task Details</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="task-details.html">
+                                            <span class="sidebar-menu-text">Task Details</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="team-members.html">
-                                        <span class="sidebar-menu-text">Team Members</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="team-members.html">
+                                            <span class="sidebar-menu-text">Team Members</span>
+                                          </a>
                                         </li> -->
                                     </ul>
                                 </li>
@@ -822,7 +562,7 @@
 
                                 <li class="sidebar-menu-item active">
                                     <a class="sidebar-menu-button"
-                                       href="https://localhost:44361/Home/Index">
+                                       href="index.html">
                                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
                                         <span class="sidebar-menu-text">Home</span>
                                     </a>
@@ -1056,34 +796,34 @@
                                             </a>
                                         </li>
                                         <!-- <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-typography.html">
-                                        <span class="sidebar-menu-text">Typography</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-typography.html">
+                                            <span class="sidebar-menu-text">Typography</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-colors.html">
-                                        <span class="sidebar-menu-text">Colors</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-colors.html">
+                                            <span class="sidebar-menu-text">Colors</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-breadcrumb.html">
-                                        <span class="sidebar-menu-text">Breadcrumb</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-breadcrumb.html">
+                                            <span class="sidebar-menu-text">Breadcrumb</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-accordions.html">
-                                        <span class="sidebar-menu-text">Accordions</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-accordions.html">
+                                            <span class="sidebar-menu-text">Accordions</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-modals.html">
-                                        <span class="sidebar-menu-text">Modals</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-modals.html">
+                                            <span class="sidebar-menu-text">Modals</span>
+                                          </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button disabled" href="ui-chips.html">
-                                        <span class="sidebar-menu-text">Chips</span>
-                                        </a>
+                                          <a class="sidebar-menu-button disabled" href="ui-chips.html">
+                                            <span class="sidebar-menu-text">Chips</span>
+                                          </a>
                                         </li> -->
                                         <li class="sidebar-menu-item">
                                             <a class="sidebar-menu-button disabled"
@@ -1197,43 +937,43 @@
                             <ul class="sidebar-menu">
                                 <li class="sidebar-menu-item active">
                                     <a class="sidebar-menu-button"
-                                       href="../Compact_App_Layout/index.html">
+                                       href="~/Compact_App_Layout/index.html">
                                         <span class="sidebar-menu-text">Compact</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../Mini_App_Layout/index.html">
+                                       href="~/Mini_App_Layout/index.html">
                                         <span class="sidebar-menu-text">Mini</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../Mini_Secondary_Layout/index.html">
+                                       href="~/Mini_Secondary_Layout/index.html">
                                         <span class="sidebar-menu-text">Mini + Secondary</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../App_Layout/index.html">
+                                       href="~/App_Layout/index.html">
                                         <span class="sidebar-menu-text">App</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../Boxed_App_Layout/index.html">
+                                       href="~/Boxed_App_Layout/index.html">
                                         <span class="sidebar-menu-text">Boxed</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../Sticky_App_Layout/index.html">
+                                       href="~/Sticky_App_Layout/index.html">
                                         <span class="sidebar-menu-text">Sticky</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="../Fixed_Layout/index.html">
+                                       href="~/Fixed_Layout/index.html">
                                         <span class="sidebar-menu-text">Fixed</span>
                                     </a>
                                 </li>
@@ -1247,15 +987,9 @@
         <!-- // END drawer -->
 
     </div>
-
+    
     <!-- // END Drawer Layout -->
     <!-- jQuery -->
-    <script>
-        function show() {
-            document.getElementById("hold").style.display = "block";
-            document.getElementById("hold1").style.display = "block";
-        }
-    </script>
     <script src="~/public/vendor/jquery.min.js"></script>
 
     <!-- Bootstrap -->
@@ -1276,32 +1010,6 @@
 
     <!-- Preloader -->
     <script src="~/public/js/preloader.js"></script>
-
-    <!-- Global Settings -->
-    <script src="~/public/js/settings.js"></script>
-
-    <!-- Moment.js -->
-    <script src="~/public/vendor/moment.min.js"></script>
-    <script src="~/public/vendor/moment-range.js"></script>
-
-    <!-- Flatpickr -->
-    <script src="~/public/vendor/flatpickr/flatpickr.min.js"></script>
-    <script src="~/public/js/flatpickr.js"></script>
-
-    <!-- Chart.js -->
-    <script src="~/public/vendor/Chart.min.js"></script>
-    <script src="~/public/js/chartjs.js"></script>
-
-    <!-- Chart.js Samples -->
-    <script src="~/public/js/page.crm-dashboard.js"></script>
-
-    <!-- List.js -->
-    <script src="~/public/vendor/list.min.js"></script>
-    <script src="~/public/js/list.js"></script>
-
-    <!-- Tables -->
-    <script src="~/public/js/toggle-check-all.js"></script>
-    <script src="~/public/js/check-selected-row.js"></script>
 
     <!-- Sidebar Mini JS -->
     <script src="~/public/js/sidebar-mini.js"></script>
