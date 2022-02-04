@@ -397,13 +397,13 @@
 
                                                     @if (book.Libraries.Count == 0)
                                                     {
-                                                        <p>
+                                                        <p  style="padding-top: 60px; color: black;">
                                                             This book is not available
                                                         </p>
                                                     }
                                                     else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
                                                     {
-                                                        <p>
+                                                        <p style="padding-top: 85px; color: black;">
                                                             Book is out of stock
                                                         </p>
                                                     }
@@ -417,10 +417,10 @@
                                                         <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br/>
                                                     }
                                                     <br />
-                                                    <p style="font-weight:800;">@book.Name</p>
+                                                    <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;">@book.Name</p>
                                                     @foreach (var author in book.Authors)
                                                     {
-                                                        <p>@author.Name</p>
+                                                        <p style="margin-bottom:0px;font-weight:500;">@author.Name</p>
                                                     }
                                                 </div>
                                             </div>
