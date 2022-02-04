@@ -227,8 +227,8 @@
                             using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
                             {
                                 <div style="font-size: 19px ;width: 200px" class="form-group">
-                                    @*<input type="hidden" name="BorrowId" value="@Model.Book.Id"/>
-                                    @Html.HiddenFor(m =>m.Borrow.BookId,Model.Book.Id)*@
+                                   <input type="hidden" name="libraryViewModel.Borrow.BookId" value="@Model.Book.Id"/>
+                                    
                                     <table style="width:100%">
                                         <tr>
                                             <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
