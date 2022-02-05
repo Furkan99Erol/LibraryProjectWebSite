@@ -208,127 +208,91 @@ else if (ViewBag.Role == "officer")
             <br />
 
         </div>
-        <div class="page-separator">
-            <div class="page-separator__text">Comments</div>
-        </div>
-
-        <div class="card mb-0">
-
-            <div class="table-responsive"
-                 data-toggle="lists"
-                 data-lists-sort-by="js-lists-values-date"
-                 data-lists-sort-desc="true"
-                 data-lists-values='["js-lists-values-name", "js-lists-values-company", "js-lists-values-phone", "js-lists-values-date"]'>
-
-                <table class="table mb-0 thead-border-top-0 table-nowrap">
-                    <thead>
-                        <tr>
-                            <th>
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-name">Name</a>
-                            </th>
-                            <th style="width: 48px;">
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-phone">Comments</a>
-                            </th>
-                            <th style="width: 24px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="list"
-                           id="contacts">
-                        <tr>
-                            <td>
-                                <div class="media flex-nowrap align-items-center"
-                                     style="white-space: nowrap;">
-                                    <div class="avatar avatar-sm mr-8pt">
-
-                                        <span class="avatar-title rounded-circle">BN</span>
-
-                                    </div>
-                                    <div class="media-body">
-
-                                        <div class="d-flex flex-column">
-                                            <p class="mb-0"><strong class="js-lists-values-name">Billy Nunez</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media flex-nowrap align-items-center"
-                                     style="white-space: nowrap;">
-                                    <div class="avatar avatar-sm mr-8pt">
-
-                                        <span class="avatar-title rounded-circle">TP</span>
-                                    </div>
-                                    <div class="media-body">
-
-                                        <div class="d-flex flex-column">
-                                            <p class="mb-0"><strong class="js-lists-values-name">Tony Parks</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                            </td>
-                        </tr>
-                        <tr class="selected">
-                            <td>
-                                <div class="media flex-nowrap align-items-center"
-                                     style="white-space: nowrap;">
-                                    <div class="avatar avatar-sm mr-8pt">
-                                        <span class="avatar-title rounded-circle">GB</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex flex-column">
-                                            <p class="mb-0"><strong class="js-lists-values-name">Gilbert Barrett</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                            </td>
-                        </tr>
-
-                        <tr class="selected">
-                            <td>
-                                <div class="media flex-nowrap align-items-center"
-                                     style="white-space: nowrap;">
-                                    <div class="avatar avatar-sm mr-8pt">
-                                        <span class="avatar-title rounded-circle">OW</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex flex-column">
-                                            <p class="mb-0"><strong class="js-lists-values-name">Ollie Wallace</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <small class="js-lists-values-phone text-50">This book is amazing!!!</small>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        @if (Model.Comments.Any())
+        {
+            <div class="page-separator">
+                <div class="page-separator__text">Comments</div>
             </div>
-        </div>
+
+            <div class="card mb-0">
+
+                <div class="table-responsive"
+                     data-toggle="lists"
+                     data-lists-sort-by="js-lists-values-date"
+                     data-lists-sort-desc="true"
+                     data-lists-values='["js-lists-values-name", "js-lists-values-company", "js-lists-values-phone", "js-lists-values-date"]'>
+
+                    <table class="table mb-0 thead-border-top-0 table-nowrap">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a data-sort="js-lists-values-name">Name</a>
+                                </th>
+                                <th style="width: 48px;">
+                                    <a data-sort="js-lists-values-phone">Comments</a>
+                                </th>
+                                <th style="width: 3px;"></th>
+                                <th style="width:10%">
+                                    Date
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="list"
+                               id="contacts">
+                            @foreach (var comment in Model.Comments)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="media flex-nowrap align-items-center"
+                                             style="white-space: nowrap;">
+                                            <div class="avatar avatar-sm mr-8pt">
+
+                                                <span class="avatar-title rounded-circle">@comment.User.Name.First()@comment.User.Surname.First()</span>
+
+                                            </div>
+                                            <div class="media-body">
+
+                                                <div class="d-flex flex-column">
+                                                    <p class="mb-0"><strong class="js-lists-values-name">@comment.User.Name @comment.User.Surname</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <small class="js-lists-values-phone text-50">@comment.CommentString</small>
+                                    </td>
+                                    <th style="width: 3px;"></th>
+                                    <td>
+                                        <small class="js-lists-values-phone text-50">@comment.Date.ToString("dd/MM/yyyy")</small>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        }
+
         <br>
         <div class="page-separator">
             <div class="page-separator__text">Add New Comments</div>
         </div>
-        <div>
-            <textarea style="width: 915px;height: 115px;border-radius: 5px" name="message" rows="10" cols="30">This book is amazing!!!</textarea>
-            <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
-        </div>
+        @if (ViewBag.isLoggedIn == true && ViewBag.Role == "user")
+        {
+            <div>
+                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
+                    <textarea style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
+                    <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
+                }
+            </div>
+        }
 
     </div>
 </div>

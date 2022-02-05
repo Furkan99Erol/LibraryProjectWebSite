@@ -17,24 +17,36 @@ namespace LibraryProjectWebSite.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            GetValidationData();
-            List<BookDto> booksDto = request.GetAsync<List<BookDto>>("/api/Book/Get").Result;
-            LibraryViewModel libraryViewModel = new LibraryViewModel() { Books = booksDto };
+            UserData userData = GetValidationData();
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (userData != null && userData.Role == "officer")
+            {
+                List<CommentDto> commentsDto = request.GetAsync<List<CommentDto>>("api/Officer/PendingApprovalComment", GetHeaderWithToken()).Result;
+                List<BorrowDto> borrowsDto = request.GetAsync<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
+                libraryViewModel.Comments = commentsDto;
+                libraryViewModel.Borrows = borrowsDto;
+            }
+            else
+            {
+                List<BookDto> booksDto = request.GetAsync<List<BookDto>>("/api/Book/Get").Result;
+                libraryViewModel.Books = booksDto;
+            }
             return View(libraryViewModel);
         }
 
         public ActionResult GetById(int id)
         {
             UserData userData = GetValidationData();
-            if (userData.Role == "officer")
+            if (userData != null && userData.Role == "officer")
             {
                 return RedirectToAction("Index");
             }
             try
             {
                 BookDto book = request.GetAsync<BookDto>($"/api/Book/Get/{id}").Result;
-                var y = request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
+                request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
                 LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.Comments = request.GetAsync<List<CommentDto>>("/api/Comment/GetAllByBookId".SetQueryParams(new { id = id }), null).Result;
                 libraryViewModel.Book = book;
                 if (userData != null)
                 {
@@ -303,7 +315,7 @@ namespace LibraryProjectWebSite.Controllers
                 }
                 catch (Exception ex)
                 {
-                    
+
                 }
             }
             return RedirectToAction("UserLogin");
@@ -352,6 +364,22 @@ namespace LibraryProjectWebSite.Controllers
             }
             return RedirectToAction("OfficerLogin");
         }
+
+        [HttpPost]
+        public ActionResult AddComment(LibraryViewModel libraryViewModel)
+        {
+            UserData userData = GetValidationData();
+            object postData = new
+            {
+                UserId = userData.Id,
+                Date = DateTime.Now,
+                BookId = libraryViewModel.Comment.BookId,
+                Comment1 = libraryViewModel.Comment.CommentString
+            };
+            request.PostJsonAsync<bool>("api/Comment/Add", postData, GetHeaderWithToken());
+            return RedirectToAction($"GetById/{libraryViewModel.Comment.BookId}");
+        }
+
 
     }
 }
