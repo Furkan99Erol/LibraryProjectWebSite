@@ -21,19 +21,40 @@ namespace LibraryProjectWebSite.Controllers
             LibraryViewModel libraryViewModel = new LibraryViewModel();
             if (userData != null && userData.Role == "officer")
             {
-                List<CommentDto> commentsDto = request.GetAsync<List<CommentDto>>("api/Officer/PendingApprovalComment", GetHeaderWithToken()).Result;
-                List<BorrowDto> borrowsDto = request.GetAsync<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
-                libraryViewModel.Comments = commentsDto;
+
+                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
                 libraryViewModel.Borrows = borrowsDto;
             }
             else
             {
-                List<BookDto> booksDto = request.GetAsync<List<BookDto>>("/api/Book/Get").Result;
+                List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
                 libraryViewModel.Books = booksDto;
             }
             return View(libraryViewModel);
         }
 
+        public ActionResult _UnapprovedComment()
+        {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            List<CommentDto> commentsDto = request.Get<List<CommentDto>>("api/Officer/PendingApprovalComment", GetHeaderWithToken()).Result;
+            libraryViewModel.Comments = commentsDto;
+
+            return PartialView(libraryViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CommentConfirmation(int id, bool status)
+        {
+            if (status == true)
+            {
+                request.PostJson<bool>("/api/Officer/CommentConfirmation".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
+            }
+            else if (status == false)
+            {
+                request.PostJson<bool>("/api/Officer/CommentDisapprovement".SetQueryParams(new { commentId = id }),null, GetHeaderWithToken());
+            }
+            return Json("");
+        }
         public ActionResult GetById(int id)
         {
             UserData userData = GetValidationData();
@@ -43,18 +64,18 @@ namespace LibraryProjectWebSite.Controllers
             }
             try
             {
-                BookDto book = request.GetAsync<BookDto>($"/api/Book/Get/{id}").Result;
-                request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
+                BookDto book = request.Get<BookDto>($"/api/Book/Get/{id}").Result;
+                request.PostJson<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
                 LibraryViewModel libraryViewModel = new LibraryViewModel();
-                libraryViewModel.Comments = request.GetAsync<List<CommentDto>>("/api/Comment/GetAllByBookId".SetQueryParams(new { id = id }), null).Result;
+                libraryViewModel.Comments = request.Get<List<CommentDto>>("/api/Comment/GetAllByBookId".SetQueryParams(new { id = id }), null).Result;
                 libraryViewModel.Book = book;
                 if (userData != null)
                 {
-                    bool doesHaveAlready = request.PostJsonAsync<bool>($"/api/Borrow/DoesHaveAlready".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken()).Result;
+                    bool doesHaveAlready = request.PostJson<bool>($"/api/Borrow/DoesHaveAlready".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken()).Result;
                     if (doesHaveAlready)
                     {
                         ViewBag.doesHaveAlready = doesHaveAlready;
-                        List<BorrowDto> borrows = request.GetAsync<List<BorrowDto>>("/api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
+                        List<BorrowDto> borrows = request.Get<List<BorrowDto>>("/api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
                         BorrowDto borrowDto = borrows.FirstOrDefault(x => x.Status == 0 || x.Status == 1 && x.BookId == id);
                         libraryViewModel.Borrow = new BorrowDto();
 
@@ -90,6 +111,7 @@ namespace LibraryProjectWebSite.Controllers
         }
 
 
+
         [HttpGet]
         public ActionResult UserLogin()
         {
@@ -118,7 +140,7 @@ namespace LibraryProjectWebSite.Controllers
             };
             try
             {
-                var token = request.PostUrlEncodedAsync<Token>("/token", userData).Result;
+                var token = request.PostUrlEncoded<Token>("/token", userData).Result;
                 HttpCookie token_type = new HttpCookie("token_type", token.token_type);
                 HttpCookie access_token = new HttpCookie("access_token", token.access_token);
                 token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
@@ -164,7 +186,7 @@ namespace LibraryProjectWebSite.Controllers
             };
             try
             {
-                var token = request.PostUrlEncodedAsync<Token>("/token", userData).Result;
+                var token = request.PostUrlEncoded<Token>("/token", userData).Result;
                 HttpCookie token_type = new HttpCookie("token_type", token.token_type);
                 HttpCookie access_token = new HttpCookie("access_token", token.access_token);
                 token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
@@ -207,7 +229,7 @@ namespace LibraryProjectWebSite.Controllers
                 destinationAddress = libraryViewModel.Borrow.DestinationAddress,
             };
 
-            var result = request.PostJsonAsync<string>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
+            var result = request.PostJson<string>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
 
             return RedirectToAction($"GetById/{libraryViewModel.Borrow.BookId}");
         }
@@ -217,7 +239,7 @@ namespace LibraryProjectWebSite.Controllers
             if (HttpContext.Request.Cookies["access_token"] != null && HttpContext.Request.Cookies["token_type"] != null)
             {
 
-                UserData userData = request.GetAsync<UserData>("/api/Validation/GetValidationData", GetHeaderWithToken()).Result;
+                UserData userData = request.Get<UserData>("/api/Validation/GetValidationData", GetHeaderWithToken()).Result;
                 if (userData.Id != 0 && userData.Role != null)
                 {
                     ViewBag.Id = userData.Id;
@@ -255,7 +277,7 @@ namespace LibraryProjectWebSite.Controllers
             ViewBag.isBookAdded = null;
             if (libraryViewModel.Book != null && libraryViewModel.Book.ISBN10 != null)
             {
-                bool result = request.PostJsonAsync<bool>("api/Book/AddByISBN".SetQueryParams(new { ISBN = libraryViewModel.Book.ISBN10 }), null, GetHeaderWithToken()).Result;
+                bool result = request.PostJson<bool>("api/Book/AddByISBN".SetQueryParams(new { ISBN = libraryViewModel.Book.ISBN10 }), null, GetHeaderWithToken()).Result;
                 ViewBag.isBookAdded = result;
             }
             return View();
@@ -275,7 +297,7 @@ namespace LibraryProjectWebSite.Controllers
                 location = currentLocation,
                 sortingString = "duration"
             };
-            List<LibraryDto> librariesDto = request.GetAsync<List<LibraryDto>>("/api/Library/GetByLocation".SetQueryParams(new { location = currentLocation, sortingString = sortingString })).Result;
+            List<LibraryDto> librariesDto = request.Get<List<LibraryDto>>("/api/Library/GetByLocation".SetQueryParams(new { location = currentLocation, sortingString = sortingString })).Result;
             LibraryViewModel libraryViewModel = new LibraryViewModel() { Libraries = librariesDto };
             return PartialView(libraryViewModel);
         }
@@ -294,8 +316,8 @@ namespace LibraryProjectWebSite.Controllers
         [HttpPost]
         public ActionResult UserRegister(LibraryViewModel libraryViewModel)
         {
-            var anyEmail = request.PostJsonAsync<bool>("/api/User/EmailCheck".SetQueryParams(new { email = libraryViewModel.User.Email }), null).Result;
-            var anyNickname = request.PostJsonAsync<bool>("/api/User/NicknameCheck".SetQueryParams(new { nickname = libraryViewModel.User.Nickname }), null).Result;
+            var anyEmail = request.PostJson<bool>("/api/User/EmailCheck".SetQueryParams(new { email = libraryViewModel.User.Email }), null).Result;
+            var anyNickname = request.PostJson<bool>("/api/User/NicknameCheck".SetQueryParams(new { nickname = libraryViewModel.User.Nickname }), null).Result;
             if (!anyEmail && !anyNickname)
             {
                 object adminData = new
@@ -306,12 +328,12 @@ namespace LibraryProjectWebSite.Controllers
                 };
                 try
                 {
-                    var token = request.PostUrlEncodedAsync<Token>("/token", adminData).Result;
+                    var token = request.PostUrlEncoded<Token>("/token", adminData).Result;
                     var headers = new Dictionary<string, string> {
                         {"Content-Type", "application/json" },
                         { "Authorization", $"{token.token_type} {token.access_token}"}
                     };
-                    bool response = request.PostJsonAsync<bool>("/api/User/Add", libraryViewModel.User, headers).Result;
+                    bool response = request.PostJson<bool>("/api/User/Add", libraryViewModel.User, headers).Result;
                 }
                 catch (Exception ex)
                 {
@@ -330,16 +352,16 @@ namespace LibraryProjectWebSite.Controllers
                 return RedirectToAction("Index");
             }
             LibraryViewModel libraryViewModel = new LibraryViewModel();
-            libraryViewModel.Libraries = request.GetAsync<List<LibraryDto>>("/api/Library/Get").Result;
+            libraryViewModel.Libraries = request.Get<List<LibraryDto>>("/api/Library/Get").Result;
             return View(libraryViewModel);
         }
 
         [HttpPost]
         public ActionResult OfficerRegister(LibraryViewModel libraryViewModel)
         {
-            var anyEmail = request.PostJsonAsync<bool>("/api/Officer/EmailCheck".SetQueryParams(new { email = libraryViewModel.Officer.Email }), null).Result;
-            var anyIdentityNumber = request.PostJsonAsync<bool>("/api/Officer/IdentityNumberCheck".SetQueryParams(new { identityNumber = libraryViewModel.Officer.IdentityNumber }), null).Result;
-            var anyPhoneNumber = request.PostJsonAsync<bool>("/api/Officer/PhoneNumberCheck".SetQueryParams(new { phoneNumber = libraryViewModel.Officer.PhoneNumber }), null).Result;
+            var anyEmail = request.PostJson<bool>("/api/Officer/EmailCheck".SetQueryParams(new { email = libraryViewModel.Officer.Email }), null).Result;
+            var anyIdentityNumber = request.PostJson<bool>("/api/Officer/IdentityNumberCheck".SetQueryParams(new { identityNumber = libraryViewModel.Officer.IdentityNumber }), null).Result;
+            var anyPhoneNumber = request.PostJson<bool>("/api/Officer/PhoneNumberCheck".SetQueryParams(new { phoneNumber = libraryViewModel.Officer.PhoneNumber }), null).Result;
             if (!anyEmail && !anyIdentityNumber && !anyPhoneNumber)
             {
                 object adminData = new
@@ -350,12 +372,12 @@ namespace LibraryProjectWebSite.Controllers
                 };
                 try
                 {
-                    var token = request.PostUrlEncodedAsync<Token>("/token", adminData).Result;
+                    var token = request.PostUrlEncoded<Token>("/token", adminData).Result;
                     var headers = new Dictionary<string, string> {
                         {"Content-Type", "application/json" },
                         { "Authorization", $"{token.token_type} {token.access_token}"}
                     };
-                    bool response = request.PostJsonAsync<bool>("/api/Officer/Add", libraryViewModel.Officer, headers).Result;
+                    bool response = request.PostJson<bool>("/api/Officer/Add", libraryViewModel.Officer, headers).Result;
                 }
                 catch (Exception ex)
                 {
@@ -376,7 +398,7 @@ namespace LibraryProjectWebSite.Controllers
                 BookId = libraryViewModel.Comment.BookId,
                 Comment1 = libraryViewModel.Comment.CommentString
             };
-            request.PostJsonAsync<bool>("api/Comment/Add", postData, GetHeaderWithToken());
+            request.PostJson<bool>("api/Comment/Add", postData, GetHeaderWithToken());
             return RedirectToAction($"GetById/{libraryViewModel.Comment.BookId}");
         }
 
