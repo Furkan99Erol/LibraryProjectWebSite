@@ -1,0 +1,12 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+<strong>
+    <ol>
+
+        @foreach (var library in Model.Libraries)
+        {
+            <a>
+            <li>@library.Name (@library.Distance @library.Duration // @library.Address)</li>
+            </a>
+        }
+    </ol>
+</strong>

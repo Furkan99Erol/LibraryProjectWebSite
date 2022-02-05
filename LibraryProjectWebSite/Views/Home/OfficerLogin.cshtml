@@ -1,238 +1,51 @@
 ﻿@model LibraryProjectWebSite.DataTransferObject.OfficerDto
-@{
-    Layout = null;
+@if (ViewBag.Role == "user" || ViewBag.isLoggedIn == false)
+{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+}
+else if (ViewBag.Role == "officer")
+{
+    Layout = "~/Views/Shared/_LayoutOfficer.cshtml";
+
 }
 
-<!DOCTYPE html>
-<html lang="en"
-      dir="ltr">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+@if (ViewBag.showWrongUserDataPopUp == true)
+{
+    <script type="text/javascript">
 
-    <!-- Prevent the demo from appearing in search engines -->
-    <meta name="robots"
-          content="noindex">
+        window.onload = function () {
+            alert("Email or Password is wrong");
+        };
+    </script>
+}
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
-          rel="stylesheet">
+<div style="padding-top: 8rem!important;padding-bottom: 8rem!important;" class="pt-32pt pt-sm-64pt pb-32pt">
+    <div class="container page__container">
 
-    <!-- Preloader -->
-    <link type="text/css"
-          href="~/public/vendor/spinkit.css"
-          rel="stylesheet">
+        @using (Html.BeginForm("OfficerLogin", "Home", FormMethod.Post))
+        {
+            <div style="margin-left:275px;" class="form-group">
 
-    <!-- Perfect Scrollbar -->
-    <link type="text/css"
-          href="~/public/vendor/perfect-scrollbar.css"
-          rel="stylesheet">
+                <label class="form-label"
+                       for="email">Email:</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
 
-    <!-- Material Design Icons -->
-    <link type="text/css"
-          href="~/public/css/material-icons.css"
-          rel="stylesheet">
+                <label class="form-label"
+                       for="password">Password:</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
+                <p>
+                    <a href="reset-password.html"
+                       style="line-height:2.5;">Forgot your password?</a>
+                </p>
 
-    <!-- Font Awesome Icons -->
-    <link type="text/css"
-          href="~/public/css/fontawesome.css"
-          rel="stylesheet">
-
-    <!-- Preloader -->
-    <link type="text/css"
-          href="~/public/css/preloader.css"
-          rel="stylesheet">
-
-    <!-- App CSS -->
-    <link type="text/css"
-          href="~/public/css/app.css"
-          rel="stylesheet">
-
-</head>
-
-<body class="layout-compact layout-compact">
-    @if (ViewBag.showWrongUserDataPopUp == true)
-    {
-        <script type="text/javascript">
-
-            window.onload = function () {
-                alert("Email or Password is wrong");
-            };
-        </script>
-    }
-    <div class="preloader">
-        <div class="sk-chase">
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
+            </div>
+            <input style="margin-left:360px;width:21%" class="btn btn-primary" type="submit" value="Login">
+        }
+        <div class="text-center">
+            <h3 style="margin-top: 20px">Are You An User?</h3>
+            <button class="btn btn-primary"><a style="color: white" href="https://localhost:44361/Home/UserLogin">User Login</a></button>
         </div>
-
-        <!-- <div class="sk-bounce">
-          <div class="sk-bounce-dot"></div>
-          <div class="sk-bounce-dot"></div>
-        </div> -->
-        <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
     </div>
-
-    <!-- Drawer Layout -->
-
-    <div class="mdk-drawer-layout js-mdk-drawer-layout"
-         data-push
-         data-responsive-width="992px">
-        <div class="mdk-drawer-layout__content page-content">
-
-            <!-- Header -->
-
-            <div class="navbar navbar-expand navbar-light border-bottom-2"
-                 id="default-navbar"
-                 data-primary>
-
-                <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0"
-                        type="button"
-                        data-toggle="sidebar">
-                    <span class="material-icons">short_text</span>
-                </button>
-
-                <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
-                    <li class="nav-item active">
-                        <a href="Index"
-                           class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#"
-                           class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           data-caret="false">About Us</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#"
-                           class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           data-caret="false">FAQ</a>
-                    </li>
-
-                </ul>
-
-
-                <ul class="nav navbar-nav ml-auto mr-0">
-                    <li class="nav-item">
-                        <a href="login.html"
-                           class="nav-link"
-                           data-toggle="tooltip"
-                           data-title="Login"
-                           data-placement="bottom"
-                           data-boundary="window"><i class="material-icons">lock_open</i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="signup.html"
-                           class="btn btn-outline-dark">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- // END Header -->
-            <!-- BEFORE Page Content -->
-            <!-- // END BEFORE Page Content -->
-            <!-- Page Content -->
-
-            <div style="padding-top: 8rem!important;padding-bottom: 8rem!important;" class="pt-32pt pt-sm-64pt pb-32pt">
-                <div class="container page__container">
-
-                    @using (Html.BeginForm("OfficerLogin", "Home", FormMethod.Post))
-                    {
-                        <div style="margin-left:275px;" class="form-group">
-
-                            <label class="form-label"
-                                   for="email">Email:</label>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
-
-                            <label class="form-label"
-                                   for="password">Password:</label>
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
-                            <p>
-                                <a href="reset-password.html"
-                                  style="line-height:2.5;">Forgot your password?</a>
-                            </p>
-
-                        </div>
-                        <input style="margin-left:360px;width:21%" class="btn btn-primary" type="submit" value="Login">
-                    }
-                    <div class="text-center">
-                        <h3 style="margin-top: 20px">Are You An User?</h3>
-                        <button class="btn btn-primary"><a style="color: white" href="https://localhost:44361/Home/UserLogin">User Login</a></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- // END Page Content -->
-            <!-- Footer -->
-
-            <div class="bg-white border-top-2 mt-auto">
-                <div class="container page__container page-section d-flex flex-column">
-                    <p class="text-70 brand mb-24pt">
-                        E-Library
-                    </p>
-                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
-                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
-                </div>
-            </div>
-
-            <!-- // END Footer -->
-
-        </div>
-
-        <!-- // END drawer-layout__content -->
-        <!-- drawer -->
-        <!-- // END drawer -->
-
-    </div>
-
-    <!-- // END Drawer Layout -->
-    <!-- jQuery -->
-    <script src="~/public/vendor/jquery.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="~/public/vendor/popper.min.js"></script>
-    <script src="~/public/vendor/bootstrap.min.js"></script>
-
-    <!-- Perfect Scrollbar -->
-    <script src="~/public/vendor/perfect-scrollbar.min.js"></script>
-
-    <!-- DOM Factory -->
-    <script src="~/public/vendor/dom-factory.js"></script>
-
-    <!-- MDK -->
-    <script src="~/public/vendor/material-design-kit.js"></script>
-
-    <!-- App JS -->
-    <script src="~/public/js/app.js"></script>
-
-    <!-- Preloader -->
-    <script src="~/public/js/preloader.js"></script>
-
-    <!-- Sidebar Mini JS -->
-    <script src="~/public/js/sidebar-mini.js"></script>
-    <script>
-    (function () {
-            'use strict';
-            // ENABLE sidebar menu tabs
-            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
-            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
-                $('.js-sidebar-mini-tabs > .active').removeClass('active')
-                $(e.target).parent().addClass('active')
-            })
-        })()</script>
-
-</body>
-
-</html>
+</div>

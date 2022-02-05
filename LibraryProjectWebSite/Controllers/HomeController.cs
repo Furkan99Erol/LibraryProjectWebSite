@@ -25,13 +25,17 @@ namespace LibraryProjectWebSite.Controllers
 
         public ActionResult GetById(int id)
         {
+            UserData userData = GetValidationData();
+            if (userData.Role == "officer")
+            {
+                return RedirectToAction("Index");
+            }
             try
             {
                 BookDto book = request.GetAsync<BookDto>($"/api/Book/Get/{id}").Result;
-                var y = request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new {bookId=id}), null, GetHeaderWithToken());
+                var y = request.PostJsonAsync<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
                 LibraryViewModel libraryViewModel = new LibraryViewModel();
                 libraryViewModel.Book = book;
-                UserData userData = GetValidationData();
                 if (userData != null)
                 {
                     bool doesHaveAlready = request.PostJsonAsync<bool>($"/api/Borrow/DoesHaveAlready".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken()).Result;
@@ -77,6 +81,11 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult UserLogin()
         {
+            UserData userData = GetValidationData();
+            if (userData != null)
+            {
+                return RedirectToAction("Index");
+            }
             UserDto userDto = new LibraryViewModel().User;
             if (showWrongUserDataPopUp == true)
             {
@@ -118,6 +127,11 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult OfficerLogin()
         {
+            UserData userData = GetValidationData();
+            if (userData != null)
+            {
+                return RedirectToAction("Index");
+            }
             OfficerDto officerDto = new LibraryViewModel().Officer;
             if (showWrongUserDataPopUp == true)
             {
@@ -170,7 +184,6 @@ namespace LibraryProjectWebSite.Controllers
         [HttpPost]
         public ActionResult Borrow(LibraryViewModel libraryViewModel)
         {
-
             GetValidationData();
             var borrowDto = new
             {
@@ -204,6 +217,7 @@ namespace LibraryProjectWebSite.Controllers
                 else
                 {
                     Logout();
+                    ViewBag.isLoggedIn = false;
                     return null;
                 }
             }
@@ -225,24 +239,119 @@ namespace LibraryProjectWebSite.Controllers
 
         public ActionResult AddBook(LibraryViewModel libraryViewModel)
         {
+            GetValidationData();
             ViewBag.isBookAdded = null;
-            if(libraryViewModel.Book != null && libraryViewModel.Book.ISBN10!=null)
+            if (libraryViewModel.Book != null && libraryViewModel.Book.ISBN10 != null)
             {
-                bool result = request.PostJsonAsync<bool>("api/Book/AddByISBN".SetQueryParams(new {ISBN= libraryViewModel.Book.ISBN10 }),null,GetHeaderWithToken()).Result;
+                bool result = request.PostJsonAsync<bool>("api/Book/AddByISBN".SetQueryParams(new { ISBN = libraryViewModel.Book.ISBN10 }), null, GetHeaderWithToken()).Result;
                 ViewBag.isBookAdded = result;
             }
             return View();
         }
 
-        public ActionResult NearestLibraries(object location=null)
+        public ActionResult NearestLibraries()
         {
-
+            GetValidationData();
             return View();
         }
 
-        public ActionResult Deneme()
+        public ActionResult _NearestLibraries(string currentLocation, string sortingString = null)
         {
+
+            object body = new
+            {
+                location = currentLocation,
+                sortingString = "duration"
+            };
+            List<LibraryDto> librariesDto = request.GetAsync<List<LibraryDto>>("/api/Library/GetByLocation".SetQueryParams(new { location = currentLocation, sortingString = sortingString })).Result;
+            LibraryViewModel libraryViewModel = new LibraryViewModel() { Libraries = librariesDto };
+            return PartialView(libraryViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult UserRegister()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
+
+        [HttpPost]
+        public ActionResult UserRegister(LibraryViewModel libraryViewModel)
+        {
+            var anyEmail = request.PostJsonAsync<bool>("/api/User/EmailCheck".SetQueryParams(new { email = libraryViewModel.User.Email }), null).Result;
+            var anyNickname = request.PostJsonAsync<bool>("/api/User/NicknameCheck".SetQueryParams(new { nickname = libraryViewModel.User.Nickname }), null).Result;
+            if (!anyEmail && !anyNickname)
+            {
+                object adminData = new
+                {
+                    grant_type = "password",
+                    username = "furkanerol@outlook.com" + "|admin",
+                    password = "deneme"
+                };
+                try
+                {
+                    var token = request.PostUrlEncodedAsync<Token>("/token", adminData).Result;
+                    var headers = new Dictionary<string, string> {
+                        {"Content-Type", "application/json" },
+                        { "Authorization", $"{token.token_type} {token.access_token}"}
+                    };
+                    bool response = request.PostJsonAsync<bool>("/api/User/Add", libraryViewModel.User, headers).Result;
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+            }
+            return RedirectToAction("UserLogin");
+        }
+
+        [HttpGet]
+        public ActionResult OfficerRegister()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null)
+            {
+                return RedirectToAction("Index");
+            }
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            libraryViewModel.Libraries = request.GetAsync<List<LibraryDto>>("/api/Library/Get").Result;
+            return View(libraryViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult OfficerRegister(LibraryViewModel libraryViewModel)
+        {
+            var anyEmail = request.PostJsonAsync<bool>("/api/Officer/EmailCheck".SetQueryParams(new { email = libraryViewModel.Officer.Email }), null).Result;
+            var anyIdentityNumber = request.PostJsonAsync<bool>("/api/Officer/IdentityNumberCheck".SetQueryParams(new { identityNumber = libraryViewModel.Officer.IdentityNumber }), null).Result;
+            var anyPhoneNumber = request.PostJsonAsync<bool>("/api/Officer/PhoneNumberCheck".SetQueryParams(new { phoneNumber = libraryViewModel.Officer.PhoneNumber }), null).Result;
+            if (!anyEmail && !anyIdentityNumber && !anyPhoneNumber)
+            {
+                object adminData = new
+                {
+                    grant_type = "password",
+                    username = "furkanerol@outlook.com" + "|admin",
+                    password = "deneme"
+                };
+                try
+                {
+                    var token = request.PostUrlEncodedAsync<Token>("/token", adminData).Result;
+                    var headers = new Dictionary<string, string> {
+                        {"Content-Type", "application/json" },
+                        { "Authorization", $"{token.token_type} {token.access_token}"}
+                    };
+                    bool response = request.PostJsonAsync<bool>("/api/Officer/Add", libraryViewModel.Officer, headers).Result;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return RedirectToAction("OfficerLogin");
+        }
+
     }
 }

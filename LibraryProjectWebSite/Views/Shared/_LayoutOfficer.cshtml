@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en"
+      dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Course</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots"
+          content="noindex">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/vendor/spinkit.css"
+          rel="stylesheet">
+
+    <!-- Perfect Scrollbar -->
+    <link type="text/css"
+          href="~/public/vendor/perfect-scrollbar.css"
+          rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css"
+          href="~/public/css/material-icons.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link type="text/css"
+          href="~/public/css/fontawesome.css"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/public/css/preloader.css"
+          rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css"
+          href="~/public/css/app.css"
+          rel="stylesheet">
+
+    <!-- Quill Theme -->
+    <link type="text/css"
+          href="~/public/css/quill.css"
+          rel="stylesheet">
+    <!-- Select2 -->
+    <link type="text/css"
+          href="~/public/vendor/select2/select2.min.css"
+          rel="stylesheet">
+    <link type="text/css"
+          href="~/public/css/select2.css"
+          rel="stylesheet">
+    @RenderSection("styles", required: false)
+</head>
+
+<body class="layout-compact layout-compact">
+
+    <div class="preloader">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+
+        <!-- <div class="sk-bounce">
+          <div class="sk-bounce-dot"></div>
+          <div class="sk-bounce-dot"></div>
+        </div> -->
+        <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
+    </div>
+
+    <!-- Drawer Layout -->
+    <div class="mdk-drawer-layout js-mdk-drawer-layout"
+         data-push
+         data-responsive-width="992px">
+        <div class="mdk-drawer-layout__content page-content">
+            <div class="navbar navbar-expand navbar-light border-bottom-2"
+                 id="default-navbar"
+                 data-primary>
+
+                <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0"
+                        type="button"
+                        data-toggle="sidebar">
+                    <span class="material-icons">short_text</span>
+                </button>
+
+                <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+                    <li class="nav-item active">
+                        <a href="https://localhost:44361/Home/Index"
+                           class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html"
+                           class="nav-link">FAQ</a>
+                    </li>
+
+                </ul>
+
+                @if (ViewBag.isLoggedIn != true)
+                {
+                    <ul class="nav navbar-nav ml-auto mr-0">
+                        <li class="nav-item">
+                            <a href="https://localhost:44361/Home/UserLogin"
+                               class="nav-link"
+                               data-toggle="tooltip"
+                               data-title="Login"
+                               data-placement="bottom"
+                               data-boundary="window"><i class="material-icons">lock_open</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://localhost:44361/Home/UserRegister"
+                               class="btn btn-outline-dark">Sign Up</a>
+                        </li>
+                    </ul>
+                }
+            </div>
+            @RenderBody()
+            <div class="bg-white border -top-2 mt-auto">
+                <div style="padding-top: 2rem!important;" class="container page__container page-section d-flex flex-column">
+                    <p class="text-70 brand mb-24pt">
+                        E-Library
+                    </p>
+                    <p class="measure-lead-max text-50 small mr-8pt">E-library project is based on a borrow system so it is free to use,through this system, you can rent a book from anywhere you want or reserve it for yourself.</p>
+                    <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div class="mdk-drawer js-mdk-drawer layout-compact__drawer"
+             id="default-drawer">
+            <div class="mdk-drawer__content js-sidebar-mini"
+                 data-responsive-width="992px"
+                 data-layout="compact">
+
+                <div class="sidebar sidebar-mini sidebar-dark-pickled-bluewood sidebar-left d-flex flex-column">
+
+                    <!-- Brand -->
+                    
+
+                    <div class="flex d-flex flex-column justify-content-start"
+                         data-perfect-scrollbar>
+                        <ul class="nav flex-shrink-0 flex-nowrap flex-column sidebar-menu mb-0 sm-item-bordered js-sidebar-mini-tabs"
+                            role="tablist">
+                            <li class="sidebar-menu-item active"
+                                data-title="Instructor"
+                                data-placement="right"
+                                data-container="body"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_instructor"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_instructor"
+                                   aria-selected="false">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">format_shapes</i>
+                                    <span class="sidebar-menu-text">Officer</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item "
+                                data-title="Account"
+                                data-placement="right"
+                                data-container="body"
+                                data-boundary="window">
+                                <a class="sidebar-menu-button"
+                                   href="#sm_account"
+                                   data-toggle="tab"
+                                   role="tab"
+                                   aria-controls="sm_account">
+                                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
+                                    <span class="sidebar-menu-text">Account</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <div class="sidebar sidebar-light sidebar-left flex sidebar-secondary pt-16pt"
+                     data-perfect-scrollbar>
+
+                    <div class="tab-content">
+
+                        <div class="tab-pane  fade active show "
+                             id="sm_instructor">
+                            <div class="sidebar-heading">Officer</div>
+                            <ul class="sidebar-menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index-for-officer.php">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                                        <span class="sidebar-menu-text">Officer Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="manage-books.php">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">import_contacts</span>
+                                        <span class="sidebar-menu-text">Manage Books</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="add-books.php">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                                        <span class="sidebar-menu-text">Add Books</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="add-books-via-isbn.php">
+                                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">trending_up</span>
+                                        <span class="sidebar-menu-text">Add Books Via ISBN</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane "
+                             id="sm_account">
+                            <div class="sidebar-heading">Account</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="o-edit-account.php">
+                                        <span class="sidebar-menu-text">Edit Account</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="lend-history.php">
+                                        <span class="sidebar-menu-text">Lend History</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="https://localhost:44361/Home/Logout">
+                                        <span class="sidebar-menu-text">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- // END drawer-layout__content -->
+        <!-- drawer -->
+        <!-- // END drawer -->
+
+
+    </div>
+
+    <!-- // END Drawer Layout -->
+    <!-- jQuery -->
+    <script src="~/public/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/public/vendor/popper.min.js"></script>
+    <script src="~/public/vendor/bootstrap.min.js"></script>
+
+    <!-- Perfect Scrollbar -->
+    <script src="~/public/vendor/perfect-scrollbar.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="~/public/vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="~/public/vendor/material-design-kit.js"></script>
+
+    <!-- App JS -->
+    <script src="~/public/js/app.js"></script>
+
+    <!-- Preloader -->
+    <script src="~/public/js/preloader.js"></script>
+
+    <!-- Quill -->
+    <script src="~/public/vendor/quill.min.js"></script>
+    <script src="~/public/js/quill.js"></script>
+    <!-- Select2 -->
+    <script src="~/public/vendor/select2/select2.min.js"></script>
+    <script src="~/public/js/select2.js"></script>
+
+    <!-- Sidebar Mini JS -->
+    <script src="~/public/js/sidebar-mini.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            // ENABLE sidebar menu tabs
+            $('.js-sidebar-mini-tabs [data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('.js-sidebar-mini-tabs').on('show.bs.tab', function (e) {
+                $('.js-sidebar-mini-tabs > .active').removeClass('active')
+                $(e.target).parent().addClass('active')
+            })
+        })()
+    </script>
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>

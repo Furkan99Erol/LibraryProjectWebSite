@@ -687,14 +687,17 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\GetById.cshtml" />
     <Content Include="Views\Home\UserLogin.cshtml" />
     <Content Include="Views\Home\OfficerLogin.cshtml" />
     <Content Include="Views\Home\AddBook.cshtml" />
     <Content Include="Views\Home\NearestLibraries.cshtml" />
-    <Content Include="Views\Home\Deneme.cshtml" />
+    <Content Include="Views\Home\_NearestLibraries.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Shared\_LayoutOfficer.cshtml" />
+    <Content Include="Views\Home\UserRegister.cshtml" />
+    <Content Include="Views\Home\OfficerRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
