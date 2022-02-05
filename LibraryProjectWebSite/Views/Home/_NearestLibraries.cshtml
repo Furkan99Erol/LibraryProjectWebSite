@@ -12,11 +12,21 @@
         {
             <tr>
                 <td>@library.Name</td>
-                <td>@library.Distance</td>
-                <td>@library.Duration</td>
+                <td>@library.Distance meters</td>
+                <td>
+                    @{
+                        TimeSpan t = TimeSpan.FromSeconds(library.Duration);
+
+                        string duration = string.Format("{0:D1} hours {1:D2} minutes {2:D2} seconds",
+                                        t.Hours,
+                                        t.Minutes,
+                                        t.Seconds,
+                                        t.Milliseconds);
+                    } @duration
+                </td>
                 <td>@library.Address</td>
             </tr>
         }
     </table>
- 
+
 </strong>
