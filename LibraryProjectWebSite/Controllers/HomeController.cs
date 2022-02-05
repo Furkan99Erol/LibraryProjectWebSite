@@ -229,7 +229,7 @@ namespace LibraryProjectWebSite.Controllers
                 destinationAddress = libraryViewModel.Borrow.DestinationAddress,
             };
 
-            var result = request.PostJson<string>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
+            request.PostJson<bool>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken());
 
             return RedirectToAction($"GetById/{libraryViewModel.Borrow.BookId}");
         }
