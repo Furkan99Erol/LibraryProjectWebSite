@@ -6,7 +6,7 @@
 <div style="padding-top: 8rem;" class="page-section container page__container">
     <div class="col-lg-10 p-0 mx-auto">
         <div class="row">
-            <div class="col-md-6 mb-24pt mb-md-0">
+            <div style="margin-left:205px" class="col-md-6 mb-24pt mb-md-0">
                 @using (Html.BeginForm("OfficerRegister", "Home", FormMethod.Post))
                 {
                     <div class="form-group">
@@ -15,6 +15,7 @@
                         <input id="name"
                                name="libraryViewModel.Officer.Name"
                                type="text"
+                               required
                                class="form-control"
                                placeholder="Your first name ...">
                     </div>
@@ -24,6 +25,7 @@
                         <input id="surname"
                                name="libraryViewModel.Officer.Surname"
                                type="text"
+                               required
                                class="form-control"
                                placeholder="Your last name ...">
                     </div>
@@ -31,7 +33,7 @@
                     <div class="form-group">
                         <label class="form-label" for="library">Your Library:</label>
                         <br>
-                        <select style="height: 30px;width: 370px;" id="library" name="libraryViewModel.Officer.LibraryId">
+                        <select style="height: 30px;width: 370px;" id="library" name="libraryViewModel.Officer.LibraryId" required>
                             <option style="color: #9b9d9c" value="Please select">Your Library that you are currently working in ...</option>
                             @foreach (var library in Model.Libraries)
                             {
@@ -49,6 +51,7 @@
                         <input id="email"
                                name="libraryViewModel.Officer.Email"
                                type="email"
+                               required
                                class="form-control"
                                placeholder="Your email address ...">
                     </div>
@@ -58,40 +61,46 @@
                         <input id="password"
                                name="libraryViewModel.Officer.Password"
                                type="password"
+                               required
                                class="form-control"
                                placeholder="Your password ...">
                     </div>
                     <div class="col-md-6 mb-24pt mb-md-0">
 
-                        <div class="form-group">
+                        <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
                                    for="name">Identity Number:</label>
-                            <input id="name"
+                            <input style="width:216%;" id="name"
                                    name="libraryViewModel.Officer.IdentityNumber"
                                    type="text"
+                                   required
+                                   maxlength="11"
                                    class="form-control"
                                    placeholder="Your identity number ...">
                         </div>
-                        <div class="form-group">
+                        <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
                                    for="name">Date of birth:</label>
-                            <input type="date"
+                            <input style="width:216%;" type="date"
+                                   required
                                    id="dateofbirth"
                                    name="libraryViewModel.Officer.DateOfBirth"
                                    value=@DateTime.Today.ToString("dd/MM/yyyy")>
                         </div>
-                        <div class="form-group">
+                        <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
                                    for="email">Phone Number:</label>
-                            <input id="email"
+                            <input style="width:216%;" id="email"
                                    name="libraryViewModel.Officer.PhoneNumber"
                                    type="number"
+                                   required
+                                   maxlength="10"
                                    class="form-control"
                                    placeholder="Your phone number ...">
                         </div>
 
                     </div>
-                    <button style="margin-left: 335px!important;" class="btn btn-primary">Create account</button>
+                    <button style="margin-left: 95px!important;" class="btn btn-primary">Create account</button>
                 }
 
             </div>

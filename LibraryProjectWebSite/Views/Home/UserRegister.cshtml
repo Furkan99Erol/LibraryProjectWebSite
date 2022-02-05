@@ -16,6 +16,7 @@
                         <input id="name"
                                name="libraryViewModel.User.Name"
                                type="text"
+                               required
                                class="form-control"
                                placeholder="Your first name ...">
                     </div>
@@ -25,6 +26,7 @@
                         <input id="surname"
                                name="libraryViewModel.User.Surname"
                                type="text"
+                               required
                                class="form-control"
                                placeholder="Your last name ...">
                     </div>
@@ -34,6 +36,7 @@
                         <input id="nickname"
                                name="libraryViewModel.User.Nickname"
                                type="text"
+                               required
                                class="form-control"
                                placeholder="Your Nick Name ...">
                     </div>
@@ -42,6 +45,7 @@
                                for="email">Your email:</label>
                         <input id="email"
                                type="email"
+                               required
                                name="libraryViewModel.User.Email"
                                class="form-control"
                                placeholder="Your email address ...">
@@ -52,6 +56,7 @@
                         <input id="password"
                                name="libraryViewModel.User.Password"
                                type="password"
+                               required
                                class="form-control"
                                placeholder="Your password ...">
                     </div>
@@ -61,6 +66,7 @@
                                for="dateofbirth">Date of birth:</label>
                         <input type="date" 
                                id="dateofbirth" 
+                               required
                                name="libraryViewModel.User.DateOfBirth"
                                value=@DateTime.Today.ToString("dd/MM/yyyy")
                                >
@@ -71,6 +77,7 @@
                         <input id="phonenumber"
                                name="libraryViewModel.User.PhoneNumber"
                                type="number"
+                               required
                                class="form-control"
                                placeholder="Your phone number ...">
                     </div>

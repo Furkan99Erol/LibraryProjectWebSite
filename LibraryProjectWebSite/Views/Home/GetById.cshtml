@@ -134,13 +134,13 @@ else if (ViewBag.Role == "officer")
                                     <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.BorrowDate"></td>
+                                    <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.BorrowDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(3).ToString("yyyy-MM-dd")"></td>
                                 </tr>
                                 <tr>
                                     <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Return Date")</td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.ReturnDate"></td>
+                                    <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.ReturnDate" min="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(17).ToString("yyyy-MM-dd")"></td>
                                 </tr>
                                 <tr>
                                     <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
@@ -175,7 +175,7 @@ else if (ViewBag.Role == "officer")
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "display:none;", id = "hold" })</td>
+                                    <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "display:none", id = "hold" })</td>
 
                                     <td><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
                                 </tr>
@@ -332,3 +332,8 @@ else if (ViewBag.Role == "officer")
 
     </div>
 </div>
+<script type="text/javascript">
+    function show() {
+        document.getElementById("hold").display = "block";
+    }
+</script>
