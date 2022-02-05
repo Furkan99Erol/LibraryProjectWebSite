@@ -60,12 +60,15 @@
             <div class="navbar navbar-expand navbar-light border-bottom-2"
                  id="default-navbar"
                  data-primary>
+                @if (ViewBag.isLoggedIn == true)
+                {
+                    <button class="navbar-toggler w-auto mr-16pt d-block rounded-0"
+                            type="button"
+                            data-toggle="sidebar">
+                        <span class="material-icons">short_text</span>
+                    </button>
+                }
 
-                <button class="navbar-toggler w-auto mr-16pt d-block rounded-0"
-                        type="button"
-                        data-toggle="sidebar">
-                    <span class="material-icons">short_text</span>
-                </button>
 
                 <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
                     <li class="nav-item active">
