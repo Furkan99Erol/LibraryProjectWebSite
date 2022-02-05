@@ -51,7 +51,7 @@ namespace LibraryProjectWebSite.Controllers
             }
             else if (status == false)
             {
-                request.PostJson<bool>("/api/Officer/CommentDisapprovement".SetQueryParams(new { commentId = id }),null, GetHeaderWithToken());
+                request.PostJson<bool>("/api/Officer/CommentDisapprovement".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
             }
             return Json("");
         }
@@ -78,14 +78,13 @@ namespace LibraryProjectWebSite.Controllers
                         List<BorrowDto> borrows = request.Get<List<BorrowDto>>("/api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
                         BorrowDto borrowDto = borrows.FirstOrDefault(x => x.Status == 0 || x.Status == 1 && x.BookId == id);
                         libraryViewModel.Borrow = new BorrowDto();
-
                         libraryViewModel.Borrow.ReturnDate = borrowDto.ReturnDate;
-
                         libraryViewModel.Borrow.BorrowDate = borrowDto.BorrowDate;
                         libraryViewModel.Library = new LibraryDto()
                         {
                             Name = borrowDto.Library.Name,
                         };
+
                     }
                 }
                 if (book.Libraries.Count != 0)
