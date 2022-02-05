@@ -207,6 +207,7 @@
     <Content Include="public\images\985px-Laravel.svg.png" />
     <Content Include="public\images\achievements\angular.png" />
     <Content Include="public\images\achievements\flinto.png" />
+    <Content Include="public\images\book.png" />
     <Content Include="public\images\harry.jpg" />
     <Content Include="public\images\icon\components.svg" />
     <Content Include="public\images\icon\footer\facebook-square%402x.png" />
