@@ -1,17 +1,22 @@
 ﻿@model LibraryProjectWebSite.Models.LibraryViewModel
 <strong>
-    <table>
+    <h4 style="padding-top:20px">Libraries That Close To You</h4>
+    <table class="table table-hover table-striped">
         <tr>
-            <td></td>
+            <th>Library Name</th>
+            <th>Distance</th>
+            <th>Duration</th>
+            <th>Address</th>
         </tr>
-    </table>
-    <ol>
-
         @foreach (var library in Model.Libraries)
         {
-            <a>
-            <li>@library.Name (@library.Distance @library.Duration // @library.Address)</li>
-            </a>
+            <tr>
+                <td>@library.Name</td>
+                <td>@library.Distance</td>
+                <td>@library.Duration</td>
+                <td>@library.Address</td>
+            </tr>
         }
-    </ol>
+    </table>
+ 
 </strong>
