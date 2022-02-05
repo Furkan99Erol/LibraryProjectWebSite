@@ -221,90 +221,34 @@ else if (ViewBag.Role == "officer")
                                 </tr>
                             </thead>
                             <tbody class="list">
-
-                                <tr>
-                                    <td>
-                                        <div class="d-flex flex-nowrap align-items-center">
-                                            <a href="edit-books.html"
-                                               class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                                <img src="../public/images/harry.jpg"
-                                                     alt="course"
-                                                     class="avatar-img rounded">
-                                                <span class="overlay__content"></span>
-                                            </a>
-                                            <div class="flex">
-                                                <a class="card-title js-lists-values-course"
-                                                   href="edit-books.html">Harry Potter and Cursed Child</a>
+                                @foreach (var borrow in Model.Borrows)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex flex-nowrap align-items-center">
+                                                <a href="edit-books.html"
+                                                   class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                                                    <img src="../public/images/harry.jpg"
+                                                         alt="course"
+                                                         class="avatar-img rounded">
+                                                    <span class="overlay__content"></span>
+                                                </a>
+                                                <div class="flex">
+                                                    <a class="card-title js-lists-values-course"
+                                                       href="edit-books.html">@borrow.Book.Name</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <small class="text-muted text-uppercase js-lists-values-date">11 Jan 2022</small>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-right">
+                                            <small class="text-muted text-uppercase js-lists-values-date">@borrow.User.Name</small>
+                                        </td>
+                                        <td class="text-right">
+                                            <small class="text-muted text-uppercase js-lists-values-date">@borrow.BorrowDate.ToString("dd/MM/yyyy")</small>
+                                        </td>
+                                    </tr>
+                                }
 
-                                <tr>
-                                    <td>
-                                        <div class="d-flex flex-nowrap align-items-center">
-                                            <a href="edit-books.html"
-                                               class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                                <img src="../public/images/harry.jpg"
-                                                     alt="course"
-                                                     class="avatar-img rounded">
-                                                <span class="overlay__content"></span>
-                                            </a>
-                                            <div class="flex">
-                                                <a class="card-title js-lists-values-course"
-                                                   href="edit-books.html">Muna</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <small class="text-muted text-uppercase js-lists-values-date">11 Jan 2022</small>
-                                    </td>
-                                </tr>
 
-                                <tr>
-                                    <td>
-                                        <div class="d-flex flex-nowrap align-items-center">
-                                            <a href="edit-books.html"
-                                               class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                                <img src="../public/images/harry.jpg"
-                                                     alt="course"
-                                                     class="avatar-img rounded">
-                                                <span class="overlay__content"></span>
-                                            </a>
-                                            <div class="flex">
-                                                <a class="card-title js-lists-values-course"
-                                                   href="edit-books.html">Purple Cow</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <small class="text-muted text-uppercase js-lists-values-date">11 Jan 2022</small>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="d-flex flex-nowrap align-items-center">
-                                            <a href="edit-books.html"
-                                               class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                                <img src="../public/images/harry.jpg"
-                                                     alt="course"
-                                                     class="avatar-img rounded">
-                                                <span class="overlay__content"></span>
-                                            </a>
-                                            <div class="flex">
-                                                <a class="card-title js-lists-values-course"
-                                                   href="edit-books.html">Crime and Punishment</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <small class="text-muted text-uppercase js-lists-values-date">10 Jan 2022</small>
-                                    </td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -318,67 +262,9 @@ else if (ViewBag.Role == "officer")
                     <div class="page-separator__text">Waiting Comments</div>
                 </div>
                 <div class="card">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="media-left mr-12pt">
-                                <a href="#"
-                                   class="avatar avatar-sm">
-                                    <span class="avatar-title rounded-circle">FU</span>
-                                </a>
-                            </div>
-                            <div class="media-body d-flex flex-column">
-                                <div class="d-flex align-items-center">
-                                    <a href="profile.html"
-                                       class="card-title">Furkan Uzun</a>
-                                    <small class="ml-auto text-muted">5 Hour ago</small><br>
-                                </div>
-                                <p class="mt-1 mb-0 text-70">The end was unexpected,suggest you guys!</p>
-                                <i style="line-height: 2" class="far fa-thumbs-up"></i>
-                                <i style="margin-left: 20px;    margin-top: -20px;" class="far fa-trash-alt"></i>
-                            </div>
+                    <div class="card-body unapprovedCommentWrapper">
 
-                        </div>
-                        <br>
-                        <div class="media">
-                            <div class="media-left mr-12pt">
-                                <a href="#"
-                                   class="avatar avatar-sm">
-                                    <span class="avatar-title rounded-circle">HT</span>
-                                </a>
-                            </div>
-                            <div class="media-body d-flex flex-column">
-                                <div class="d-flex align-items-center">
-                                    <a href="profile.html"
-                                       class="card-title">Halil Tekel</a>
-                                    <small class="ml-auto text-muted">6 Hours Ago</small><br>
-                                </div>
-                                <p class="mt-1 mb-0 text-70">THİS WAS SUCK.</p>
-                                <i style="line-height: 2" class="far fa-thumbs-up"></i>
-                                <i style="margin-left: 20px;    margin-top: -20px;" class="far fa-trash-alt"></i>
-                            </div>
 
-                        </div>
-                        <br>
-                        <div class="media">
-                            <div class="media-left mr-12pt">
-                                <a href="#"
-                                   class="avatar avatar-sm">
-                                    <!-- <img src="../../public/images/people/110/guy-9.jpg" alt="Guy" class="avatar-img rounded-circle"> -->
-                                    <span class="avatar-title rounded-circle">KK</span>
-                                </a>
-                            </div>
-                            <div class="media-body d-flex flex-column">
-                                <div class="d-flex align-items-center">
-                                    <a href="profile.html"
-                                       class="card-title">Kaan Kılıç</a>
-                                    <small class="ml-auto text-muted">1 Day Ago</small><br>
-                                </div>
-                                <p class="mt-1 mb-0 text-70">How can I find the second book?</p>
-                                <i style="line-height: 2" class="far fa-thumbs-up"></i>
-                                <i style="margin-left: 20px;    margin-top: -20px;" class="far fa-trash-alt"></i>
-                            </div>
-
-                        </div>
 
                     </div>
 
@@ -386,8 +272,44 @@ else if (ViewBag.Role == "officer")
             </div>
 
         </div>
-        
+
     </div>
 
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        var index = {
+            init: function () {
+                if ($('.unapprovedCommentWrapper').length > 0) {
+                    index.getUnapprovedComment();
+                }
+            },
+            getUnapprovedComment: function () {
+                $.post("/Home/_UnapprovedComment", function (res) {
+                    $('.unapprovedCommentWrapper').html(res);
+                });
+            },
+            approveComment: function (row) {
+                var item = $(row).data();
+                $.post("/Home/CommentConfirmation", { id: item.id, status: true }, function (res) {
+                    index.getUnapprovedComment();
+                });
+            },
+            removeComment: function (row) {
+                var item = $(row).data();
+                $.post("/Home/CommentConfirmation", { id: item.id, status: false }, function (res) {
+                    index.getUnapprovedComment();
+                });
+            }
+        }
+
+
+        $(document).ready(function () {
+            index.init();
+        });
+
+    </script>
 }
 
