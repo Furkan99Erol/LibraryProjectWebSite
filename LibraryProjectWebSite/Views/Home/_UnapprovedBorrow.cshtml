@@ -1,0 +1,36 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@foreach (var borrow in Model.Borrows)
+{
+    <tr>
+        <td>
+            <div class="d-flex flex-nowrap align-items-center">
+                <a href="edit-books.html"
+                   class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                    <img src="../public/images/harry.jpg"
+                         alt="course"
+                         class="avatar-img rounded">
+                    <span class="overlay__content"></span>
+                </a>
+                <div class="flex">
+                    <a class="card-title js-lists-values-course"
+                       href="edit-books.html">@borrow.Book.Name</a>
+                </div>
+            </div>
+        </td>
+        <td class="text-right">
+            <small class="text-muted text-uppercase js-lists-values-date">@borrow.User.Name @borrow.User.Surname</small>
+        </td>
+        <td class="text-right">
+            <small class="text-muted text-uppercase js-lists-values-date">@borrow.BorrowDate.ToString("dd/MM/yyyy")</small>
+        </td>
+        <td>
+            <a href="javascript:;" data-id="@borrow.BookId" onclick="index.approveBorrow(this)">
+                <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
+            </a>
+        </td>
+        <td>
+            <input type="hidden" id="userId" value="@borrow.User.Id" />
+            <input id="borrowString" type="text">
+        </td>
+    </tr>
+}

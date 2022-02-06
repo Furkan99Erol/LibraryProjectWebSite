@@ -17,20 +17,49 @@ namespace LibraryProjectWebSite.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            UserData userData = GetValidationData();
+            UserData userData = new UserData();
+            userData = GetValidationData();
             LibraryViewModel libraryViewModel = new LibraryViewModel();
-            if (userData != null && userData.Role == "officer")
-            {
-
-                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
-                libraryViewModel.Borrows = borrowsDto;
-            }
-            else
+            if (userData == null || userData.Role == "user")
             {
                 List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
                 libraryViewModel.Books = booksDto;
             }
+
             return View(libraryViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(string searchKey)
+        {
+            UserData userData = new UserData();
+            userData = GetValidationData();
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (searchKey == "")
+            {
+                List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
+                libraryViewModel.Books = booksDto;
+
+            }
+            else
+            {
+                List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get".SetQueryParams(new { searchKey = searchKey })).Result;
+                libraryViewModel.Books = booksDto;
+            }
+
+            return View(libraryViewModel);
+        }
+
+        public ActionResult _UnapprovedBorrow()
+        {
+            UserData userData = GetValidationData();
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (userData != null && userData.Role == "officer")
+            {
+                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
+                libraryViewModel.Borrows = borrowsDto;
+            }
+            return PartialView(libraryViewModel);
         }
 
         public ActionResult _UnapprovedComment()
@@ -40,6 +69,20 @@ namespace LibraryProjectWebSite.Controllers
             libraryViewModel.Comments = commentsDto;
 
             return PartialView(libraryViewModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult BorrowConfirmation(int id, string borrowString, int userId)
+        {
+            var postData = new
+            {
+                userId = userId,
+                bookId = id,
+                borrowString = borrowString
+            };
+            request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+            return Json("");
         }
 
         [HttpPost]
