@@ -707,6 +707,7 @@
     <Content Include="Views\Home\EditOfficerAccount.cshtml" />
     <Content Include="Views\Home\UserFavouriteBooks.cshtml" />
     <Content Include="Views\Home\UserResetPassword.cshtml" />
+    <Content Include="Views\Home\OfficerResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

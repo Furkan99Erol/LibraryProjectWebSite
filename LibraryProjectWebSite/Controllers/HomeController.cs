@@ -13,7 +13,6 @@ namespace LibraryProjectWebSite.Controllers
     public class HomeController : Controller
     {
         Request.Request request = new Request.Request();
-        public static bool showWrongUserDataPopUp;
         // GET: Home
         public ActionResult Index()
         {
@@ -99,6 +98,9 @@ namespace LibraryProjectWebSite.Controllers
         }
         public ActionResult GetById(int id)
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "officer")
             {
@@ -108,7 +110,6 @@ namespace LibraryProjectWebSite.Controllers
             {
                 BookDto book = request.Get<BookDto>($"/api/Book/Get/{id}").Result;
                 request.PostJson<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
-                LibraryViewModel libraryViewModel = new LibraryViewModel();
                 libraryViewModel.Comments = request.Get<List<CommentDto>>("/api/Comment/GetAllByBookId".SetQueryParams(new { id = id }), null).Result;
                 libraryViewModel.Book = book;
                 if (userData != null)
@@ -156,28 +157,26 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult UserLogin()
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData != null)
             {
                 return RedirectToAction("Index");
             }
-            UserDto userDto = new LibraryViewModel().User;
-            if (showWrongUserDataPopUp == true)
-            {
-                ViewBag.showWrongUserDataPopUp = true;
-                showWrongUserDataPopUp = false;
-            }
-            return View(userDto);
+
+            return View(libraryViewModel);
         }
 
         [HttpPost]
-        public ActionResult UserLogin(UserDto userDto)
+        public ActionResult UserLogin(LibraryViewModel _libraryViewModel)
         {
             object userData = new
             {
                 grant_type = "password",
-                username = userDto.Email + "|user",
-                password = userDto.Password
+                username = _libraryViewModel.User.Email + "|user",
+                password = _libraryViewModel.User.Password
             };
             try
             {
@@ -191,10 +190,11 @@ namespace LibraryProjectWebSite.Controllers
             }
             catch (Exception ex)
             {
-                showWrongUserDataPopUp = true;
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.alertMessage = "Username or password is invalid.";
+                TempData["model"] = libraryViewModel;
                 return RedirectToAction("UserLogin");
             }
-
 
             return RedirectToAction("Index");
         }
@@ -202,28 +202,26 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult OfficerLogin()
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData != null)
             {
                 return RedirectToAction("Index");
             }
-            OfficerDto officerDto = new LibraryViewModel().Officer;
-            if (showWrongUserDataPopUp == true)
-            {
-                ViewBag.showWrongUserDataPopUp = true;
-                showWrongUserDataPopUp = false;
-            }
-            return View(officerDto);
+
+            return View(libraryViewModel);
         }
 
         [HttpPost]
-        public ActionResult OfficerLogin(OfficerDto officerDto)
+        public ActionResult OfficerLogin(LibraryViewModel _libraryViewModel)
         {
             object userData = new
             {
                 grant_type = "password",
-                username = officerDto.Email + "|officer",
-                password = officerDto.Password
+                username = _libraryViewModel.Officer.Email + "|officer",
+                password = _libraryViewModel.Officer.Password
             };
             try
             {
@@ -237,7 +235,9 @@ namespace LibraryProjectWebSite.Controllers
             }
             catch (Exception ex)
             {
-                showWrongUserDataPopUp = true;
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.alertMessage = "Username or password is invalid.";
+                TempData["model"] = libraryViewModel;
                 return RedirectToAction("OfficerLogin");
             }
 
@@ -270,7 +270,16 @@ namespace LibraryProjectWebSite.Controllers
                 destinationAddress = libraryViewModel.Borrow.DestinationAddress,
             };
 
-            request.PostJson<bool>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken());
+            bool x = request.PostJson<bool>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
+            if (x == true)
+            {
+                libraryViewModel.alertMessage = "Borrow Completed";
+            }
+            else
+            {
+                libraryViewModel.alertMessage = "Borrow Uncompleted";
+            }
+            TempData["model"] = libraryViewModel;
 
             return RedirectToAction($"GetById/{libraryViewModel.Borrow.BookId}");
         }
@@ -351,12 +360,15 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult UserRegister()
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData != null)
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(libraryViewModel);
         }
 
         [HttpPost]
@@ -380,10 +392,20 @@ namespace LibraryProjectWebSite.Controllers
                         { "Authorization", $"{token.token_type} {token.access_token}"}
                     };
                     bool response = request.PostJson<bool>("/api/User/Add", libraryViewModel.User, headers).Result;
+                    LibraryViewModel _libraryViewModel = new LibraryViewModel();
+                    if (response)
+                    {
+                        _libraryViewModel.alertMessage = "Successfully Registered";
+                    }
+                    else
+                    {
+                        _libraryViewModel.alertMessage = "Something Went Wrong";
+                    }
+                    TempData["model"] = _libraryViewModel;
                 }
                 catch (Exception ex)
                 {
-
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("UserLogin");
@@ -392,12 +414,14 @@ namespace LibraryProjectWebSite.Controllers
         [HttpGet]
         public ActionResult OfficerRegister()
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData != null)
             {
                 return RedirectToAction("Index");
             }
-            LibraryViewModel libraryViewModel = new LibraryViewModel();
             libraryViewModel.Libraries = request.Get<List<LibraryDto>>("/api/Library/Get").Result;
             return View(libraryViewModel);
         }
@@ -424,10 +448,20 @@ namespace LibraryProjectWebSite.Controllers
                         { "Authorization", $"{token.token_type} {token.access_token}"}
                     };
                     bool response = request.PostJson<bool>("/api/Officer/Add", libraryViewModel.Officer, headers).Result;
+                    LibraryViewModel _libraryViewModel = new LibraryViewModel();
+                    if (response)
+                    {
+                        _libraryViewModel.alertMessage = "successfully registered";
+                    }
+                    else
+                    {
+                        _libraryViewModel.alertMessage = "Something Went Wrong";
+                    }
+                    TempData["model"] = _libraryViewModel;
                 }
                 catch (Exception ex)
                 {
-
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("OfficerLogin");
@@ -544,17 +578,68 @@ namespace LibraryProjectWebSite.Controllers
 
         public ActionResult UserResetPassword()
         {
-            return View();
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
+            UserData userData = GetValidationData();
+            if (userData == null)
+            {
+                return View(libraryViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
 
         [HttpPost]
         public ActionResult UserResetPassword(string resetString, string password1, string password2)
         {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (password1 == password2)
+            {
+                bool response = request.PostJson<bool>("api/User/ResetPassword".SetQueryParams(new { resetString = resetString, password = password1 }), null).Result;
+                if (response)
+                {
+                    libraryViewModel.alertMessage = "Password has been changed";
+                }
+                else
+                {
+                    libraryViewModel.alertMessage = "Something went wrong";
+                }
+                TempData["model"] = libraryViewModel;
+                return RedirectToAction("UserLogin");
+            }
+            else
+            {
+                libraryViewModel.alertMessage = "Passwords are not matching.";
+                TempData["model"] = libraryViewModel;
+                return View(libraryViewModel);
+            }
+        }
+
+
+
+        [HttpPost]
+        public ActionResult UserResetPasswordSendEmail(string email)
+        {
+            var x = request.PostJson<string>("/api/User/ResetPasswordSendEmail".SetQueryParams(new { email = email }), null).Result;
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            libraryViewModel.alertMessage = "Email has been sent. You can reset your password with key in 180 seconds.";
+            TempData["model"] = libraryViewModel;
+            return RedirectToAction("UserResetPassword");
+        }
+
+        public ActionResult OfficerResetPassword()
+        {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
             if (userData == null)
             {
-                var response = request.PostJson<string>("api/User/ResetPassword".SetQueryParams(new { resetString = resetString,password=password1 }),null).Result;
-                return RedirectToAction("UserLogin");
+                return View(libraryViewModel);
             }
             else
             {
@@ -563,22 +648,40 @@ namespace LibraryProjectWebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserResetPasswordSendEmail(string email)
+        public ActionResult OfficerResetPassword(string resetString, string password1, string password2)
         {
-
-            UserData userData = GetValidationData();
-            if (userData == null)
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (password1 == password2)
             {
-                var x = request.PostJson<string>("/api/User/ResetPasswordSendEmail".SetQueryParams(new { email = email }), null).Result;
-                return RedirectToAction("UserResetPassword");
+                bool response = request.PostJson<bool>("api/Officer/ResetPassword".SetQueryParams(new { resetString = resetString, password = password1 }), null).Result;
+                if (response)
+                {
+                    libraryViewModel.alertMessage = "Password has been changed";
+                }
+                else
+                {
+                    libraryViewModel.alertMessage = "Something went wrong";
+                }
+                TempData["model"] = libraryViewModel;
+                return RedirectToAction("OfficerLogin");
             }
             else
             {
-                return RedirectToAction("Index");
+                libraryViewModel.alertMessage = "Passwords are not matching.";
+                TempData["model"] = libraryViewModel;
+                return View(libraryViewModel);
             }
-
         }
 
+        [HttpPost]
+        public ActionResult OfficerResetPasswordSendEmail(string email)
+        {
+            var x = request.PostJson<string>("/api/Officer/ResetPasswordSendEmail".SetQueryParams(new { email = email }), null).Result;
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            libraryViewModel.alertMessage = "Email has been sent. You can reset your password with key in 180 seconds.";
+            TempData["model"] = libraryViewModel;
+            return RedirectToAction("OfficerResetPassword");
+        }
 
 
     }

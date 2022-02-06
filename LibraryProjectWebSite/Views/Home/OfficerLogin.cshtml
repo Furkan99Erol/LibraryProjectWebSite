@@ -1,4 +1,4 @@
-﻿@model LibraryProjectWebSite.DataTransferObject.OfficerDto
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
 @if (ViewBag.Role == "user" || ViewBag.isLoggedIn == false)
 {
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -11,15 +11,7 @@ else if (ViewBag.Role == "officer")
 }
 
 
-@if (ViewBag.showWrongUserDataPopUp == true)
-{
-    <script type="text/javascript">
 
-        window.onload = function () {
-            alert("Email or Password is wrong");
-        };
-    </script>
-}
 
 <div style="padding-top: 8rem!important;padding-bottom: 8rem!important;" class="pt-32pt pt-sm-64pt pb-32pt">
     <div class="container page__container">
@@ -30,11 +22,11 @@ else if (ViewBag.Role == "officer")
 
                 <label class="form-label"
                        for="email">Email:</label>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
+                @Html.TextBoxFor(m => m.Officer.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
 
                 <label class="form-label"
                        for="password">Password:</label>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
+                @Html.PasswordFor(m => m.Officer.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
                 <p>
                     <a href="https://localhost:44361/Home/OfficerResetPassword"
                        style="line-height:2.5;">Forgot your password?</a>
@@ -49,3 +41,12 @@ else if (ViewBag.Role == "officer")
         </div>
     </div>
 </div>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}

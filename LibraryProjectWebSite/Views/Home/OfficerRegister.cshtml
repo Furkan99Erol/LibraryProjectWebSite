@@ -117,3 +117,12 @@
            class="btn btn-secondary btn-block-xs">user SIGN UP</a>
     </div>
 </div>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}
