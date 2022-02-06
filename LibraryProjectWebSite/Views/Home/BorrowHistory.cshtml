@@ -1,0 +1,74 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="pt-32pt">
+    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                <h2 class="mb-0">Borrow History</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 3rem!important;" class="page-section container page__container">
+    <div class="page-separator">
+        <div class="page-separator__text">Last 6 Months</div>
+    </div>
+
+    <div class="card table-responsive">
+        <table class="table table-flush table-nowrap">
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Date</th>
+                    <th class="text-center">Return Date</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var borrow in Model.Borrows)
+                {
+                    <tr>
+                        <td>
+                            <a href="https://localhost:44361/Home/GetById/@borrow.BookId"
+                               class="text-underline">
+                                @if (borrow.Book.ISBN13 != null)
+                                {
+                                    @borrow.Book.ISBN13
+                                }
+                                else
+                                {
+                                    @borrow.Book.ISBN10
+                                }
+                            </a>
+                        </td>
+                        <td>@borrow.BorrowDate</td>
+                        <td class="text-center">@borrow.ReturnDate</td>
+                        <td>
+                            @borrow.Book.Name
+                        </td>
+                        <td>
+                            @if (borrow.Status == 0)
+                            {
+                                <p>Order</p>
+                            }
+                            else if (borrow.Status == 1)
+                            {
+                                <p>The book on you</p>
+                            }
+                            else if (borrow.Status == 2)
+                            {
+                                <p>The book has returned</p>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

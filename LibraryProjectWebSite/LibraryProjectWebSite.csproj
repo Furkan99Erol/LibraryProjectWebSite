@@ -702,6 +702,8 @@
     <Content Include="Views\Home\OfficerRegister.cshtml" />
     <Content Include="Views\Home\_UnapprovedComment.cshtml" />
     <Content Include="Views\Home\_UnapprovedBorrow.cshtml" />
+    <Content Include="Views\Home\BorrowHistory.cshtml" />
+    <Content Include="Views\Home\EditAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

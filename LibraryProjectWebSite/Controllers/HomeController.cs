@@ -25,7 +25,6 @@ namespace LibraryProjectWebSite.Controllers
                 List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
                 libraryViewModel.Books = booksDto;
             }
-
             return View(libraryViewModel);
         }
 
@@ -322,6 +321,11 @@ namespace LibraryProjectWebSite.Controllers
                 bool result = request.PostJson<bool>("api/Book/AddByISBN".SetQueryParams(new { ISBN = libraryViewModel.Book.ISBN10 }), null, GetHeaderWithToken()).Result;
                 ViewBag.isBookAdded = result;
             }
+            else if (libraryViewModel.Book != null && libraryViewModel.Book.ISBN13 != null)
+            {
+                bool result = request.PostJson<bool>("api/Book/AddByISBN".SetQueryParams(new { ISBN = libraryViewModel.Book.ISBN13 }), null, GetHeaderWithToken()).Result;
+                ViewBag.isBookAdded = result;
+            }
             return View();
         }
 
@@ -444,6 +448,56 @@ namespace LibraryProjectWebSite.Controllers
             return RedirectToAction($"GetById/{libraryViewModel.Comment.BookId}");
         }
 
+        public ActionResult BorrowHistory()
+        {
+            UserData userData = GetValidationData();
+            if (userData == null || userData.Role == "officer")
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
+                libraryViewModel.Borrows = borrowsDto;
+                return View(libraryViewModel);
+            }
+
+        }
+
+        public ActionResult EditAccount()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "user")
+            {
+                UserDto user = request.Get<UserDto>("/api/User/Get".SetQueryParams(new { id = userData.Id }), GetHeaderWithToken()).Result;
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.User = user;
+                return View(libraryViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(LibraryViewModel libraryViewModel)
+        {
+            UserDto userDto = libraryViewModel.User;
+            var postData = new
+            {
+                Id = userDto.Id,
+                Nickname = userDto.Nickname,
+                Email = userDto.Email,
+                Name = userDto.Name,
+                Surname = userDto.Surname,
+                PhoneNumber = userDto.PhoneNumber,
+                DateOfBirth = userDto.DateOfBirth
+            };
+            var x = request.PostJson<bool>("/api/User/Update", postData, GetHeaderWithToken()).Result;
+            return RedirectToAction("EditAccount");
+        }
 
     }
 }
