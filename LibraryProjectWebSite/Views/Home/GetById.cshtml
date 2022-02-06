@@ -175,9 +175,9 @@ else if (ViewBag.Role == "officer")
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "display:none", id = "hold" })</td>
+                                    <td style="display:none;" id="hold">@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
 
-                                    <td><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
+                                    <td style="display:none;" id="hold"><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
                                 </tr>
                             </table>
                         </div>

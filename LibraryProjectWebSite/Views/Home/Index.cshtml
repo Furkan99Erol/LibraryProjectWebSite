@@ -60,16 +60,16 @@
     <div class="page-section border-bottom-2">
         <div class="container page__container">
 
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }) )  
             {
-                <button class="btn"
-                        type="submit">
-                    <i class="material-icons">search</i>
-                </button>
-                <input type="text"
-                       name="searchKey"
-                       class="form-control"
-                       placeholder="Search books ...">
+            <button style="margin-bottom:-62px;" class="btn"
+                    type="submit">
+                <i class="material-icons">search</i>
+            </button>
+            <input type="text"
+                   name="searchKey"
+                   class="form-control"
+                   placeholder="     Search books ...">
             }
 
             <div class="page-separator">
@@ -77,60 +77,60 @@
             </div>
 
             @foreach (var book in Model.Books)
-            {
-                <a href="https://localhost:44361/Home/GetById/@book.Id">
-                    <div class="row card-group-row">
-                        <div class="col-md-6 col-lg-12 card-group-row__col">
-                            <div class="card card--elevated posts-card-popular overlay card-group-row__card">
-                                <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
-                                     alt=""
-                                     style="width:15%;margin-left:295px;"
-                                     class="card-img">
-                                <div class="fullbleed bg-primary"
-                                     style="opacity: .3"></div>
-                                <div class="posts-card-popular__content">
-                                    <div style="color: black;font-weight: 500;font-size: 17px;float: right;padding-right: 90px;padding-top: 60px">
-                                        <p>
-                                            @book.Description
+        {
+            <a href="https://localhost:44361/Home/GetById/@book.Id">
+                <div class="row card-group-row">
+                    <div class="col-md-6 col-lg-12 card-group-row__col">
+                        <div class="card card--elevated posts-card-popular overlay card-group-row__card">
+                            <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
+                                 alt=""
+                                 style="width:15%;margin-left:295px;"
+                                 class="card-img">
+                            <div class="fullbleed bg-primary"
+                                 style="opacity: .3"></div>
+                            <div class="posts-card-popular__content">
+                                <div style="color: black;font-weight: 500;font-size: 17px;float: right;padding-right: 90px;padding-top: 60px">
+                                    <p>
+                                        @book.Description
+                                    </p>
+
+                                    @if (book.Libraries.Count == 0)
+                                    {
+                                        <p style="padding-top: 60px; color: black;">
+                                            This book is not available
                                         </p>
-
-                                        @if (book.Libraries.Count == 0)
-                                        {
-                                            <p style="padding-top: 60px; color: black;">
-                                                This book is not available
-                                            </p>
-                                        }
-                                        else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
-                                        {
-                                            <p style="padding-top: 85px; color: black;">
-                                                Book is out of stock
-                                            </p>
-                                        }
+                                    }
+                                    else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
+                                    {
+                                        <p style="padding-top: 85px; color: black;">
+                                            Book is out of stock
+                                        </p>
+                                    }
 
 
 
-                                    </div>
-                                    <div class="posts-card-popular__title card-body">
-                                        @foreach (var category in book.Categories)
-                                        {
-                                            <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br />
-                                        }
-                                        <br />
-                                        <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;">@book.Name</p>
-                                        @foreach (var author in book.Authors)
-                                        {
-                                            <p style="margin-bottom:0px;font-weight:500;">@author.Name</p>
-                                        }
-                                    </div>
+                                </div>
+                                <div class="posts-card-popular__title card-body">
+                                    @foreach (var category in book.Categories)
+                                    {
+                                        <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br />
+                                    }
+                                    <br />
+                                    <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;">@book.Name</p>
+                                    @foreach (var author in book.Authors)
+                                    {
+                                        <p style="margin-bottom:0px;font-weight:500;">@author.Name</p>
+                                    }
                                 </div>
                             </div>
-
                         </div>
 
-
                     </div>
-                </a>
-            }
+
+
+                </div>
+            </a>
+        }
 
             <button style="border-radius: 10px;width: 200px;margin-left: 350px">More</button>
             <div class="posts-cards">
