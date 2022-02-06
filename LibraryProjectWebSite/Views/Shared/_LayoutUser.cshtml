@@ -36,6 +36,15 @@
     <link type="text/css"
           href="~/public/css/app.css"
           rel="stylesheet">
+    <script type="text/javascript">
+        function show() {
+            document.getElementById("hold").style.display = "block";
+        }
+        function hide() {
+            document.getElementById("hold").style.display = "none";
+        }
+
+    </script>
 
     @RenderSection("styles", required: false)
 
