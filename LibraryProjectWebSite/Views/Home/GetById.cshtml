@@ -188,7 +188,7 @@ else if (ViewBag.Role == "officer")
             }
             else if (ViewBag.Role == "user" && ViewBag.doesHaveAlready == true)
             {
-                <table>
+                <table class="table table-hover table-striped">
                     <tr>
                         <p style=" font-size: 16px; font-weight: 600; border-bottom: 1px solid black;">**Information :The Book has already taken by you.**</p>
                     </tr>
@@ -199,10 +199,10 @@ else if (ViewBag.Role == "officer")
                     </tr>
                     <tr>
                         <td>@Model.Library.Name</td>
-                        <td>@Model.Borrow.BorrowDate.ToString("MM/dd/yyyy")</td>
+                        <td style="padding-left:18px;">@Model.Borrow.BorrowDate.ToString("MM/dd/yyyy")</td>
                         @if (Model.Borrow.ReturnDate != null)
                         {
-                            <td>@Model.Borrow.ReturnDate.Value.ToString("MM/dd/yyyy")</td>
+                            <td style="padding-left:18px;">@Model.Borrow.ReturnDate.Value.ToString("MM/dd/yyyy")</td>
                         }
                     </tr>
 
