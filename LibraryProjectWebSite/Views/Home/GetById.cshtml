@@ -300,3 +300,17 @@ else if (ViewBag.Role == "officer")
 
     </div>
 </div>
+<script type="text/javascript">
+    function show() {
+        document.getElementById("hold").display = "block";
+    }
+</script>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}

@@ -9,6 +9,8 @@ namespace LibraryProjectWebSite.Models
 {
     public class LibraryViewModel
     {
+        public string alertMessage { get; set; }
+
         public List<BookDto> Books { get; set; }
 
         public List<AuthorDto> Authors { get; set; }

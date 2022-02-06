@@ -1,4 +1,4 @@
-﻿@model LibraryProjectWebSite.DataTransferObject.UserDto
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
 @if (ViewBag.Role == "user" || ViewBag.isLoggedIn == false)
 {
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -7,18 +7,10 @@ else if (ViewBag.Role == "officer")
 {
     Layout = "~/Views/Shared/_LayoutOfficer.cshtml";
 }
-@if (ViewBag.showWrongUserDataPopUp == true)
-{
-    <script type="text/javascript">
 
-        window.onload = function () {
-            alert("Email or Password is wrong");
-        };
-    </script>
-}
 <div style="padding-top: 8rem!important;padding-bottom: 8rem!important;" class="pt-32pt pt-sm-64pt pb-32pt">
     <div class="container page__container">
-        
+
 
 
         @using (Html.BeginForm("UserLogin", "Home", FormMethod.Post))
@@ -27,11 +19,11 @@ else if (ViewBag.Role == "officer")
 
                 <label class="form-label"
                        for="email">Email:</label>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
+                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
 
                 <label class="form-label"
                        for="password">Password:</label>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
+                @Html.PasswordFor(m => m.User.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
                 <p>
                     <a href="https://localhost:44361/Home/UserResetPassword"
                        style="line-height:2.5;">Forgot your password?</a>
@@ -48,3 +40,12 @@ else if (ViewBag.Role == "officer")
         </div>
     </div>
 </div>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}

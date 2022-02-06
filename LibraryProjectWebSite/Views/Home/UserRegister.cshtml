@@ -64,12 +64,11 @@
                     <div class="form-group">
                         <label class="form-label"
                                for="dateofbirth">Date of birth:</label><br />
-                        <input style="width:100%" type="date" 
-                               id="dateofbirth" 
+                        <input style="width:100%" type="date"
+                               id="dateofbirth"
                                required
                                name="libraryViewModel.User.DateOfBirth"
-                               value=@DateTime.Today.ToString("dd/MM/yyyy")
-                               >
+                               value=@DateTime.Today.ToString("dd/MM/yyyy")>
                     </div>
                     <div class="form-group">
                         <label class="form-label"
@@ -101,3 +100,12 @@
            class="btn btn-secondary btn-block-xs">OFFICER SIGN UP</a>
     </div>
 </div>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}
