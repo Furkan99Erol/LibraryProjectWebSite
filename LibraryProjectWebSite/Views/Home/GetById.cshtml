@@ -163,21 +163,21 @@ else if (ViewBag.Role == "officer")
                                     <td>  @Html.Label("Select borrow type")</td>
                                 </tr>
                                 <tr>
-                                    <td onclick="show()">
-                                        <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
-                                        @Html.Label("Cargo")
-                                    </td>
+                                       <td onclick="show()">
+                                  <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
+                                  @Html.Label("Cargo")
+                                      </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td onclick="hide()">
                                         <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="comeandrecieve">
                                         @Html.Label("Come And Recieve")
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="display:none;" id="hold">@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
+                                <tr style="display:none;" id="hold">
+                                    <td >@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
 
-                                    <td style="display:none;" id="hold"><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
+                                    <td ><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
                                 </tr>
                             </table>
                         </div>
