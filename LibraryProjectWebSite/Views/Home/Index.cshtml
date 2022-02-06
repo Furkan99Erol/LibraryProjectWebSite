@@ -91,7 +91,14 @@
                                 <div class="posts-card-popular__content">
                                     <div style="color: black;font-weight: 500;font-size: 17px;float: right;padding-right: 90px;padding-top: 60px">
                                         <p>
-                                            @book.Description
+                                            @if (book.Description != null && book.Description.Length > 130)
+                                            {
+                                                @(book.Description.Substring(0, 130) + "...");
+                                            }
+                                                else
+                                                {
+                                                    @book.Description
+                                                                                            }
                                         </p>
 
                                         @if (book.Libraries.Count == 0)
