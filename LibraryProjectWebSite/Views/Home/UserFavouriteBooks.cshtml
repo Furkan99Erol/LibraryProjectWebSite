@@ -23,28 +23,27 @@
                 foreach (var book in Model.Books)
                 {
                     <div class="col-sm-6 col-md-4">
-                        <div class="card posts-card-popular">
+                        <div style="min-height:230px" class="card posts-card-popular">
                             <a href="book-details.html">
-                                <img style="width: 131px;" src="https://covers.openlibrary.org/b/isbn/@book.ISBN10-M.jpg"
+                                <img style="width: 131px; padding: 5px; margin-top: 18px;" src="https://covers.openlibrary.org/b/isbn/@book.ISBN10-M.jpg"
                                      alt=""
                                      class="card-img">
                             </a>
                             <div class="posts-card-popular__content">
                                 <div style="left: 130px;top: 11px" class="posts-card-popular__title card-body">
-                                    <h4 class="card-title m-0"><a style="color: black" href="https://localhost:44361/Home/GetById/@book.Id">@book.Name</a></h4>
-                                    <p>Writer: </p>
+                                    <h4 style="font-weight: 600; font-size: 20px; margin-top: -10px;" class="card-title m-0"><a style="color: black" href="https://localhost:44361/Home/GetById/@book.Id">@book.Name</a></h4>
+                                    <p style=" margin-top: 15px; font-weight: 500; font-size: 14px;">Writer: </p>
                                     @foreach (var author in book.Authors)
                                     {
-                                        <h5 style="margin-top: -11px">@author.Name</h5>
+                                        <h5 style=" margin-top: -15px; font-weight: 500;">@author.Name</h5>
                                     }
-                                    <p>Language: </p>
-                                    <h5 style="margin-top: -11px">@book.Language</h5>
+                                    <p style=" margin-top: -10px; font-weight: 500; font-size: 14px;">Language: </p>
+                                    <h5 style=" margin-top: -15px; font-weight: 500;">@book.Language</h5>
                                     @using (Html.BeginForm("DeleteUserFavouriteBooks", "Home", FormMethod.Post))
                                     {
                                         <input type="hidden" name="bookId" value="@book.Id" />
-                                        <button type="submit">
-                                            @*MERT BURAYI AYARLAYACAKSIN*@
-                                        </button>
+                              
+                                        <button style=" position: absolute; bottom: 10px; right: 5px;" type="submit" class="btn"><i class="fa fa-trash fa-lg"></i></button>
                                     }
 
                                 </div>
