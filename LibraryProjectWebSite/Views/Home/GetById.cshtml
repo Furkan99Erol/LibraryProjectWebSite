@@ -137,7 +137,7 @@ else if (ViewBag.Role == "officer")
                                     <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.BorrowDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(3).ToString("yyyy-MM-dd")"></td>
                                 </tr>
                                 <tr>
-                                    <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Return Date")</td>
+                                    <td>@Html.LabelFor(m => m.Borrow.ReturnDate, "Select Return Date")</td>
                                 </tr>
                                 <tr>
                                     <td><input class="form-control datepicker" type="date" name="libraryViewModel.Borrow.ReturnDate" min="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(17).ToString("yyyy-MM-dd")"></td>
@@ -163,10 +163,10 @@ else if (ViewBag.Role == "officer")
                                     <td>  @Html.Label("Select borrow type")</td>
                                 </tr>
                                 <tr>
-                                       <td onclick="show()">
-                                  <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
-                                  @Html.Label("Cargo")
-                                      </td>
+                                    <td onclick="show()">
+                                        <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
+                                        @Html.Label("Cargo")
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td onclick="hide()">
@@ -175,9 +175,9 @@ else if (ViewBag.Role == "officer")
                                     </td>
                                 </tr>
                                 <tr style="display:none;" id="hold">
-                                    <td >@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
+                                    <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address")</td>
 
-                                    <td ><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
+                                    <td><input class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
                                 </tr>
                             </table>
                         </div>

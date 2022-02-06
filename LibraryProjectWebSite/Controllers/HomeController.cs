@@ -24,6 +24,9 @@ namespace LibraryProjectWebSite.Controllers
                 List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
                 libraryViewModel.Books = booksDto;
             }
+            else if(userData.Role=="officer"){
+                libraryViewModel.Officer = request.Get<OfficerDto>("api/Officer/Get".SetQueryParams(new { id = userData.Id }), GetHeaderWithToken()).Result;
+            }
             return View(libraryViewModel);
         }
 
@@ -137,11 +140,16 @@ namespace LibraryProjectWebSite.Controllers
                     {
                         ViewBag.doesHaveLibrary = true;
                     }
+                    else
+                    {
+                        ViewBag.doesHaveLibrary = false;
+                    }
                 }
                 else
                 {
                     ViewBag.doesHaveLibrary = false;
                 }
+
 
                 return View(libraryViewModel);
             }
@@ -262,12 +270,12 @@ namespace LibraryProjectWebSite.Controllers
             GetValidationData();
             var borrowDto = new
             {
-                libraryId = libraryViewModel.Borrow.LibraryId,
-                bookId = libraryViewModel.Borrow.BookId,
+                LibraryId = libraryViewModel.Borrow.LibraryId,
+                BookId = libraryViewModel.Borrow.BookId,
                 BorrowType = libraryViewModel.Borrow.BorrowType,
-                borrowDate = libraryViewModel.Borrow.BorrowDate,
-                returnDate = libraryViewModel.Borrow.ReturnDate,
-                destinationAddress = libraryViewModel.Borrow.DestinationAddress,
+                BorrowDate = libraryViewModel.Borrow.BorrowDate,
+                ReturnDate = libraryViewModel.Borrow.ReturnDate,
+                DestinationAddress = libraryViewModel.Borrow.DestinationAddress,
             };
 
             bool x = request.PostJson<bool>("api/Borrow/Borrow", borrowDto, GetHeaderWithToken()).Result;
@@ -451,7 +459,7 @@ namespace LibraryProjectWebSite.Controllers
                     LibraryViewModel _libraryViewModel = new LibraryViewModel();
                     if (response)
                     {
-                        _libraryViewModel.alertMessage = "successfully registered";
+                        _libraryViewModel.alertMessage = "Successfully registered, you should wait admin to approve your account";
                     }
                     else
                     {
@@ -683,6 +691,21 @@ namespace LibraryProjectWebSite.Controllers
             return RedirectToAction("OfficerResetPassword");
         }
 
+        public ActionResult UserTrack()
+        {
+            UserData userData = GetValidationData();
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            if (userData != null && userData.Role == "user")
+            {
+                libraryViewModel.Borrows = request.Get<List<BorrowDto>>("api/Borrow/BorrowHistory", GetHeaderWithToken()).Result;
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(libraryViewModel);
+        }
 
     }
 }

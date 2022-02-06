@@ -15,12 +15,18 @@
                 <small class="ml-auto text-muted">@((DateTime.Now - comment.Date.AddHours(9)).Hours) Hours @((DateTime.Now - comment.Date.AddHours(9)).Minutes) Minutes Ago</small><br>
             </div>
             <p class="mt-1 mb-0 text-70">@comment.CommentString</p>
-            <a href="javascript:;" data-id="@comment.Id" onclick="index.approveComment(this)">
-                <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
-            </a>
-            <a style="margin-top:-23px" href="javascript:;" data-id="@comment.Id" onclick="index.removeComment(this)">
-                <i style="margin-left: 20px; display:inline;   margin-top: -20px;" class="far fa-trash-alt"></i>
-            </a>
+            <table>
+                <tr>
+                    <a href="javascript:;" data-id="@comment.Id" onclick="index.approveComment(this)">
+                        <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
+                    </a>
+                </tr>
+                <tr>
+                    <a style="margin-top:-23px" href="javascript:;" data-id="@comment.Id" onclick="index.removeComment(this)">
+                        <i style="margin-left: 20px; display:inline;   margin-top: -20px;" class="far fa-trash-alt"></i>
+                    </a>
+                </tr>
+            </table>
         </div>
 
     </div>

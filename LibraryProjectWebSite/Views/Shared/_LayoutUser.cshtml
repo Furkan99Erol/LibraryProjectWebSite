@@ -36,15 +36,7 @@
     <link type="text/css"
           href="~/public/css/app.css"
           rel="stylesheet">
-    <script type="text/javascript">
-        function show() {
-            document.getElementById("hold").style.display = "block";
-        }
-        function hide() {
-            document.getElementById("hold").style.display = "none";
-        }
-
-    </script>
+    
 
     @RenderSection("styles", required: false)
 
@@ -278,6 +270,16 @@
     <script src="~/public/js/preloader.js"></script>
 
     <script src="~/public/js/sidebar-mini.js"></script>
+
+    <script type="text/javascript">
+        function show() {
+            document.getElementById("hold").style.display = "block";
+        }
+        function hide() {
+            document.getElementById("hold").style.display = "none";
+        }
+
+    </script>
 
     <script>
         (function () {
