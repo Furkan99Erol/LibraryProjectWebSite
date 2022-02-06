@@ -541,5 +541,45 @@ namespace LibraryProjectWebSite.Controllers
             return RedirectToAction($"UserFavouriteBooks");
         }
 
+
+        public ActionResult UserResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UserResetPassword(string resetString, string password1, string password2)
+        {
+            UserData userData = GetValidationData();
+            if (userData == null)
+            {
+                var response = request.PostJson<string>("api/User/ResetPassword".SetQueryParams(new { resetString = resetString,password=password1 }),null).Result;
+                return RedirectToAction("UserLogin");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UserResetPasswordSendEmail(string email)
+        {
+
+            UserData userData = GetValidationData();
+            if (userData == null)
+            {
+                var x = request.PostJson<string>("/api/User/ResetPasswordSendEmail".SetQueryParams(new { email = email }), null).Result;
+                return RedirectToAction("UserResetPassword");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
+
+
+
     }
 }
