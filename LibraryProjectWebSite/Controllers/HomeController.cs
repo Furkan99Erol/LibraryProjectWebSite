@@ -465,7 +465,7 @@ namespace LibraryProjectWebSite.Controllers
 
         }
 
-        public ActionResult EditAccount()
+        public ActionResult EditUserAccount()
         {
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "user")
@@ -482,21 +482,63 @@ namespace LibraryProjectWebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditAccount(LibraryViewModel libraryViewModel)
+        public ActionResult EditUserAccount(LibraryViewModel libraryViewModel)
         {
             UserDto userDto = libraryViewModel.User;
-            var postData = new
+
+            request.PostJson<bool>("/api/User/Update", userDto, GetHeaderWithToken());
+            return RedirectToAction("EditUserAccount");
+        }
+        public ActionResult EditOfficerAccount()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "officer")
             {
-                Id = userDto.Id,
-                Nickname = userDto.Nickname,
-                Email = userDto.Email,
-                Name = userDto.Name,
-                Surname = userDto.Surname,
-                PhoneNumber = userDto.PhoneNumber,
-                DateOfBirth = userDto.DateOfBirth
-            };
-            var x = request.PostJson<bool>("/api/User/Update", postData, GetHeaderWithToken()).Result;
-            return RedirectToAction("EditAccount");
+                OfficerDto officerDto = request.Get<OfficerDto>("/api/Officer/Get".SetQueryParams(new { id = userData.Id }), GetHeaderWithToken()).Result;
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.Officer = officerDto;
+                return View(libraryViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditOfficerAccount(LibraryViewModel libraryViewModel)
+        {
+            OfficerDto officerDto = libraryViewModel.Officer;
+
+            request.PostJson<bool>("/api/Officer/Update", officerDto, GetHeaderWithToken());
+            return RedirectToAction("EditOfficerAccount");
+        }
+
+        public ActionResult UserFavouriteBooks()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "user")
+            {
+                List<BookDto> favouriteBooks = request.Get<List<BookDto>>("api/User/GetFavouriteBook", GetHeaderWithToken()).Result;
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.Books = favouriteBooks;
+                return View(libraryViewModel);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddUserFavouriteBooks(int bookId)
+        {
+            request.PostJson<bool>("api/User/AddFavouriteBook".SetQueryParams(new { bookId = bookId }), null, GetHeaderWithToken());
+            return RedirectToAction($"GetById/{bookId}");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUserFavouriteBooks(int bookId)
+        {
+            var x = request.Delete<bool>("api/User/DeleteFavouriteBook".SetQueryParams(new { bookId = bookId }), GetHeaderWithToken()).Result;
+            return RedirectToAction($"UserFavouriteBooks");
         }
 
     }

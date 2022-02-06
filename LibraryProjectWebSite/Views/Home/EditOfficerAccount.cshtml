@@ -1,0 +1,60 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutOfficer.cshtml";
+}
+<div class="pt-32pt">
+    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                <h2 class="mb-0">Account</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 3rem!important;" class="container page__container page-section">
+
+    <div class="col-md-6 p-0">
+
+        @using (Html.BeginForm("EditOfficerAccount", "Home", FormMethod.Post))
+        {
+            <input type="hidden" name="libraryViewModel.Officer.Id" value="@Model.Officer.Id" />
+            <input type="hidden" name="libraryViewModel.Officer.IdentityNumber" value="@Model.Officer.IdentityNumber" />
+            <input type="hidden" name="libraryViewModel.Officer.Email" value="@Model.Officer.Email" />
+            <input type="hidden" name="libraryViewModel.Officer.LibraryId" value="@Model.Officer.LibraryId" />
+            <div class="form-group">
+                <label class="form-label">First name</label>
+                <input type="text"
+                       name="libraryViewModel.Officer.Name"
+                       class="form-control"
+                       value="@Model.Officer.Name">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Last name</label>
+                <input type="text"
+                       name="libraryViewModel.Officer.Surname"
+                       class="form-control"
+                       value="@Model.Officer.Surname">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input type="text"
+                       name="libraryViewModel.Officer.DateOfBirth"
+                       class="form-control"
+                       value="@Model.Officer.DateOfBirth.ToString("dd/MM/yyyy")">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="text"
+                       name="libraryViewModel.Officer.PhoneNumber"
+                       class="form-control"
+                       value="@Model.Officer.PhoneNumber">
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        }
+
+
+    </div>
+
+</div>

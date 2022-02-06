@@ -703,7 +703,9 @@
     <Content Include="Views\Home\_UnapprovedComment.cshtml" />
     <Content Include="Views\Home\_UnapprovedBorrow.cshtml" />
     <Content Include="Views\Home\BorrowHistory.cshtml" />
-    <Content Include="Views\Home\EditAccount.cshtml" />
+    <Content Include="Views\Home\EditUserAccount.cshtml" />
+    <Content Include="Views\Home\EditOfficerAccount.cshtml" />
+    <Content Include="Views\Home\UserFavouriteBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
