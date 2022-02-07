@@ -103,13 +103,13 @@
 
                                         @if (book.Libraries.Count == 0)
                                         {
-                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 58px; width: 133%;">
+                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 135px; width: 133%;">
                                                 This book is not available
                                             </p>
                                         }
                                         else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
                                         {
-                                            <p style="padding-top: 85px; color: black;">
+                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 135px; width: 133%;">
                                                 Book is out of stock
                                             </p>
                                         }
@@ -123,7 +123,7 @@
                                             <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br />
                                         }
                                         <br />
-                                        <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;">@book.Name</p>
+                                        <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;width:250px">@book.Name</p>
                                         @foreach (var author in book.Authors)
                                         {
                                             <p style="margin-bottom:0px;font-weight:500;">@author.Name</p>
