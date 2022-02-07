@@ -142,13 +142,21 @@ namespace LibraryProjectWebSite.Controllers
             var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
             libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
-            if (userData != null && userData.Role == "officer")
+            if (userData != null && (userData.Role == "officer" || userData.Role=="admin"))
             {
                 return RedirectToAction("Index");
             }
             try
             {
                 BookDto book = request.Get<BookDto>($"/api/Book/Get/{id}").Result;
+                if (book.Users.Where(x => x.Id == userData.Id).Any())
+                {
+                    ViewBag.isFavourite = true;
+                }
+                else
+                {
+                    ViewBag.isFavourite = false;
+                }
                 request.PostJson<bool>("api/Book/IncreaseClickCounter".SetQueryParams(new { bookId = id }), null, GetHeaderWithToken());
                 libraryViewModel.Comments = request.Get<List<CommentDto>>("/api/Comment/GetAllByBookId".SetQueryParams(new { id = id }), null).Result;
                 libraryViewModel.Book = book;
@@ -664,6 +672,12 @@ namespace LibraryProjectWebSite.Controllers
             return RedirectToAction($"UserFavouriteBooks");
         }
 
+        [HttpPost]
+        public ActionResult DeleteUserFavouriteBooksFromPage(int bookId)
+        {
+            var x = request.Delete<bool>("api/User/DeleteFavouriteBook".SetQueryParams(new { bookId = bookId }), GetHeaderWithToken()).Result;
+            return RedirectToAction($"GetById/{bookId}");
+        }
 
         public ActionResult UserResetPassword()
         {
