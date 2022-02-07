@@ -95,10 +95,10 @@
                                             {
                                                 @(book.Description.Substring(0, 130) + "...");
                                             }
-                                                else
-                                                {
-                                                    @book.Description
-                                                                                            }
+                                            else
+                                            {
+                                                @book.Description
+                                            }
                                         </p>
 
                                         @if (book.Libraries.Count == 0)
@@ -161,7 +161,7 @@ else if (ViewBag.Role == "officer")
             </div>
         </div>
     </div>
-  
+
     <div style="padding-top: 3rem!important;" class="container page__container page-section">
         <div class="row mb-8pt">
             <div class="col-lg-12">
@@ -221,64 +221,106 @@ else if (ViewBag.Role == "officer")
         </div>
 
     </div>
+    @section scripts{
+        <script type="text/javascript">
 
-}
-
-@section scripts{
-    <script type="text/javascript">
-
-        var index = {
-            initComment: function () {
-                if ($('.unapprovedCommentWrapper').length > 0) {
-                    index.getUnapprovedComment();
-                }
-            },
-            initBorrow: function () {
-                if ($('.unapprovedBorrowWrapper').length > 0) {
-                    index.getUnapprovedBorrow();
-                }
-            },
-            getUnapprovedComment: function () {
-                $.post("/Home/_UnapprovedComment", function (res) {
-                    $('.unapprovedCommentWrapper').html(res);
-                });
-            },
-            getUnapprovedBorrow: function () {
-                $.post("/Home/_UnapprovedBorrow", function (res) {
-                    $('.unapprovedBorrowWrapper').html(res);
-                });
-            },
-            approveComment: function (row) {
-                var item = $(row).data();
-                $.post("/Home/CommentConfirmation", { id: item.id, status: true }, function (res) {
-                    index.getUnapprovedComment();
-                });
-            },
-            removeComment: function (row) {
-                var item = $(row).data();
-                $.post("/Home/CommentConfirmation", { id: item.id, status: false }, function (res) {
-                    index.getUnapprovedComment();
-                });
-            },
-            approveBorrow: function (row) {
-                var item = $(row).data();
-                var borrowString = $('#borrowString').val();
-                if (borrowString.length > 0) {
-                    $.post("/Home/BorrowConfirmation", { id: item.id, borrowString: borrowString, userId: $('#userId').val() }, function (res) {
+            var index = {
+                initComment: function () {
+                    if ($('.unapprovedCommentWrapper').length > 0) {
+                        index.getUnapprovedComment();
+                    }
+                },
+                initBorrow: function () {
+                    if ($('.unapprovedBorrowWrapper').length > 0) {
                         index.getUnapprovedBorrow();
+                    }
+                },
+                getUnapprovedComment: function () {
+                    $.post("/Home/_UnapprovedComment", function (res) {
+                        $('.unapprovedCommentWrapper').html(res);
                     });
-                } else {
-                    alert("Please fill the the borrow string");
+                },
+                getUnapprovedBorrow: function () {
+                    $.post("/Home/_UnapprovedBorrow", function (res) {
+                        $('.unapprovedBorrowWrapper').html(res);
+                    });
+                },
+                approveComment: function (row) {
+                    var item = $(row).data();
+                    $.post("/Home/CommentConfirmation", { id: item.id, status: true }, function (res) {
+                        index.getUnapprovedComment();
+                    });
+                },
+                removeComment: function (row) {
+                    var item = $(row).data();
+                    $.post("/Home/CommentConfirmation", { id: item.id, status: false }, function (res) {
+                        index.getUnapprovedComment();
+                    });
+                },
+                approveBorrow: function (row) {
+                    var item = $(row).data();
+                    var borrowString = $('#borrowString').val();
+                    if (borrowString.length > 0) {
+                        $.post("/Home/BorrowConfirmation", { id: item.id, borrowString: borrowString, userId: $('#userId').val() }, function (res) {
+                            index.getUnapprovedBorrow();
+                        });
+                    } else {
+                        alert("Please fill the the borrow string");
+                    }
                 }
             }
-        }
 
 
-        $(document).ready(function () {
-            index.initComment();
-            index.initBorrow();
-        });
+            $(document).ready(function () {
+                index.initComment();
+                index.initBorrow();
+            });
 
-    </script>
+        </script>
+    }
+
+
+
 }
+else if (ViewBag.Role == "admin")
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    <div class="unapprovedOfficerWrapper">
 
+    </div>
+    @section scripts{
+        <script type="text/javascript">
+
+            var index = {
+                initOfficer: function () {
+                    if ($('.unapprovedOfficerWrapper').length > 0) {
+                        index.getUnapprovedOfficer();
+                    }
+                },
+                getUnapprovedOfficer: function () {
+                    $.post("/Home/_UnapprovedOfficer", function (res) {
+                        $('.unapprovedOfficerWrapper').html(res);
+                    });
+                },
+                approveOfficer: function (row) {
+                    var item = $(row).data();
+                    $.post("/Home/OfficerConfirmation", { id: item.id, status: true }, function (res) {
+                        index.getUnapprovedOfficer();
+                    });
+                },
+                removeOfficer: function (row) {
+                    var item = $(row).data();
+                    $.post("/Home/OfficerConfirmation", { id: item.id, status: false }, function (res) {
+                        index.getUnapprovedOfficer();
+                    });
+                },
+            }
+
+
+            $(document).ready(function () {
+                index.initOfficer();
+            });
+
+        </script>
+    }
+}

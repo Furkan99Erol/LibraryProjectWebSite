@@ -1,29 +1,60 @@
 ﻿@model LibraryProjectWebSite.Models.LibraryViewModel
-@foreach (var officer in Model.Officers)
-{
-    <tr>
-        <td>
-            <div class="d-flex flex-nowrap align-items-center">
-                
-                <div class="flex">
-                    <span class="card-title js-lists-values-course">@borrow.Book.Name</span>
-                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="pt-32pt">
+    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+        <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
+
+            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                <h2 class="mb-0">Approving Officer</h2>
             </div>
-        </td>
-        <td class="text-right">
-            <small class="text-muted text-uppercase js-lists-values-date">@borrow.User.Name @borrow.User.Surname</small>
-        </td>
-        <td class="text-right">
-            <small class="text-muted text-uppercase js-lists-values-date">@borrow.BorrowDate.ToString("dd/MM/yyyy")</small>
-        </td>
-        <td>
-            <a href="javascript:;" data-id="@borrow.BookId" onclick="index.approveBorrow(this)">
-                <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
-            </a>
-        </td>
-        <td>
-            <input type="hidden" id="userId" value="@borrow.User.Id" />
-            <input id="borrowString" type="text">
-        </td>
-    </tr>
-}
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 3rem!important;" class="container page__container page-section">
+
+    <div>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Library</th>
+                <th>Confirmation</th>
+            </tr>
+            @foreach (var officer in Model.Officers)
+            {
+                <tr>
+                    <td>@officer.Name</td>
+                    <td>@officer.Surname</td>
+                    <td>@officer.Library.Name</td>
+                    <td>
+                        <a href="javascript:;" data-id="@officer.Id" onclick="index.approveOfficer(this)">
+                            <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
+                        </a>
+                        <a style="margin-top:-23px;margin-left:18px;" href="javascript:;" data-id="@officer.Id" onclick="index.removeOfficer(this)">
+                            <i style="margin-left: 20px; display:inline;   margin-top: -20px;" class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+

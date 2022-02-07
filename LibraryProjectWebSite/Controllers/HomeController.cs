@@ -75,7 +75,6 @@ namespace LibraryProjectWebSite.Controllers
 
         public ActionResult _UnapprovedOfficer()
         {
-
             LibraryViewModel libraryViewModel = new LibraryViewModel();
             List<OfficerDto> officerDto = request.Get<List<OfficerDto>>("api/Officer/GetUnapprovedOfficers", GetHeaderWithToken()).Result;
             libraryViewModel.Officers = officerDto;
@@ -240,6 +239,50 @@ namespace LibraryProjectWebSite.Controllers
                 libraryViewModel.alertMessage = "Username or password is invalid.";
                 TempData["model"] = libraryViewModel;
                 return RedirectToAction("UserLogin");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult AdminLogin()
+        {
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
+            libraryViewModel.alertMessage = model.alertMessage;
+            UserData userData = GetValidationData();
+            if (userData != null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(libraryViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AdminLogin(LibraryViewModel _libraryViewModel)
+        {
+            object userData = new
+            {
+                grant_type = "password",
+                username = _libraryViewModel.User.Email + "|admin",
+                password = _libraryViewModel.User.Password
+            };
+            try
+            {
+                var token = request.PostUrlEncoded<Token>("/token", userData).Result;
+                HttpCookie token_type = new HttpCookie("token_type", token.token_type);
+                HttpCookie access_token = new HttpCookie("access_token", token.access_token);
+                token_type.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+                access_token.Expires = DateTime.Now.AddMinutes(Convert.ToDouble(token.expires_in));
+                Response.SetCookie(token_type);
+                Response.SetCookie(access_token);
+            }
+            catch (Exception ex)
+            {
+                LibraryViewModel libraryViewModel = new LibraryViewModel();
+                libraryViewModel.alertMessage = "Username or password is invalid.";
+                TempData["model"] = libraryViewModel;
             }
 
             return RedirectToAction("Index");

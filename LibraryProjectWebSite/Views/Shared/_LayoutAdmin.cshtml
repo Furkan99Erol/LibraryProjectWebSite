@@ -36,7 +36,7 @@
     <link type="text/css"
           href="~/public/css/app.css"
           rel="stylesheet">
-    
+
 
     @RenderSection("styles", required: false)
 
@@ -142,8 +142,8 @@
                                        role="tab"
                                        aria-controls="sm_student"
                                        aria-selected="true">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">school</i>
-                                        <span class="sidebar-menu-text">User</span>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">format_shapes</i>
+                                        <span class="sidebar-menu-text">Admin</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item "
@@ -152,12 +152,9 @@
                                     data-container="body"
                                     data-boundary="window">
                                     <a class="sidebar-menu-button"
-                                       href="#sm_account"
-                                       data-toggle="tab"
-                                       role="tab"
-                                       aria-controls="sm_account">
+                                       href="https://localhost:44361/Home/Logout">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
-                                        <span class="sidebar-menu-text">Account</span>
+                                        <span class="sidebar-menu-text">Log Out</span>
                                     </a>
                                 </li>
                             </ul>
@@ -183,52 +180,15 @@
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="track-your-profile.php">
+                                           href="https://localhost:44361/Home/AddLibrary">
                                             <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
-                                            <span class="sidebar-menu-text">Track Your Profile</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="https://localhost:44361/Home/NearestLibraries">
-                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">style</span>
-                                            <span class="sidebar-menu-text">Nearest Libraries</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="https://localhost:44361/Home/UserFavouriteBooks">
-                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
-                                            <span class="sidebar-menu-text">Favourites</span>
+                                            <span class="sidebar-menu-text">Add Library</span>
                                         </a>
                                     </li>
 
                                 </ul>
                             </div>
-                            <div class="tab-pane "
-                                 id="sm_account">
-                                <div class="sidebar-heading">Account</div>
-                                <ul class="sidebar-menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="https://localhost:44361/Home/EditUserAccount">
-                                            <span class="sidebar-menu-text">Edit Account</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="https://localhost:44361/Home/BorrowHistory">
-                                            <span class="sidebar-menu-text">Borrow History</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="https://localhost:44361/Home/Logout">
-                                            <span class="sidebar-menu-text">Log Out</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
 

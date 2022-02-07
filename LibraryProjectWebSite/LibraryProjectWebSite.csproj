@@ -710,6 +710,8 @@
     <Content Include="Views\Home\OfficerResetPassword.cshtml" />
     <Content Include="Views\Home\UserTrack.cshtml" />
     <Content Include="Views\Home\_UnapprovedOfficer.cshtml" />
+    <Content Include="Views\Home\AdminLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

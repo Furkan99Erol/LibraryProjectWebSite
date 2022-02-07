@@ -1,0 +1,39 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div style="padding-top: 8rem!important;padding-bottom: 8rem!important;" class="pt-32pt pt-sm-64pt pb-32pt">
+    <div class="container page__container">
+
+
+
+        @using (Html.BeginForm("AdminLogin", "Home", FormMethod.Post))
+        {
+            <div style="margin-left:275px;" class="form-group">
+
+                <label class="form-label"
+                       for="email">Email:</label>
+                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your email address" })
+
+                <label class="form-label"
+                       for="password">Password:</label>
+                @Html.PasswordFor(m => m.User.Password, new { @class = "form-control", @style = "width:58%", required = "required", @placeholder = "Your password" })
+                
+
+            </div>
+            <input style="margin-left:360px;width:21%" class="btn btn-primary" type="submit" value="Login">
+        }
+
+
+    </div>
+</div>
+@if (Model.alertMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@Model.alertMessage");
+            };
+    </script>
+}
