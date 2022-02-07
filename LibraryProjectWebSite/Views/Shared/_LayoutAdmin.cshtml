@@ -133,28 +133,37 @@
                             <ul class="nav flex-shrink-0 flex-nowrap flex-column sidebar-menu mb-0 sm-item-bordered js-sidebar-mini-tabs"
                                 role="tablist">
                                 <li class="sidebar-menu-item active"
-                                    data-title="Student"
+                                    data-title="Instructor"
                                     data-placement="right"
+                                    data-container="body"
                                     data-boundary="window">
                                     <a class="sidebar-menu-button"
-                                       href="#sm_student"
+                                       href="#sm_instructor"
                                        data-toggle="tab"
                                        role="tab"
-                                       aria-controls="sm_student"
-                                       aria-selected="true">
+                                       aria-controls="sm_instructor"
+                                       aria-selected="false">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">format_shapes</i>
                                         <span class="sidebar-menu-text">Admin</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-menu-item ">
+                                <li class="sidebar-menu-item "
+                                    data-title="Account"
+                                    data-placement="right"
+                                    data-container="body"
+                                    data-boundary="window">
                                     <a class="sidebar-menu-button"
-                                       href="https://localhost:44361/Home/Logout">
+                                       href="#sm_account"
+                                       data-toggle="tab"
+                                       role="tab"
+                                       aria-controls="sm_account">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_box</i>
-                                        <span class="sidebar-menu-text">Log Out</span>
+                                        <span class="sidebar-menu-text">Account</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
+
 
                     </div>
 
@@ -162,29 +171,48 @@
                          data-perfect-scrollbar>
 
                         <div class="tab-content">
+
                             <div class="tab-pane  fade active show "
-                                 id="sm_student">
-                                <div class="sidebar-heading">User</div>
+                                 id="sm_instructor">
+                                <div class="sidebar-heading">Officer</div>
                                 <ul class="sidebar-menu">
 
-                                    <li class="sidebar-menu-item active">
+                                    <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="https://localhost:44361/Home/Index">
-                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
                                             <span class="sidebar-menu-text">Home</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="https://localhost:44361/Home/AddLibrary">
-                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
                                             <span class="sidebar-menu-text">Add Library</span>
                                         </a>
                                     </li>
-
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="https://localhost:44361/Home/ApproveOfficer">
+                                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                                            <span class="sidebar-menu-text">Approve Officer</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
-                            
+                            <div class="tab-pane "
+                                 id="sm_account">
+                                <div class="sidebar-heading">Account</div>
+                                <ul class="sidebar-menu">
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="https://localhost:44361/Home/LogOut">
+                                            <span class="sidebar-menu-text">Log Out</span>
+                                        </a>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
                         </div>
                     </div>
 

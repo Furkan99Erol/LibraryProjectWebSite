@@ -60,7 +60,7 @@ else if (ViewBag.Role == "officer")
                                                     using (Html.BeginForm("DeleteUserFavouriteBooksFromPage", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
                                                     {
 
-                                                        <button style="background: transparent; background-color:red; border: none;" type="submit" name="bookId" value="@Model.Book.Id"><i style=" position: absolute; top: 21px; right: 25px; }" class="far fa-heart"></i></button>
+                                                        <button style="background: transparent; border: none;" type="submit" name="bookId" value="@Model.Book.Id"><i style=" position: absolute; top: 21px; right: 25px;color:red; " class="far fa-heart"></i></button>
 
                                                     }
                                                 }
@@ -69,7 +69,7 @@ else if (ViewBag.Role == "officer")
                                                     using (Html.BeginForm("AddUserFavouriteBooks", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
                                                     {
 
-                                                        <button style="background: transparent; border: none;" type="submit" name="bookId" value="@Model.Book.Id"><i style=" position: absolute; top: 21px; right: 25px; }" class="far fa-heart"></i></button>
+                                                        <button style="background: transparent; border: none;" type="submit" name="bookId" value="@Model.Book.Id"><i style=" position: absolute; top: 21px; right: 25px; " class="far fa-heart"></i></button>
 
                                                     }
                                                 }
