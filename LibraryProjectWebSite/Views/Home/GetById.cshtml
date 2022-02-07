@@ -57,12 +57,9 @@ else if (ViewBag.Role == "officer")
                                             {
                                                 using (Html.BeginForm("AddUserFavouriteBooks", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
                                                 {
-                                                    <a style=" margin-left: 12.25rem!important;font-size:34px" name="bookId" value="@Model.Book.Id"
-                                                       data-toggle="tooltip"
-                                                       data-title="Add Favourite"
-                                                       data-placement="top"
-                                                       data-boundary="window"
-                                                       class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                    
+                                                    <button style="background: transparent; border: none;" type="button" name="bookId" value="@Model.Book.Id"><i style=" position: absolute; top: 21px; right: 25px; }" class="far fa-heart"></i></button>
+                                                      
                                                 }
                                             }
                                         </div>
