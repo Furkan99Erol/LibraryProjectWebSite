@@ -49,13 +49,25 @@ else if (ViewBag.Role == "officer")
                             <div class="card-header pb-0 border-0 d-flex">
                                 <div class="flex">
                                     <div class="h2 mb-0">
-                                        @Model.Book.Name
-                                        <a style="margin-top: -8px; margin-left: 12.25rem!important;font-size:34px" href="#"
-                                           data-toggle="tooltip"
-                                           data-title="Add Favorite"
-                                           data-placement="top"
-                                           data-boundary="window"
-                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                        <div>
+                                            @Model.Book.Name
+                                        </div>
+                                        <div style="text-align:right">
+                                            @if (ViewBag.isLoggedIn == true)
+                                            {
+                                                using (Html.BeginForm("AddUserFavouriteBooks", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
+                                                {
+                                                    <a style=" margin-left: 12.25rem!important;font-size:34px" name="bookId" value="@Model.Book.Id"
+                                                       data-toggle="tooltip"
+                                                       data-title="Add Favourite"
+                                                       data-placement="top"
+                                                       data-boundary="window"
+                                                       class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                }
+                                            }
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -183,10 +195,10 @@ else if (ViewBag.Role == "officer")
                                     </td>
                                 </tr>
                                 <tr style="display:none;" id="hold">
-                                    <td >@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address" ,new {@style="margin-bottom:45px;"})</td> 
-                               
+                                    <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "margin-bottom:45px;" })</td>
 
-                                    <td ><input style="margin-left: -160px; margin-bottom: -42px; margin-top: 36px; width: 430px; height: 84px; " class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
+
+                                    <td><input style="margin-left: -160px; margin-bottom: -42px; margin-top: 36px; width: 430px; height: 84px; " class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
                                 </tr>
                             </table>
                         </div>
