@@ -48,7 +48,15 @@ else if (ViewBag.Role == "officer")
                         <div class="card ">
                             <div class="card-header pb-0 border-0 d-flex">
                                 <div class="flex">
-                                    <div class="h2 mb-0">@Model.Book.Name</div>
+                                    <div class="h2 mb-0">
+                                        @Model.Book.Name
+                                        <a style="margin-top: -8px; margin-left: 12.25rem!important;font-size:34px" href="#"
+                                           data-toggle="tooltip"
+                                           data-title="Add Favorite"
+                                           data-placement="top"
+                                           data-boundary="window"
+                                           class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body col-md-12">
