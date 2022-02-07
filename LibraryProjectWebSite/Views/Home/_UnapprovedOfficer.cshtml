@@ -19,17 +19,17 @@
     <div>
 
         <div class="container page__container">
-            @using (Html.BeginForm("_UnapprovedBorrow", "Home", FormMethod.Get, new { @style = "margin-top: -55px;margin-bottom: 25px;" }))
-            {
-                <button style="margin-bottom:-58px;" class="btn"
-                        type="submit">
-                    <i class="material-icons">search</i>
-                </button>
-                <input type="text"
+            
+                
+                <input id="searchKey"
                        name="searchKey"
+                       type="text"
                        class="form-control"
-                       placeholder="       Search Officers ...">
-            }
+                       placeholder="Search Officers ...">
+                <a href="javascript:;" onclick="index.searchOfficer(this)">
+                    <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
+                </a>
+            
         </div>
         <table class="table table-striped table-hover table-bordered">
             <tr>

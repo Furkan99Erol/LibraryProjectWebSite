@@ -53,13 +53,13 @@ namespace LibraryProjectWebSite.Controllers
         }
 
 
-        public ActionResult _UnapprovedBorrow(string searchKey = null)
+        public ActionResult _UnapprovedBorrow()
         {
             LibraryViewModel libraryViewModel = new LibraryViewModel();
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "officer")
             {
-                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow".SetQueryParams(new { searchKey = searchKey }), GetHeaderWithToken()).Result;
+                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
                 libraryViewModel.Borrows = borrowsDto;
             }
 
@@ -75,10 +75,10 @@ namespace LibraryProjectWebSite.Controllers
             return PartialView(libraryViewModel);
         }
 
-        public ActionResult _UnapprovedOfficer()
+        public ActionResult _UnapprovedOfficer(string searchKey = null)
         {
             LibraryViewModel libraryViewModel = new LibraryViewModel();
-            List<OfficerDto> officerDto = request.Get<List<OfficerDto>>("api/Officer/GetUnapprovedOfficers", GetHeaderWithToken()).Result;
+            List<OfficerDto> officerDto = request.Get<List<OfficerDto>>("api/Officer/GetUnapprovedOfficers".SetQueryParams(new { searchKey = searchKey }), GetHeaderWithToken()).Result;
             libraryViewModel.Officers = officerDto;
 
             return PartialView(libraryViewModel);
@@ -86,18 +86,31 @@ namespace LibraryProjectWebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult BorrowConfirmation(int id, string borrowString, int userId)
+        public ActionResult BorrowConfirmation(int id, string borrowString, int userId,string returnString)
         {
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "officer")
             {
-                var postData = new
+                if (borrowString.Length > 0)
                 {
-                    userId = userId,
-                    bookId = id,
-                    borrowString = borrowString
-                };
-                request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+                    var postData = new
+                    {
+                        userId = userId,
+                        bookId = id,
+                        borrowString = borrowString
+                    };
+                    request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+                }else if (returnString.Length > 0)
+                {
+                    var postData = new
+                    {
+                        userId = userId,
+                        bookId = id,
+                        returnString = returnString
+                    };
+                    request.PostJson<bool>("/api/Borrow/ReturnConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+                }
+                
             }
             return Json("");
         }

@@ -184,19 +184,22 @@ else if (ViewBag.Role == "officer")
                             <thead>
                                 <tr>
                                     <th>
-                                        <a href="javascript:void(0)"
-                                           class="sort"
-                                           data-sort="js-lists-values-course">Image</a>
+                                        Image
                                     </th>
                                     <th>
-                                        <a href="javascript:void(0)"
-                                           class="sort"
-                                           data-sort="js-lists-values-document">Name</a>
+                                        Book Name
                                     </th>
                                     <th>
-                                        <a href="javascript:void(0)"
-                                           class="sort"
-                                           data-sort="js-lists-values-date">Date</a>
+                                        User Name
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Borrow String
+                                    </th>
+                                    <th>
+                                        Return String
                                     </th>
                                 </tr>
                             </thead>
@@ -264,12 +267,16 @@ else if (ViewBag.Role == "officer")
                 approveBorrow: function (row) {
                     var item = $(row).data();
                     var borrowString = $('#borrowString').val();
-                    if (borrowString.length > 0) {
-                        $.post("/Home/BorrowConfirmation", { id: item.id, borrowString: borrowString, userId: $('#userId').val() }, function (res) {
+                    var returnString = $('#returnString').val();
+                    if (borrowString.length > 0 || returnString.length > 0) {
+                        if (borrowString.length > 0 && returnString.length > 0) {
+                            alert("Please just enter borrow string OR return string");
+                        }
+                        $.post("/Home/BorrowConfirmation", { id: item.id, returnString: returnString, borrowString: borrowString, userId: $('#userId').val() }, function (res) {
                             index.getUnapprovedBorrow();
                         });
                     } else {
-                        alert("Please fill the the borrow string");
+                        alert("Please fill the the borrow string or return string");
                     }
                 }
             }
@@ -290,7 +297,7 @@ else if (ViewBag.Role == "admin")
 {
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-    
+
     <div class="unapprovedOfficerWrapper">
 
     </div>
@@ -317,6 +324,12 @@ else if (ViewBag.Role == "admin")
                 removeOfficer: function (row) {
                     var item = $(row).data();
                     $.post("/Home/OfficerConfirmation", { id: item.id, status: false }, function (res) {
+                        index.getUnapprovedOfficer();
+                    });
+                },
+                searchOfficer: function (row) {
+                    var item = $(row).data();
+                    $.post("/Home/_UnapprovedOfficer", { searchKey: $('#searchKey').val() }, function (res) {
                         index.getUnapprovedOfficer();
                     });
                 },

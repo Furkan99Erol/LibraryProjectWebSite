@@ -1,34 +1,42 @@
 ﻿@model LibraryProjectWebSite.Models.LibraryViewModel
 @foreach (var borrow in Model.Borrows)
 {
-    <tr>
-        <td>
-            <div class="d-flex flex-nowrap align-items-center">
+<tr>
+    <td>
+        <div class="d-flex flex-nowrap align-items-center">
 
-                <img style="width:%22;" src=@($"https://covers.openlibrary.org/b/isbn/{borrow.Book.ISBN10}-M.jpg")
-                     alt="course"
-                     class="avatar-img rounded">
-                <span class="overlay__content"></span>
+            <img style="width:%22;" src=@($"https://covers.openlibrary.org/b/isbn/{borrow.Book.ISBN10}-M.jpg")
+                 alt="course"
+                 class="avatar-img rounded">
+            <span class="overlay__content"></span>
 
-                <div class="flex">
-                    <span class="card-title js-lists-values-course">@borrow.Book.Name</span>
-                </div>
-            </div>
-        </td>
-        <td class="text-right">
-            <small class="text-muted text-uppercase js-lists-values-date">@borrow.User.Name @borrow.User.Surname</small>
-        </td>
-        <td class="text-right">
-            <small class="text-muted text-uppercase js-lists-values-date">@borrow.BorrowDate.ToString("dd/MM/yyyy")</small>
-        </td>
-        <td>
-            <a href="javascript:;" data-id="@borrow.BookId" onclick="index.approveBorrow(this)">
-                <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
-            </a>
-        </td>
-        <td>
-            <input type="hidden" id="userId" value="@borrow.User.Id" />
-            <input id="borrowString" type="text">
-        </td>
-    </tr>
+           
+        </div>
+    </td>
+    <td>
+        <div class="flex">
+            <span class="card-title js-lists-values-course">@borrow.Book.Name</span>
+        </div>
+    </td>
+
+    <td class="text-right">
+        <small class="text-muted text-uppercase js-lists-values-date">@borrow.User.Name @borrow.User.Surname</small>
+    </td>
+    <td class="text-right">
+        <small class="text-muted text-uppercase js-lists-values-date">@borrow.BorrowDate.ToString("dd/MM/yyyy")</small>
+    </td>
+
+    <td>
+        <input type="hidden" id="userId" value="@borrow.User.Id" />
+        <input id="borrowString" type="text" />
+    </td>
+    <td>
+        <input id="returnString" type="text" />
+    </td>
+    <td>
+        <a href="javascript:;" data-id="@borrow.BookId" onclick="index.approveBorrow(this)">
+            <i style="line-height: 2;display:inline" class="far fa-thumbs-up"></i>
+        </a>
+    </td>
+</tr>
 }
