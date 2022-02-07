@@ -164,7 +164,8 @@ namespace LibraryProjectWebSite.Controllers
             try
             {
                 BookDto book = request.Get<BookDto>($"/api/Book/Get/{id}").Result;
-                if (book.Users.Where(x => x.Id == userData.Id).Any())
+                
+                if (userData!=null && book.Users.Where(x => x.Id == userData.Id).Any())
                 {
                     ViewBag.isFavourite = true;
                 }
@@ -458,13 +459,7 @@ namespace LibraryProjectWebSite.Controllers
 
         public ActionResult _NearestLibraries(string currentLocation, string sortingString = null)
         {
-
-            object body = new
-            {
-                location = currentLocation,
-                sortingString = "duration"
-            };
-            List<LibraryDto> librariesDto = request.Get<List<LibraryDto>>("/api/Library/GetByLocation".SetQueryParams(new { location = currentLocation, sortingString = sortingString })).Result;
+            List<LibraryDto> librariesDto = request.Get<List<LibraryDto>>("/api/Library/GetByLocation".SetQueryParams(new { location = currentLocation, sortingString = "distance" })).Result;
             LibraryViewModel libraryViewModel = new LibraryViewModel() { Libraries = librariesDto };
             return PartialView(libraryViewModel);
         }
@@ -821,7 +816,46 @@ namespace LibraryProjectWebSite.Controllers
             return View(libraryViewModel);
         }
 
+        public ActionResult AddLibrary()
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "admin")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
 
+        }
+
+        [HttpPost]
+
+        public ActionResult AddLibrary(string libraryName,string lat,string lng)
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "admin")
+            {
+                LibraryViewModel libraryViewModel = new LibraryViewModel() {Library=new LibraryDto() };
+                //var postData = new
+                //{
+                //    Name=libraryName,
+                //    Location=location
+                //}
+                string location = lat + "," + lng;
+                libraryViewModel.Library.Name = libraryName;
+                libraryViewModel.Library.Location = location;
+                request.PostJson<string>("api/Library/Add",libraryViewModel.Library,GetHeaderWithToken());
+
+                return RedirectToAction("AddLibrary");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
 
     }
 }

@@ -44,7 +44,8 @@ else if (ViewBag.isBookAdded == false)
                        name="libraryViewModel.Book.ISBN10"
                        class="form-control form-control-lg"
                        placeholder="ISBN 10"
-                       @*Mert buraya maximum 10 digit girilsin ve integer olsun*@>
+                       maxlength="10"
+                       minlength="10"/>
             </div>
             <label class="form-label">ISBN13</label>
             <div class="form-group mb-24pt">
@@ -52,155 +53,11 @@ else if (ViewBag.isBookAdded == false)
                        name="libraryViewModel.Book.ISBN13"
                        class="form-control form-control-lg"
                        placeholder="ISBN 13"
-                       @*Mert buraya max 13 digit girilsin ve integer olsun*@>
+                       maxlength="13"
+                       minlength="13" />
             </div>
             <input style="margin-left:360px;width:21%" class="btn btn-primary" type="submit" value="Add Book">
         }
     </div>
 
-</div>
-<div class="pt-32pt">
-
-    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-
-        <div class="flex d-flex flex-column flex-sm-row align-items-center">
-
-            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                <h2 class="mb-0">Add Books Manually</h2>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-<div style="padding-top: 3rem!important;" class="page-section border-bottom-2">
-    <div class="container page__container">
-
-        <div class="row">
-            <div class="col-md-8">
-
-                <div class="page-separator">
-                    <div class="page-separator__text">Basic information</div>
-                </div>
-
-                <label class="form-label">Book Title</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="Harry Potter">
-                </div>
-                <label class="form-label">Writer</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="JK.ROWLING">
-                </div>
-                <label class="form-label">ISBN10</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="9999999999">
-                </div>
-                <label class="form-label">ISBN13</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="9999999999999">
-                </div>
-                <label class="form-label">Revision</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="2nd">
-                </div>
-                <label class="form-label">Latest Revision</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="3rd">
-                </div>
-                <div class="form-group mb-32pt">
-                    <label class="form-label">Content</label>
-                    <!-- <textarea class="form-control" rows="3" placeholder="Course description"></textarea> -->
-                    <div style="height: 150px;"
-                         class="mb-0"
-                         data-toggle="quill"
-                         data-quill-placeholder="Course description">
-                        <h1>"It does not do to dwell on dreams and forget to live."</h1>
-
-                        <p><br></p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-4">
-
-                <div class="card">
-                    <div class="card-header text-center">
-                        <a style="background-color:#303956;border-color: #303956;" href="#"
-                           class="btn btn-accent">Save changes</a>
-                    </div>
-                </div>
-
-
-                <div class="page-separator">
-                    <div class="page-separator__text">Options</div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label">Category</label>
-                            <select name="category"
-                                    class="form-control custom-select">
-                                <option value="vuejs">Fantasy</option>
-                                <option value="vuejs">Literature</option>
-                                <option value="vuejs">Religion</option>
-                                <option value="vuejs">Horror</option>
-                                <option value="vuejs">Action and Adventure</option>
-                                <option value="vuejs">Detective and Mystery</option>
-                            </select>
-                            <small class="form-text text-muted">Select a category.</small>
-                        </div>
-                    </div>
-                </div>
-                <label class="form-label">Photo</label>
-                <div class="form-group mb-24pt">
-                    <input type="file"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="9999999999999">
-
-                </div>
-                <label class="form-label">Publisher</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="JackyLure">
-                </div>
-                <label class="form-label">Language</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="English">
-                </div>
-                <label class="form-label">Page Number</label>
-                <div class="form-group mb-24pt">
-                    <input type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Course title"
-                           value="325">
-                </div>
-            </div>
-        </div>
-
-    </div>
 </div>

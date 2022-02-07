@@ -73,7 +73,7 @@
             }
 
             <div class="page-separator">
-                <div class="page-separator__text">MOST LIKED THIS WEEK</div>
+                <div class="page-separator__text">MOST POPULAR THIS WEEK</div>
             </div>
 
             @foreach (var book in Model.Books)
@@ -82,18 +82,28 @@
                     <div class="row card-group-row">
                         <div class="col-md-6 col-lg-12 card-group-row__col">
                             <div class="card card--elevated posts-card-popular overlay card-group-row__card">
-                                <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
-                                     alt=""
-                                     style="width:15%;margin-left:295px;"
-                                     class="card-img">
+                                @if (@book.ISBN10 != null)
+                                {
+                                    <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN10}-M.jpg")
+                                         alt=""
+                                         style="width:15%;margin-left:295px;"
+                                         class="card-img">
+                                }
+                                else
+                                {
+                                    <img src=@($"https://covers.openlibrary.org/b/isbn/{book.ISBN13}-M.jpg")
+                                         alt=""
+                                         style="width:15%;margin-left:295px;"
+                                         class="card-img">
+                                }
                                 <div class="fullbleed bg-primary"
                                      style="opacity: .3"></div>
                                 <div class="posts-card-popular__content">
                                     <div style="color: black; font-weight: 500; font-size: 17px; float: right; padding-right: 90px; padding-top: 60px; position: absolute; left: 510px; bottom: 55px;">
-                                        <p>
-                                            @if (book.Description != null && book.Description.Length > 130)
+                                        <p class="lead" style="font-family:sans-serif">
+                                            @if (book.Description != null && book.Description.Length > 160)
                                             {
-                                                @(book.Description.Substring(0, 130) + "...");
+                                                @(book.Description.Substring(0, 160) + "...");
                                             }
                                             else
                                             {
@@ -103,13 +113,13 @@
 
                                         @if (book.Libraries.Count == 0)
                                         {
-                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 65px; width: 133%;">
+                                            <p style="padding-top: 60px;font-family:sans-serif; margin-top:10% ;black; position: absolute; left: 167px; top: 65px; width: 133%;">
                                                 This book is not available
                                             </p>
                                         }
                                         else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
                                         {
-                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 65px; width: 133%;">
+                                            <p style="padding-top: 60px;margin-top:10%; font-family:sans-serif;  color: black; position: absolute; left: 167px; top: 65px; width: 100%;">
                                                 Book is out of stock
                                             </p>
                                         }
@@ -120,13 +130,13 @@
                                     <div class="posts-card-popular__title card-body">
                                         @foreach (var category in book.Categories)
                                         {
-                                            <small style="font-weight:500;" class=" text-uppercase">@category.Name</small><br />
+                                            <small style="font-weight: 600; font-family: sans-serif" class="lead">@category.Name</small><br />
                                         }
                                         <br />
-                                        <p style="font-weight:800;margin-bottom:7px;margin-top:-8px;font-size:15px;width:250px">@book.Name</p>
+                                        <p style="font-weight:800;font-family:sans-serif;margin-bottom:7px;margin-top:-8px;font-size:15px;width:250px">@book.Name</p>
                                         @foreach (var author in book.Authors)
                                         {
-                                            <p style="margin-bottom:0px;font-weight:500;">@author.Name</p>
+                                            <p style="font-weight: 600; margin-bottom: 0px; font-family: sans-serif;">@author.Name</p>
                                         }
                                     </div>
                                 </div>

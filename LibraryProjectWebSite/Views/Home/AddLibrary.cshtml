@@ -1,0 +1,76 @@
+﻿@model LibraryProjectWebSite.Models.LibraryViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div style="padding-top:2rem;" class="page-section">
+    <div class="container page__container" style="margin-top:100px">
+        @using (Html.BeginForm("AddLibrary", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
+        {
+            <input name="libraryName" type="text" required />
+
+            <input name="lat" type="text" required />
+
+            <input name="lng" type="text" required />
+
+            <div style="height:300px;width:500px" id="map"></div>
+
+            <button type="submit">Add Library </button>
+        }
+    </div>
+</div>
+
+
+@section styles{
+    <style type="text/css">
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+}
+
+
+
+@section scripts{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsjjJ4vFAfRgBNUxx0_Zf2pnnS8sYM-jc&callback=initMap&v=weekly"
+            async></script>
+    <script type="text/javascript">
+
+        function initMap() {
+            const myLatlng = { lat: 41.0322, lng: 29.0319 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 10,
+                center: myLatlng,
+            });
+            // Create the initial InfoWindow.
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Click somewhere to get library location",
+                position: myLatlng,
+            });
+
+            infoWindow.open(map);
+            // Configure the click listener.
+            map.addListener("click", (mapsMouseEvent) => {
+                infoWindow.close();
+                infoWindow = new google.maps.InfoWindow({
+                    position: mapsMouseEvent.latLng,
+                });
+                infoWindow.setContent(
+                    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                );
+            infoWindow.open(map);
+        });
+            }
+    </script>
+
+}
