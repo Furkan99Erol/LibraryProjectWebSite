@@ -52,15 +52,17 @@ namespace LibraryProjectWebSite.Controllers
             return View(libraryViewModel);
         }
 
-        public ActionResult _UnapprovedBorrow()
+
+        public ActionResult _UnapprovedBorrow(string searchKey = null)
         {
-            UserData userData = GetValidationData();
             LibraryViewModel libraryViewModel = new LibraryViewModel();
+            UserData userData = GetValidationData();
             if (userData != null && userData.Role == "officer")
             {
-                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow", GetHeaderWithToken()).Result;
+                List<BorrowDto> borrowsDto = request.Get<List<BorrowDto>>("api/Officer/PendingApprovalBorrow".SetQueryParams(new { searchKey = searchKey }), GetHeaderWithToken()).Result;
                 libraryViewModel.Borrows = borrowsDto;
             }
+
             return PartialView(libraryViewModel);
         }
 
@@ -529,39 +531,43 @@ namespace LibraryProjectWebSite.Controllers
             var anyEmail = request.PostJson<bool>("/api/Officer/EmailCheck".SetQueryParams(new { email = libraryViewModel.Officer.Email }), null).Result;
             var anyIdentityNumber = request.PostJson<bool>("/api/Officer/IdentityNumberCheck".SetQueryParams(new { identityNumber = libraryViewModel.Officer.IdentityNumber }), null).Result;
             var anyPhoneNumber = request.PostJson<bool>("/api/Officer/PhoneNumberCheck".SetQueryParams(new { phoneNumber = libraryViewModel.Officer.PhoneNumber }), null).Result;
-            if (!anyEmail && !anyIdentityNumber && !anyPhoneNumber)
+            LibraryViewModel _libraryViewModel = new LibraryViewModel();
+            if (!anyEmail)
             {
-                object adminData = new
+                if (!anyIdentityNumber)
                 {
-                    grant_type = "password",
-                    username = "furkanerol@outlook.com" + "|admin",
-                    password = "deneme"
-                };
-                try
-                {
-                    var token = request.PostUrlEncoded<Token>("/token", adminData).Result;
-                    var headers = new Dictionary<string, string> {
-                        {"Content-Type", "application/json" },
-                        { "Authorization", $"{token.token_type} {token.access_token}"}
-                    };
-                    bool response = request.PostJson<bool>("/api/Officer/Add", libraryViewModel.Officer, headers).Result;
-                    LibraryViewModel _libraryViewModel = new LibraryViewModel();
-                    if (response)
+                    if (!anyPhoneNumber)
                     {
-                        _libraryViewModel.alertMessage = "Successfully registered, you should wait admin to approve your account";
+                        bool response = request.PostJson<bool>("/api/Officer/Add", libraryViewModel.Officer).Result;
+                        if (response)
+                        {
+                            _libraryViewModel.alertMessage = "Successfully registered, you should wait admin to approve your account";
+                        }
+                        else
+                        {
+                            _libraryViewModel.alertMessage = "Something Went Wrong";
+                        }
+                        TempData["model"] = _libraryViewModel;
+                        return RedirectToAction("OfficerLogin");
                     }
                     else
                     {
-                        _libraryViewModel.alertMessage = "Something Went Wrong";
+                        _libraryViewModel.alertMessage = "Phone Number is already taken";
+                        TempData["model"] = _libraryViewModel;
                     }
+                }
+                else
+                {
+                    _libraryViewModel.alertMessage = "Identity Number is already taken";
                     TempData["model"] = _libraryViewModel;
                 }
-                catch (Exception ex)
-                {
-                    return RedirectToAction("Index");
-                }
             }
-            return RedirectToAction("OfficerLogin");
+            else
+            {
+                _libraryViewModel.alertMessage = "Email is already taken";
+                TempData["model"] = _libraryViewModel;
+            }
+            return RedirectToAction("OfficerRegister");
         }
 
         [HttpPost]
