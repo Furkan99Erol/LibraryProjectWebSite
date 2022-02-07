@@ -1,15 +1,10 @@
 ﻿@model LibraryProjectWebSite.Models.LibraryViewModel
-@foreach (var borrow in Model.Borrows)
+@foreach (var officer in Model.Officers)
 {
     <tr>
         <td>
             <div class="d-flex flex-nowrap align-items-center">
-
-                <img src=@($"https://covers.openlibrary.org/b/isbn/{borrow.Book.ISBN10}-M.jpg")
-                     alt="course"
-                     class="avatar-img rounded">
-                <span class="overlay__content"></span>
-
+                
                 <div class="flex">
                     <span class="card-title js-lists-values-course">@borrow.Book.Name</span>
                 </div>

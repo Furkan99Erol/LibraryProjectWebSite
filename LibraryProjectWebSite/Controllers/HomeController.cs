@@ -24,7 +24,8 @@ namespace LibraryProjectWebSite.Controllers
                 List<BookDto> booksDto = request.Get<List<BookDto>>("/api/Book/Get").Result;
                 libraryViewModel.Books = booksDto;
             }
-            else if(userData.Role=="officer"){
+            else if (userData.Role == "officer")
+            {
                 libraryViewModel.Officer = request.Get<OfficerDto>("api/Officer/Get".SetQueryParams(new { id = userData.Id }), GetHeaderWithToken()).Result;
             }
             return View(libraryViewModel);
@@ -72,30 +73,67 @@ namespace LibraryProjectWebSite.Controllers
             return PartialView(libraryViewModel);
         }
 
+        public ActionResult _UnapprovedOfficer()
+        {
+
+            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            List<OfficerDto> officerDto = request.Get<List<OfficerDto>>("api/Officer/GetUnapprovedOfficers", GetHeaderWithToken()).Result;
+            libraryViewModel.Officers = officerDto;
+
+            return PartialView(libraryViewModel);
+        }
+
 
         [HttpPost]
         public ActionResult BorrowConfirmation(int id, string borrowString, int userId)
         {
-            var postData = new
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "officer")
             {
-                userId = userId,
-                bookId = id,
-                borrowString = borrowString
-            };
-            request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+                var postData = new
+                {
+                    userId = userId,
+                    bookId = id,
+                    borrowString = borrowString
+                };
+                request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
+            }
             return Json("");
         }
 
         [HttpPost]
         public ActionResult CommentConfirmation(int id, bool status)
         {
-            if (status == true)
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "officer")
             {
-                request.PostJson<bool>("/api/Officer/CommentConfirmation".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
+                if (status == true)
+                {
+                    request.PostJson<bool>("/api/Officer/CommentConfirmation".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
+                }
+                else if (status == false)
+                {
+                    request.PostJson<bool>("/api/Officer/CommentDisapprovement".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
+                }
             }
-            else if (status == false)
+
+            return Json("");
+        }
+
+        [HttpPost]
+        public ActionResult OfficerConfirmation(int id, bool status)
+        {
+            UserData userData = GetValidationData();
+            if (userData != null && userData.Role == "admin")
             {
-                request.PostJson<bool>("/api/Officer/CommentDisapprovement".SetQueryParams(new { commentId = id }), null, GetHeaderWithToken());
+                if (status == true)
+                {
+                    request.PostJson<bool>("/api/Officer/ApproveOfficer".SetQueryParams(new { id = id }), null, GetHeaderWithToken());
+                }
+                else if (status == false)
+                {
+                    request.PostJson<bool>("/api/Officer/DisapproveOfficer".SetQueryParams(new { id = id }), null, GetHeaderWithToken());
+                }
             }
             return Json("");
         }
@@ -706,6 +744,8 @@ namespace LibraryProjectWebSite.Controllers
 
             return View(libraryViewModel);
         }
+
+
 
     }
 }
