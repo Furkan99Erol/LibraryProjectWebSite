@@ -103,13 +103,13 @@
 
                                         @if (book.Libraries.Count == 0)
                                         {
-                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 135px; width: 133%;">
+                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 65px; width: 133%;">
                                                 This book is not available
                                             </p>
                                         }
                                         else if (!@book.Libraries.Where(x => x.Quantity > 0).Any())
                                         {
-                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 135px; width: 133%;">
+                                            <p style="padding-top: 60px; color: black; position: absolute; left: 167px; top: 65px; width: 133%;">
                                                 Book is out of stock
                                             </p>
                                         }
