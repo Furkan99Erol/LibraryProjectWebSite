@@ -248,87 +248,51 @@ else if (ViewBag.Role == "officer")
                 <div class="page-separator__text">Comments</div>
             </div>
 
-            <div class="card mb-0">
-
-                <div class="table-responsive"
-                     data-toggle="lists"
-                     data-lists-sort-by="js-lists-values-date"
-                     data-lists-sort-desc="true"
-                     data-lists-values='["js-lists-values-name", "js-lists-values-company", "js-lists-values-phone", "js-lists-values-date"]'>
-
-                    <table class="table mb-0 thead-border-top-0 table-nowrap">
-
-                        <thead>
-                            <tr>
-                                <th>
-                                    <a data-sort="js-lists-values-name">Name</a>
-                                </th>
-                                <th style="width: 48px;">
-                                    <a data-sort="js-lists-values-phone">Comments</a>
-                                </th>
-                                <th style="width: 3px;"></th>
-                                <th style="width:10%">
-                                    Date
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody class="list"
-                               id="contacts">
-                            @foreach (var comment in Model.Comments)
-                            {
-                                <tr>
-                                    <td>
-                                        <div class="media flex-nowrap align-items-center"
-                                             style="white-space: nowrap;">
-                                            <div class="avatar avatar-sm mr-8pt">
-
-                                                <span class="avatar-title rounded-circle">@comment.User.Name.First()@comment.User.Surname.First()</span>
-
-                                            </div>
-                                            <div class="media-body">
-
-                                                <div class="d-flex flex-column">
-                                                    <p class="mb-0"><strong class="js-lists-values-name">@comment.User.Nickname</strong></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <small class="js-lists-values-phone text-50">@comment.CommentString</small>
-                                    </td>
-                                    <th style="width: 3px;"></th>
-                                    <td>
-                                        <small class="js-lists-values-phone text-50">@comment.Date.ToString("dd/MM/yyyy")</small>
-                                    </td>
-                                </tr>
-                            }
+         
+          foreach (var comment in Model.Comments)
+          {
 
 
-                        </tbody>
-                    </table>
+                <div class="media">
+                    <div class="media-left mr-12pt">
+                        <p 
+                           class="avatar avatar-sm">
+                            <span class="avatar-title rounded-circle">@comment.User.Name.First()@comment.User.Surname.First()</span>
+                        </p>
+                    </div>
+                    <div class="media-body d-flex flex-column">
+                        <div class="d-flex align-items-center">
+                            <p
+                               class="card-title">@comment.User.Nickname </p>
+                            <small class="ml-auto text-muted">@comment.Date.ToString("dd/MM/yyyy")</small><br>
+                        </div>
+                        <p class="mt-1 mb-0 text-70">@comment.CommentString</p>
+                       
+                    </div>
 
                 </div>
-            </div>
+                <br />
+          }
+
         }
 
-        <br>
-        <div class="page-separator">
-            <div class="page-separator__text">Add New Comments</div>
+            <br>
+            <div class="page-separator">
+                <div class="page-separator__text">Add New Comments</div>
+            </div>
+            @if (ViewBag.isLoggedIn == true && ViewBag.Role == "user")
+            {
+                <div>
+                    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
+                        <textarea style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
+                        <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
+                    }
+                </div>
+            }
+
         </div>
-        @if (ViewBag.isLoggedIn == true && ViewBag.Role == "user")
-        {
-            <div>
-                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
-                {
-                    <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
-                    <textarea style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
-                    <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
-                }
-            </div>
-        }
-
-    </div>
 </div>
 <script type="text/javascript">
     function show() {

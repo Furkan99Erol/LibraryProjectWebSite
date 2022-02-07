@@ -3,15 +3,15 @@
 {
     <div class="media">
         <div class="media-left mr-12pt">
-            <a href="#"
+            <p
                class="avatar avatar-sm">
                 <span class="avatar-title rounded-circle">FU</span>
-            </a>
+            </p>
         </div>
         <div class="media-body d-flex flex-column">
             <div class="d-flex align-items-center">
-                <a href="profile.html"
-                   class="card-title">@comment.User.Name @comment.User.Surname </a>
+                <p 
+                   class="card-title">@comment.User.Name @comment.User.Surname </p>
                 <small class="ml-auto text-muted">@((DateTime.Now - comment.Date.AddHours(9)).Hours) Hours @((DateTime.Now - comment.Date.AddHours(9)).Minutes) Minutes Ago</small><br>
             </div>
             <p class="mt-1 mb-0 text-70">@comment.CommentString</p>
