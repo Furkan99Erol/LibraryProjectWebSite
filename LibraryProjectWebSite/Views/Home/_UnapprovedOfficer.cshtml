@@ -19,19 +19,14 @@
     <div>
         
         <div class="container page__container">
-
-            <input style="margin-bottom:20px" id="searchKey"
             <input id="searchKey"
                    name="searchKey"
                    type="text"
                    class="form-control"
                    placeholder="Search Officers ...">
-            <a style="position:absolute;top:203px;right:550px;" href="javascript:;" onclick="index.searchOfficer(this)">
+            <a style="position:absolute;top:203px;right:17%;" href="javascript:;" onclick="index.searchOfficer(this)">
                 <i style="line-height: 2;display:inline" class="fas fa-search"></i>
-                
-
             </a>
-
         </div>
        
         
@@ -56,11 +51,16 @@
                             <i style="margin-left: 20px; display:inline;   margin-top: -20px;" class="far fa-trash-alt"></i>
                         </a>
                     </td>
-
                 </tr>
             }
         </table>
     </div>
 </div>
 
-
+<script>
+    $("#searchKey").on('keyup', function (event) {
+        if (event.keyCode === 13) {
+            index.searchOfficer();
+        }
+    });
+</script>

@@ -86,32 +86,34 @@ namespace LibraryProjectWebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult BorrowConfirmation(int id, string borrowString, int userId,string returnString)
+        public ActionResult BorrowConfirmation(int id, int userId, int status, string comment)
         {
+
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "officer")
             {
-                if (borrowString.Length > 0)
+                if (status == 0)
                 {
                     var postData = new
                     {
                         userId = userId,
                         bookId = id,
-                        borrowString = borrowString
+                        borrowString = comment
                     };
                     request.PostJson<bool>("/api/Borrow/BorrowConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
-                }else if (returnString.Length > 0)
+                }
+                else if (status == 1)
                 {
                     var postData = new
                     {
                         userId = userId,
                         bookId = id,
-                        returnString = returnString
+                        returnString = comment
                     };
                     request.PostJson<bool>("/api/Borrow/ReturnConfirmation".SetQueryParams(postData), null, GetHeaderWithToken());
                 }
-                
             }
+
             return Json("");
         }
 
@@ -164,8 +166,8 @@ namespace LibraryProjectWebSite.Controllers
             try
             {
                 BookDto book = request.Get<BookDto>($"/api/Book/Get/{id}").Result;
-                
-                if (userData!=null && book.Users.Where(x => x.Id == userData.Id).Any())
+
+                if (userData != null && book.Users.Where(x => x.Id == userData.Id).Any())
                 {
                     ViewBag.isFavourite = true;
                 }
@@ -832,12 +834,12 @@ namespace LibraryProjectWebSite.Controllers
 
         [HttpPost]
 
-        public ActionResult AddLibrary(string libraryName,string lat,string lng)
+        public ActionResult AddLibrary(string libraryName, string lat, string lng)
         {
             UserData userData = GetValidationData();
             if (userData != null && userData.Role == "admin")
             {
-                LibraryViewModel libraryViewModel = new LibraryViewModel() {Library=new LibraryDto() };
+                LibraryViewModel libraryViewModel = new LibraryViewModel() { Library = new LibraryDto() };
                 //var postData = new
                 //{
                 //    Name=libraryName,
@@ -846,7 +848,7 @@ namespace LibraryProjectWebSite.Controllers
                 string location = lat + "," + lng;
                 libraryViewModel.Library.Name = libraryName;
                 libraryViewModel.Library.Location = location;
-                request.PostJson<string>("api/Library/Add",libraryViewModel.Library,GetHeaderWithToken());
+                request.PostJson<string>("api/Library/Add", libraryViewModel.Library, GetHeaderWithToken());
 
                 return RedirectToAction("AddLibrary");
             }

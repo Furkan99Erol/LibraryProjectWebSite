@@ -133,7 +133,7 @@
                                             <small style="color:black; font-family: sans-serif" class="lead">@category.Name</small><br />
                                         }
                                         <br />
-                                        <p style="color: black; font-family: sans-serif; margin-bottom: 7px; margin-top: -8px; font-size: 16px; width: 250px">@book.Name</p>
+                                        <p style="color: black; font-family: sans-serif; margin-bottom: 7px; margin-top: -8px; font-size: 20px; width: 250px">@book.Name</p>
                                         @foreach (var author in book.Authors)
                                         {
                                             <p style="color: black; margin-bottom: 0px; font-family: sans-serif;">@author.Name</p>
@@ -192,9 +192,12 @@ else if (ViewBag.Role == "officer")
                          class="table-responsive">
                         <table class="table table-flush table-nowrap">
                             <thead>
-                                <tr>
+                                <tr style="text-align:center">
                                     <th>
                                         Image
+                                    </th>
+                                    <th>
+                                        Status
                                     </th>
                                     <th>
                                         Book Name
@@ -206,10 +209,10 @@ else if (ViewBag.Role == "officer")
                                         Date
                                     </th>
                                     <th>
-                                        Borrow String
+                                        String
                                     </th>
                                     <th>
-                                        Return String
+                                        Approve
                                     </th>
                                 </tr>
                             </thead>
@@ -276,17 +279,14 @@ else if (ViewBag.Role == "officer")
                 },
                 approveBorrow: function (row) {
                     var item = $(row).data();
-                    var borrowString = $('#borrowString').val();
-                    var returnString = $('#returnString').val();
-                    if (borrowString.length > 0 || returnString.length > 0) {
-                        if (borrowString.length > 0 && returnString.length > 0) {
-                            alert("Please just enter borrow string OR return string");
-                        }
-                        $.post("/Home/BorrowConfirmation", { id: item.id, returnString: returnString, borrowString: borrowString, userId: $('#userId').val() }, function (res) {
+                    var itemWrapper = $(row).closest("tr");
+                    var comment = $(itemWrapper).find(".comment").val();
+                    if (comment.length>0) {
+                        $.post("/Home/BorrowConfirmation", { id: item.id, comment: comment, userId:item.userid ,status:item.status}, function (res) {
                             index.getUnapprovedBorrow();
                         });
                     } else {
-                        alert("Please fill the the borrow string or return string");
+                        alert("Please fill the the string box");
                     }
                 }
             }
@@ -340,9 +340,10 @@ else if (ViewBag.Role == "admin")
                 searchOfficer: function (row) {
                     var item = $(row).data();
                     $.post("/Home/_UnapprovedOfficer", { searchKey: $('#searchKey').val() }, function (res) {
-                        index.getUnapprovedOfficer();
+                        $('.unapprovedOfficerWrapper').html(res);
                     });
                 },
+
             }
 
 
