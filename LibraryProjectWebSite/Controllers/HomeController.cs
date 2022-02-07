@@ -142,7 +142,7 @@ namespace LibraryProjectWebSite.Controllers
             var model = TempData["model"] as LibraryViewModel != null ? TempData["model"] as LibraryViewModel : new LibraryViewModel();
             libraryViewModel.alertMessage = model.alertMessage;
             UserData userData = GetValidationData();
-            if (userData != null && (userData.Role == "officer" || userData.Role=="admin"))
+            if (userData != null && (userData.Role == "officer" || userData.Role == "admin"))
             {
                 return RedirectToAction("Index");
             }
@@ -473,23 +473,12 @@ namespace LibraryProjectWebSite.Controllers
         {
             var anyEmail = request.PostJson<bool>("/api/User/EmailCheck".SetQueryParams(new { email = libraryViewModel.User.Email }), null).Result;
             var anyNickname = request.PostJson<bool>("/api/User/NicknameCheck".SetQueryParams(new { nickname = libraryViewModel.User.Nickname }), null).Result;
-            if (!anyEmail && !anyNickname)
+            LibraryViewModel _libraryViewModel = new LibraryViewModel();
+            if (!anyEmail)
             {
-                object adminData = new
+                if (!anyNickname)
                 {
-                    grant_type = "password",
-                    username = "furkanerol@outlook.com" + "|admin",
-                    password = "deneme"
-                };
-                try
-                {
-                    var token = request.PostUrlEncoded<Token>("/token", adminData).Result;
-                    var headers = new Dictionary<string, string> {
-                        {"Content-Type", "application/json" },
-                        { "Authorization", $"{token.token_type} {token.access_token}"}
-                    };
-                    bool response = request.PostJson<bool>("/api/User/Add", libraryViewModel.User, headers).Result;
-                    LibraryViewModel _libraryViewModel = new LibraryViewModel();
+                    bool response = request.PostJson<bool>("/api/User/Add", libraryViewModel.User).Result;
                     if (response)
                     {
                         _libraryViewModel.alertMessage = "Successfully Registered";
@@ -499,11 +488,22 @@ namespace LibraryProjectWebSite.Controllers
                         _libraryViewModel.alertMessage = "Something Went Wrong";
                     }
                     TempData["model"] = _libraryViewModel;
+
                 }
-                catch (Exception ex)
+                else
                 {
-                    return RedirectToAction("Index");
+                    _libraryViewModel.alertMessage = "Nickname is already taken";
+                    TempData["model"] = _libraryViewModel;
+
+                    return RedirectToAction("UserRegister");
                 }
+
+            }
+            else
+            {
+                _libraryViewModel.alertMessage = "Email is already taken";
+                TempData["model"] = _libraryViewModel;
+                return RedirectToAction("UserRegister");
             }
             return RedirectToAction("UserLogin");
         }
