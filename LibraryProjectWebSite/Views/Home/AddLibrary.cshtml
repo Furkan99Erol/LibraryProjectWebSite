@@ -7,19 +7,31 @@
 
 <div style="padding-top:2rem;" class="page-section">
     <div class="container page__container" style="margin-top:100px">
-        @using (Html.BeginForm("AddLibrary", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
-        {
-            <input name="libraryName" type="text" required />
+        <div class="col-lg-12">
 
-            <input name="lat" type="text" required />
+            @using (Html.BeginForm("AddLibrary", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
+            {
 
-            <input name="lng" type="text" required />
+                <div style="height:300px;width:500px" id="map"></div>
+                <div style=" float: right; margin-top: -290px; margin-right: 195px;">
+                    <label style="font-size:16px;" for="libraryname">Library Name</label><br>
+                    <input style="font-size:15px;" name="libraryName" type="text" placeholder="Library Name..." required />
+                </div>
+                <div style="float: right; margin-top: -220px; margin-right: 195px;">
+                    <label style="font-size:16px;" for="lat">Lat Information</label><br>
+                    <input style="font-size:15px;" name="lat" type="text" placeholder="Lat Information..." required />
+                </div>
+                <div style=" float: right; margin-top: -150px; margin-right: 195px; ">
+                    <label style="font-size:16px;" for="lng">Lng Information</label><br>
+                    <input style="font-size:15px;" name="lng" type="text" placeholder="Lng Information..." required />
+                </div>
 
-            <div style="height:300px;width:500px" id="map"></div>
 
-            <button type="submit">Add Library </button>
-        }
-    </div>
+                <button style="float: right; margin-top: -60px; margin-right: 266px;border-radius:7px" type="submit">Add Library </button>
+
+
+            }
+        </div>
 </div>
 
 
