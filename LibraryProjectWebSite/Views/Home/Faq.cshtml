@@ -1,0 +1,103 @@
+﻿
+@{
+    if (ViewBag.isLoggedIn == false || ViewBag.Role == "user")
+    {
+        Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutOfficer.cshtml";
+    }
+}
+
+<div style="padding-top: 6rem!important;" class="pt-32pt">
+    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                <h2 class="mb-0">FAQ</h2>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div style="padding-top: 2rem!important;" class="page-section">
+    <div class="container page__container">
+
+
+
+        <div class="row card-group-row">
+            <div class="col-md-6 card-group-row__col">
+
+                <div class="card card--elevated card-group-row__card">
+                    <div style="margin-top: 10px;" class="card-body d-flex">
+                        <span class="icon-holder icon-holder--outline-muted rounded-circle d-inline-flex mr-16pt">
+                            <i class="material-icons">question_answer</i>
+                        </span>
+                        <div class="flex">
+                            <a class="card-title mb-4pt"
+                               href="">If I lose my book,What can I do?</a>
+                            <p class="text-70 mb-0">If you lost your book,you can not have another book in any library next 3 monts from your deadline.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 card-group-row__col">
+
+                <div class="card card--elevated card-group-row__card">
+                    <div style="margin-top: 10px;" class="card-body d-flex">
+                        <span class="icon-holder icon-holder--outline-muted rounded-circle d-inline-flex mr-16pt">
+                            <i class="material-icons">question_answer</i>
+                        </span>
+                        <div class="flex">
+                            <a class="card-title mb-4pt"
+                               href="">If I forget my deadline and do not return ,what happens?</a>
+                            <p class="text-70 mb-0">We will send you reminder e-mails,if you forget anyways the officer will call you oen day after.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 card-group-row__col">
+
+                <div class="card card--elevated card-group-row__card">
+                    <div style="margin-top: 10px;" class="card-body d-flex">
+                        <span class="icon-holder icon-holder--outline-muted rounded-circle d-inline-flex mr-16pt">
+                            <i class="material-icons">question_answer</i>
+                        </span>
+                        <div class="flex">
+                            <a class="card-title mb-4pt"
+                               href="">How many days we can have the books?</a>
+                            <p class="text-70 mb-0">You have 3 weeks to return the books.Enjoy your readings! </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 card-group-row__col">
+
+                <div class="card card--elevated card-group-row__card">
+                    <div style="margin-top: 10px;" class="card-body d-flex">
+                        <span class="icon-holder icon-holder--outline-muted rounded-circle d-inline-flex mr-16pt">
+                            <i class="material-icons">question_answer</i>
+                        </span>
+                        <div class="flex">
+                            <a class="card-title mb-4pt"
+                               href="">If the books are damaged by me,what happens?</a>
+                            <p class="text-70 mb-0">You have to replace the books or pay the damage cost.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

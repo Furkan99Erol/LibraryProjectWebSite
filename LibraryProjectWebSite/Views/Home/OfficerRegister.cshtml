@@ -91,10 +91,9 @@
                                    for="phonenumber">Phone Number:</label>
                             <input style="width:216%;" id="phonenumber"
                                    name="libraryViewModel.Officer.PhoneNumber"
-                                   type="text"
+                                   type="tel"
                                    required
-                                   max="9999999999"
-                                   min="1000000000"
+                                   pattern="[0-9]{10}"
                                    class="form-control"
                                    placeholder="Your phone number ...">
                         </div>

@@ -2,6 +2,8 @@
 @if (ViewBag.Role == "user" || ViewBag.isLoggedIn == false)
 {
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+
     <div style="background-image: url(../public/images/library.jpg)" class="mb-0">
         <div style="background-image: url(../public/images/library.jpg)" class="justify-content-center">
             <div class="hero container page__container text-center py-112pt">
@@ -13,11 +15,13 @@
 
                 <a href="login.html"
                    class="btn btn-lg btn-white btn--raised mb-16pt">Browse Books</a>
-
-                <p class="mb-0">
-                    <a href="https://localhost:44361/Home/OfficerLogin"
-                       class="text-white text-shadow"><strong>Are you a librarian?</strong></a>
-                </p>
+                @if (ViewBag.Role != "user")
+                {
+                    <p class="mb-0">
+                        <a href="https://localhost:44361/Home/OfficerLogin"
+                           class="text-white text-shadow"><strong>Are you a librarian?</strong></a>
+                    </p>
+                }
             </div>
 
         </div>
@@ -281,8 +285,8 @@ else if (ViewBag.Role == "officer")
                     var item = $(row).data();
                     var itemWrapper = $(row).closest("tr");
                     var comment = $(itemWrapper).find(".comment").val();
-                    if (comment.length>0) {
-                        $.post("/Home/BorrowConfirmation", { id: item.id, comment: comment, userId:item.userid ,status:item.status}, function (res) {
+                    if (comment.length > 0) {
+                        $.post("/Home/BorrowConfirmation", { id: item.id, comment: comment, userId: item.userid, status: item.status }, function (res) {
                             index.getUnapprovedBorrow();
                         });
                     } else {
