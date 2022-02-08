@@ -67,8 +67,8 @@
 
                         <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
-                                   for="name">Identity Number:</label>
-                            <input style="width:216%;" id="name"
+                                   for="identitynumber">Identity Number:</label>
+                            <input style="width:216%;" id="identitynumber"
                                    name="libraryViewModel.Officer.IdentityNumber"
                                    type="text"
                                    required
@@ -78,17 +78,18 @@
                         </div>
                         <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
-                                   for="name">Date of birth:</label>
+                                   for="dateofbirth">Date of birth:</label>
                             <input style="width:216%;" type="date"
                                    required
                                    id="dateofbirth"
+                                   max="2004-02-08"
                                    name="libraryViewModel.Officer.DateOfBirth"
                                    value=@DateTime.Today.ToString("dd/MM/yyyy")>
                         </div>
                         <div style="margin-left:-10px" class="form-group">
                             <label class="form-label"
-                                   for="email">Phone Number:</label>
-                            <input style="width:216%;" id="email"
+                                   for="phonenumber">Phone Number:</label>
+                            <input style="width:216%;" id="phonenumber"
                                    name="libraryViewModel.Officer.PhoneNumber"
                                    type="text"
                                    required

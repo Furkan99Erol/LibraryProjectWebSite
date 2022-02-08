@@ -188,14 +188,14 @@ else if (ViewBag.Role == "officer")
                                 </tr>
                                 <tr>
                                     <td onclick="show()">
-                                        <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
-                                        @Html.Label("Cargo")
+                                        <input type="radio" id="cargo" name="libraryViewModel.Borrow.BorrowType" value="cargo">
+                                        <label for="cargo">Cargo</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td onclick="hide()">
-                                        <input type="radio" name="libraryViewModel.Borrow.BorrowType" value="comeandrecieve">
-                                        @Html.Label("Come And Recieve")
+                                        <input type="radio" id="comeandrecieve" name="libraryViewModel.Borrow.BorrowType" value="comeandrecieve">
+                                        <label for="comeandrecieve">Come And Recieve</label>
                                     </td>
                                 </tr>
                                 <tr style="display:none;" id="hold">
@@ -233,6 +233,83 @@ else if (ViewBag.Role == "officer")
 
                 </table>
             }
+            else if (ViewBag.doesHaveLibrary!=false &&ViewBag.isLoggedIn == false)
+            {
+                <div style="font-size: 19px; display: flex; margin-left: -5px; margin-right: -5px;">
+                    <input type="hidden" name="libraryViewModel.Borrow.BookId" value="@Model.Book.Id" />
+
+                    <div style="flex: 50%; padding: 5px;">
+
+                        <a style="font-size:22px;color:black;cursor:pointer" href="https://localhost:44361/Home/UserLogin">
+                        Please login to borrow
+                        </a>
+                        <br />
+                        <br />
+                        <table style="width:100%">
+                            <tr>
+                                <td>@Html.LabelFor(m => m.Borrow.BorrowDate, "Select Borrow Date")</td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control datepicker" disabled type="date" name="libraryViewModel.Borrow.BorrowDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(3).ToString("yyyy-MM-dd")"></td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(m => m.Borrow.ReturnDate, "Select Return Date")</td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control datepicker" disabled type="date" name="libraryViewModel.Borrow.ReturnDate" min="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(17).ToString("yyyy-MM-dd")"></td>
+                            </tr>
+                            <tr>
+                                <td> @Html.LabelFor(m => m.Borrow.LibraryId, "Select a library")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select disabled class="form-control" name="libraryViewModel.Borrow.LibraryId">
+                                        @foreach (var library in Model.Book.Libraries)
+                                        {
+                                            <option value=@library.Id>@library.Name</option>
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="flex: 50%; padding: 5px;margin-left:30px;">
+                        <label style="color:#f5f7fa">a</label>
+                        <br />
+                        <br />
+                        <table style="width:100%">
+                            <tr>
+                                <td>  @Html.Label("Select borrow type")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input onclick="show()" disabled type="radio" name="libraryViewModel.Borrow.BorrowType" value="cargo">
+                                    @Html.Label("Cargo")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input onclick="hide()" disabled type="radio" name="libraryViewModel.Borrow.BorrowType" value="comeandrecieve">
+                                    @Html.Label("Come And Recieve")
+                                </td>
+                            </tr>
+                            <tr style="display:none;" id="hold">
+                                <td>@Html.LabelFor(m => m.Borrow.DestinationAddress, "Write your address", new { @style = "margin-bottom:45px;" })</td>
+
+
+                                <td><input disabled style="margin-left: -160px; margin-bottom: -42px; margin-top: 36px; width: 430px; height: 84px; " class="form-control" type="text" name="libraryViewModel.Borrow.DestinationAddress"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <br />
+                <input disabled style="float:right;font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px;" type="submit" value="Borrow">
+
+            }else if (ViewBag.doesHaveLibrary == false)
+            {
+                <p style="font-size:20px">This book can not be barrowed</p>
+            }
             <br />
 
         </div>
@@ -242,51 +319,94 @@ else if (ViewBag.Role == "officer")
                 <div class="page-separator__text">Comments</div>
             </div>
 
-         
-          foreach (var comment in Model.Comments)
-          {
 
+            foreach (var comment in Model.Comments)
+            {
 
                 <div class="media">
                     <div class="media-left mr-12pt">
-                        <p 
-                           class="avatar avatar-sm">
+                        <p class="avatar avatar-sm">
                             <span class="avatar-title rounded-circle">@comment.User.Name.First()@comment.User.Surname.First()</span>
                         </p>
                     </div>
                     <div class="media-body d-flex flex-column">
                         <div class="d-flex align-items-center">
-                            <p
-                               class="card-title">@comment.User.Nickname </p>
+                            <p class="card-title">@comment.User.Nickname </p>
                             <small class="ml-auto text-muted">@comment.Date.ToString("dd/MM/yyyy")</small><br>
                         </div>
                         <p class="mt-1 mb-0 text-70">@comment.CommentString</p>
-                       
+
                     </div>
 
                 </div>
                 <br />
-          }
+            }
+
+        }
+        else
+        {
+            <div class="page-separator">
+                <div class="page-separator__text">Comments</div>
+            </div>
+
+
+
+
+            <div class="media">
+                
+                <div class="media-body d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        &emsp;&emsp;<p class="card-title">There is no comment yet, please login to add comment</p>
+                        <small class="ml-auto text-muted"></small><br>
+                    </div>
+                    <p class="mt-1 mb-0 text-70"></p>
+
+                </div>
+
+            </div>
+            <br />
 
         }
 
+
+        @if (ViewBag.isLoggedIn == true && ViewBag.Role == "user")
+        {
             <br>
             <div class="page-separator">
                 <div class="page-separator__text">Add New Comments</div>
             </div>
-            @if (ViewBag.isLoggedIn == true && ViewBag.Role == "user")
-            {
-                <div>
-                    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
-                    {
-                        <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
-                        <textarea style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
-                        <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
-                    }
-                </div>
-            }
+            <div>
+                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
+                    <textarea style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
+                    <input style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
+                }
 
-        </div>
+
+
+            </div>
+        }
+        else
+        {
+            <br>
+            <div class="page-separator">
+                <div class="page-separator__text">Add New Comments</div>
+            </div>
+            <div>
+                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="libraryViewModel.Comment.BookId" value="@Model.Book.Id" />
+                    <textarea value="Please login to add comment" disabled style="width: 915px;height: 115px;border-radius: 5px" name="libraryViewModel.Comment.CommentString" rows="10" cols="30"></textarea>
+                    <input disabled style="font-size: 15px;color: white;background-color: #303956;width: 125px;border-radius: 5px; float: right" type="submit" value="Send">
+                }
+
+
+
+            </div>
+        }
+
+    </div>
 </div>
 <script type="text/javascript">
     function show() {
