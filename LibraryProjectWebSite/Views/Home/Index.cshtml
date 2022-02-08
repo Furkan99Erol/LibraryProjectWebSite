@@ -13,7 +13,7 @@
                     Through this system, you can rent a book from anywhere you want or reserve it for yourself.
                 </p>
 
-                <a href="login.html"
+                <a href="#searchKey"
                    class="btn btn-lg btn-white btn--raised mb-16pt">Browse Books</a>
                 @if (ViewBag.Role != "user")
                 {
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="page-section border-bottom-2">
-        <div class="container page__container">
+        <div id="searchKey" class="container page__container">
 
             @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @style = "margin-top: -120px;margin-bottom: 25px;" }))
             {
@@ -153,7 +153,7 @@
                 </a>
             }
 
-            <button style="border-radius: 10px;width: 200px;margin-left: 350px">More</button>
+
             <div class="posts-cards">
             </div>
         </div>
