@@ -859,5 +859,10 @@ namespace LibraryProjectWebSite.Controllers
 
         }
 
+        public ActionResult Faq()
+        {
+            GetValidationData();
+            return View();
+        }
     }
 }
